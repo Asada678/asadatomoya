@@ -1,19 +1,17 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:import/errors",
-    "plugin:import/warnings",
-    "plugin:import/typescript"
-  ],
-  "plugins": ["@typescript-eslint", "import"],
-  "settings": {
-    "import/resolver": {
-      "typescript": {}
-    }
-  },
+  "extends": ["prettier"],
+  "plugins": ["import", "unused-imports"],
   "rules": {
+    "sort-imports": [
+      "error",
+      {
+        "allowSeparatedGroups": true,
+        "ignoreCase": true,
+        "ignoreDeclarationSort": true,
+        "ignoreMemberSort": false,
+        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
+      }
+    ],
     "import/order": [
       "error",
       {
@@ -21,12 +19,46 @@
           "builtin",
           "external",
           "internal",
-          "parent",
-          "sibling",
+          ["parent", "sibling"],
+          "object",
+          "type",
           "index"
         ],
-        "newlines-between": "always"
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "next/**",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "api",
+            "group": "internal",
+            "position": "before"
+          },
+          {
+            "pattern": "asadatomoya-common/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "**\\.css",
+            "group": "index",
+            "position": "after"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["react", "next/**"],
+        "newlines-between": "always",
+        "alphabetize": { "order": "asc", "caseInsensitive": false }
       }
-    ]
+    ],
+    "import/first": "error",
+    "import/newline-after-import": "error",
+    "import/no-duplicates": "error",
+    "no-unused-vars": "warn"
   }
 }
