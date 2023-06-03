@@ -1,0 +1,9 @@
+{
+  "name": "asadatomoya",
+  "private": true,
+  "workspaces": [
+    "asadatomoya-web",
+    "asadatomoya-admin",
+    "asadatomoya-common"
+  ]
+}
