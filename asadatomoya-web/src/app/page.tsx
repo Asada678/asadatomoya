@@ -1,12 +1,13 @@
 import Image from "next/image";
+import { User , Post } from "asadatomoya-common/types";
 
-import { User } from "asadatomoya-common/types";
-
-const myVar: User = {
+let myVar: User = {
   id: "1",
   name: "asadatomoya",
   email: "asada",
 };
+
+myVar = { id: "1", name: "asadatomoya", email: "asada" };
 
 export default function Home() {
   return (
