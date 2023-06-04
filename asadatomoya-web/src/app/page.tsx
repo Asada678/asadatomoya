@@ -14,6 +14,7 @@ export default function Home() {
         alt="profile img"
       />
       1994/09/23
+      rugby, soccer, baseball
     </div>
   );
 }
