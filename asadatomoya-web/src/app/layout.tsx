@@ -1,4 +1,4 @@
-import "./globals.css";
+import "@styles/globals.css";
 import { Noto_Sans_JP } from "next/font/google";
 
 import { cn } from "asadatomoya-common/utils";
@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="ja">
       <body
         className={cn(
-          "min-h-screen text-sm sm:text-base lg:text-lg",
+          "container min-h-screen text-sm sm:text-base lg:text-lg",
           noto.className
         )}
       >
