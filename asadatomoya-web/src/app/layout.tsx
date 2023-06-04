@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body
-        className={`min-h-screen text-sm sm:text-base lg:text-lg ${noto.className}`}
+        className={` min-h-screen text-sm sm:text-base lg:text-lg ${noto.className}`}
       >
         {children}
       </body>
