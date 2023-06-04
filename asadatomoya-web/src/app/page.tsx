@@ -13,6 +13,7 @@ export default function Home() {
         className="object-contain"
         alt="profile img"
       />
+      1994/09/23
     </div>
   );
 }
