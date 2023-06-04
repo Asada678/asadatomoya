@@ -1,1 +1,1 @@
-export { plus } from "./plus";
+export { cn } from "./cn";
