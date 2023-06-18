@@ -36,14 +36,14 @@
             "position": "before"
           },
           {
-            "pattern": "api",
+            "pattern": "asadatomoya-common/**",
             "group": "internal",
             "position": "before"
           },
           {
-            "pattern": "asadatomoya-common/**",
+            "pattern": "@*/**",
             "group": "internal",
-            "position": "after"
+            "position": "before"
           },
           {
             "pattern": "**\\.css",
