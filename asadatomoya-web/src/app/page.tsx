@@ -22,6 +22,12 @@ export default function Home() {
       >
         Career
       </Link>
+      <Link
+        href={"/webgl"}
+        className="hover:bg-blue-50 hover:text-blue-600 hover:underline"
+      >
+        WebGL
+      </Link>
     </div>
   );
 }
