@@ -1,0 +1,4 @@
+packages:
+  - "asadatomoya-common"
+  - "asadatomoya-web"
+  - "asadatomoya-admin"
