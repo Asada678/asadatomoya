@@ -27,31 +27,31 @@
         "pathGroups": [
           {
             "pattern": "react",
-            "group": "external",
+            "group": "builtin",
             "position": "before"
           },
           {
             "pattern": "next/**",
-            "group": "external",
+            "group": "builtin",
             "position": "before"
           },
           {
             "pattern": "asadatomoya-common/**",
+            "group": "external",
+            "position": "after"
+          },
+          {
+            "pattern": "@*",
             "group": "internal",
             "position": "before"
           },
           {
             "pattern": "@*/**",
             "group": "internal",
-            "position": "before"
-          },
-          {
-            "pattern": "**\\.css",
-            "group": "index",
             "position": "after"
           }
         ],
-        "pathGroupsExcludedImportTypes": ["react", "next/**"],
+        "pathGroupsExcludedImportTypes": [],
         "newlines-between": "always",
         "alphabetize": { "order": "asc", "caseInsensitive": false }
       }

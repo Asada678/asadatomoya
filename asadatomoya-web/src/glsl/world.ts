@@ -1,5 +1,4 @@
 import gsap from "gsap";
-import Stats from "stats-js";
 import {
   AxesHelper,
   Color,
@@ -8,13 +7,15 @@ import {
   Scene,
   WebGLRenderer,
 } from "three";
+import Stats from "three/examples/jsm/libs/stats.module";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer";
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass";
 
-import mouse from "#/component/mouse";
-import scroller from "#/component/scroller";
-import { Ob } from "#/glsl/Ob";
-import { config, INode, utils } from "#/helper";
+// import mouse from "#/component/mouse";
+// import scroller from "#/component/scroller";
+import { config, INode, utils } from "@utils";
+
+import { Ob } from "@glsl/Ob";
 
 const world = {
   os: [],

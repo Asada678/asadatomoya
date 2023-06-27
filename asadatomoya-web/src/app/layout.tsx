@@ -1,4 +1,5 @@
 import "@styles/globals.scss";
+
 import { Noto_Sans_JP } from "next/font/google";
 
 import { cn } from "asadatomoya-common/utils";

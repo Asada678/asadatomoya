@@ -3,7 +3,7 @@
  *
  * 概要：画面の表示状態のパラメータの管理、画面のリサイズ制御、カメラの設定値の保持
  */
-import { config, INode } from "@/utils";
+import { config, INode } from "@utils";
 
 interface Viewport {
   init: (
