@@ -1,0 +1,11 @@
+@use "sass:math";
+@use "./fonts" as *;
+@use "./variables" as *;
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-size: math.div($root-font-size, 16px) * 100%;
+}

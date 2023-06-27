@@ -1,0 +1,5 @@
+@use "./functions" as *;
+
+.font-20-40 {
+  font-size: fluid-text(20px, 40px);
+}

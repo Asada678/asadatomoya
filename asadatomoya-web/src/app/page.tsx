@@ -24,7 +24,7 @@ export default function Home() {
       </Link>
       <Link
         href={"/webgl"}
-        className="hover:bg-blue-50 hover:text-blue-600 hover:underline"
+        className="hover:bg-blue-50 hover:text-blue-600 hover:underline font-20-40"
       >
         WebGL
       </Link>

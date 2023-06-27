@@ -7,7 +7,7 @@
     "asadatomoya-common"
   ],
   "scripts": {
-    "dev": "concurrently \"pnpm run dev --prefix asadatomoya-web\" \"pnpm run dev --prefix asadatomoya-admin\""
+    "dev": "concurrently \"cd asadatomoya-web && pnpm run dev\" \"cd asadatomoya-admin && pnpm run dev\""
   },
   "devDependencies": {
     "concurrently": "^8.1.0",
