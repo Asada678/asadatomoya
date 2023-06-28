@@ -33,12 +33,7 @@ const Three: FC<ThreeProps> = ({}) => {
     };
 
     // カメラ
-    const camera = new PerspectiveCamera(
-      75,
-      sizes.width / sizes.height,
-      0.1,
-      1000
-    );
+    const camera = new PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 1000);
 
     // レンダラー
     const renderer = new WebGLRenderer({

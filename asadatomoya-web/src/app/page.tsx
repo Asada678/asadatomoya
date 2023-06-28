@@ -5,8 +5,6 @@ import { Mesh } from "three";
 
 import { cn } from "asadatomoya-common/utils";
 
-import { utils, viewport } from "@utils";
-
 import MainHeading from "@components/MainHeading";
 
 export default function Home() {
@@ -22,15 +20,12 @@ export default function Home() {
       />
       <p>1994/09/23</p>
       <p>rugby, soccer, baseball</p>
-      <Link
-        href={"/career"}
-        className="hover:bg-blue-50 hover:text-blue-600 hover:underline"
-      >
+      <Link href={"/career"} className="hover:bg-blue-50 hover:text-blue-600 hover:underline">
         Career
       </Link>
       <Link
         href={"/webgl"}
-        className="hover:bg-blue-50 hover:text-blue-600 hover:underline font-20-40"
+        className="font-20-40 hover:bg-blue-50 hover:text-blue-600 hover:underline"
       >
         WebGL
       </Link>
