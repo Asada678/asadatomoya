@@ -7,7 +7,8 @@ interface Rectangle {
   height: number;
 }
 
-const isTouchDevices: boolean = Boolean("ontouchstart" in window);
+// const isTouchDevices: boolean =  Boolean("ontouchstart" in window);
+const isTouchDevices: boolean = false;
 
 function lerp(a: number, b: number, n: number, limit: number = 0.001): number {
   let current: number = (1 - n) * a + n * b;

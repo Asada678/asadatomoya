@@ -5,7 +5,7 @@ import { Mesh } from "three";
 
 import { cn } from "asadatomoya-common/utils";
 
-import { INode, utils, viewport } from "@utils";
+import { utils, viewport } from "@utils";
 
 import MainHeading from "@components/MainHeading";
 

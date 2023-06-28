@@ -13,7 +13,7 @@ import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass";
 
 // import mouse from "#/component/mouse";
 // import scroller from "#/component/scroller";
-import { config, INode, utils } from "@utils";
+import { config, utils } from "@utils";
 
 import { Ob } from "@glsl/Ob";
 

@@ -14,21 +14,10 @@ export const metadata = {
   description: "自己紹介サイトです。",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ja">
-      <body
-        className={cn(
-          "container min-h-screen text-sm sm:text-base lg:text-lg",
-          noto.className
-        )}
-      >
-        {children}
-      </body>
+      <body className={cn("container min-h-screen", noto.className)}>{children}</body>
     </html>
   );
 }

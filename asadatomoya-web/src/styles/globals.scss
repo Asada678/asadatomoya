@@ -7,5 +7,5 @@
 @tailwind utilities;
 
 html {
-  font-size: math.div($root-font-size, 16px) * 100%;
+  @extend .font-14-16;
 }

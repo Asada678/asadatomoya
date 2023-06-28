@@ -1,5 +1,8 @@
 @use "./functions" as *;
 
-.font-20-40 {
-  font-size: fluid-text(20px, 40px);
+.font-14-16 {
+  font-size: fluid-text(14px, 16px);
+}
+.font-36-60 {
+  font-size: fluid-text(36px, 60px);
 }
