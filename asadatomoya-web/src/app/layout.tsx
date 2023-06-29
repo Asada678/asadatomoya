@@ -4,6 +4,7 @@ import { Noto_Sans_JP } from "next/font/google";
 
 import { cn } from "asadatomoya-common/utils";
 
+import BackGround from "@components/BackGround";
 import Navbar from "@components/Navbar";
 
 const noto = Noto_Sans_JP({
@@ -19,11 +20,14 @@ export const metadata = {
   },
 };
 
+console.log("cn:", cn);
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ja">
-      <body className={cn("container min-h-screen", noto.className)}>
+      <body className={cn("min-h-screen dark:text-gray-200", noto.className)}>
         <Navbar />
+        <BackGround />
         {children}
       </body>
     </html>

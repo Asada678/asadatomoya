@@ -9,7 +9,7 @@ import MainHeading from "@components/MainHeading";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col bg-white dark:bg-blue-900">
+    <div className="container flex min-h-screen flex-col">
       <div className="py-6">
         <MainHeading />
         <Image

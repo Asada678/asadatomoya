@@ -1,3 +1,5 @@
+"use client";
+import BackGround from "@components/BackGround";
 import Three from "@components/Three";
 
 export default async function WebGl() {
