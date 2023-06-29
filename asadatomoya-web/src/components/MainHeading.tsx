@@ -10,7 +10,7 @@ const MainHeading: FC<MainHeadingProps> = ({}) => {
       </span>
       {`'s `}
       <br className="block sm:hidden" />
-      <span className="inline-block sm:block">Portfolio Site</span>
+      <span className="">Portfolio Site</span>
     </h1>
   );
 };
