@@ -4,7 +4,7 @@ interface BackGroundProps {}
 
 const BackGround: FC<BackGroundProps> = ({}) => {
   return (
-    <div className="bg-white-gradient dark:bg-black-gradient fixed left-0 top-0 -z-10 flex h-screen w-screen"></div>
+    <div className="bg-white-gradient dark:bg-black-gradient fixed left-0 top-0 -z-50 flex h-screen w-screen"></div>
   );
 };
 

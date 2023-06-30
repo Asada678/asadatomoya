@@ -11,23 +11,7 @@ import React, {
   useState,
 } from "react";
 
-import { config } from "@utils";
-
-interface Viewport {
-  canvas: HTMLCanvasElement | undefined | null;
-  width: number;
-  height: number;
-  near: number;
-  far: number;
-  cameraZ: number;
-  aspect: number;
-  rad: number;
-  fov: number;
-  devicePixelRatio: number;
-  isMobile: boolean;
-  actions: Set<(viewport?: Viewport) => void>;
-  isLoaded: boolean;
-}
+import { config, Viewport } from "@utils";
 
 const initialViewport: Viewport = {
   canvas: null,
@@ -71,7 +55,6 @@ export const ViewportProvider: FC<ViewportProviderProps> = ({
   const [viewport, setViewport] = useState<Viewport>(initialViewport);
   const viewportRef = useRef(viewport);
 
-  // 追加と削除のためのアクション関数を追加
   const addResizeAction = useCallback((action: (viewport?: Viewport) => void) => {
     setViewport((prev) => ({
       ...prev,
@@ -92,7 +75,6 @@ export const ViewportProvider: FC<ViewportProviderProps> = ({
   }, [viewport]);
 
   useLayoutEffect(() => {
-    // console.log("viewport context use effect:");
     const update = (canvasRef: MutableRefObject<HTMLCanvasElement | undefined | null>) => {
       const canvas = canvasRef.current;
       if (!canvas) return;
@@ -141,7 +123,7 @@ export const ViewportProvider: FC<ViewportProviderProps> = ({
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [canvasRef]);
 
   return (
     <ViewportContext.Provider value={{ viewport, addResizeAction, removeResizeAction }}>

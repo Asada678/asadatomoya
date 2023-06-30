@@ -88,9 +88,9 @@ const Navbar: FC<NavbarProps> = ({}) => {
               </h1>
             </Link>
           </div>
-          {!viewport.isMobile && (
+          {
             <nav className="flex items-center">
-              <ul className="flex items-center gap-2">
+              <ul className={`flex items-center gap-2 ${viewport.isMobile ? "flex-col" : ""}`}>
                 {links.map((link) => (
                   <li
                     key={link}
@@ -101,7 +101,7 @@ const Navbar: FC<NavbarProps> = ({}) => {
                 ))}
               </ul>
             </nav>
-          )}
+          }
         </div>
       </header>
     </>
