@@ -8,6 +8,8 @@ import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+import { useViewport } from "@context/ViewportContext";
+
 const passionOne = Passion_One({
   subsets: ["latin"],
   weight: ["400"],
@@ -20,8 +22,10 @@ const Navbar: FC<NavbarProps> = ({}) => {
   const logo = useRef<HTMLImageElement>(null);
   const asadatomoya = useRef<HTMLHeadingElement>(null);
   const [isTop, setIsTop] = useState(true);
+  const { viewport } = useViewport();
+
   useEffect(() => {
-    gsap.context(() => {
+    const context = gsap.context(() => {
       ScrollTrigger.create({
         trigger: asadatomoya.current,
         start: "center top",
@@ -54,7 +58,11 @@ const Navbar: FC<NavbarProps> = ({}) => {
         },
       });
     });
-  }, [isTop]);
+
+    return () => {
+      context.revert();
+    };
+  }, []);
 
   const links = ["webgl", "three", "career", "qualifications"];
 
@@ -80,18 +88,20 @@ const Navbar: FC<NavbarProps> = ({}) => {
               </h1>
             </Link>
           </div>
-          <nav className="flex items-center">
-            <ul className="flex items-center gap-2">
-              {links.map((link) => (
-                <li
-                  key={link}
-                  className="px-4 py-2 transition-colors duration-100 hover:bg-gray-100"
-                >
-                  <Link href={`/${link}`}>{link}</Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          {!viewport.isMobile && (
+            <nav className="flex items-center">
+              <ul className="flex items-center gap-2">
+                {links.map((link) => (
+                  <li
+                    key={link}
+                    className="px-4 py-2 transition-colors duration-100 hover:bg-gray-100"
+                  >
+                    <Link href={`/${link}`}>{link}</Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )}
         </div>
       </header>
     </>
