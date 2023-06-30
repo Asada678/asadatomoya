@@ -1,0 +1,9 @@
+{
+  "trailingComma": "all",
+  "semi": true,
+  "arrowParens": "always",
+  "printWidth": 100,
+  "tabWidth": 2,
+  "tailwindConfig": "./tailwind.config.js",
+  "plugins": ["prettier-plugin-tailwindcss"]
+}

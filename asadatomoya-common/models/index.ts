@@ -1,2 +1,2 @@
-export { type Post, PostSchema } from "./Post";
-export { type User, UserSchema } from "./User";
+export * from "./Post";
+export * from "./User";

@@ -1,7 +1,11 @@
-import "./globals.css";
+import "@styles/globals.scss";
+
 import { Noto_Sans_JP } from "next/font/google";
 
 import { cn } from "asadatomoya-common/utils";
+
+import BackGround from "@components/BackGround";
+import Navbar from "@components/Navbar";
 
 const noto = Noto_Sans_JP({
   subsets: ["latin"],
@@ -11,22 +15,18 @@ const noto = Noto_Sans_JP({
 export const metadata = {
   title: "浅田智哉's Portfolio",
   description: "自己紹介サイトです。",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ja">
-      <body
-        className={cn(
-          "min-h-screen text-sm sm:text-base lg:text-lg",
-          noto.className
-        )}
-      >
-        {children}
+      <body className={cn("min-h-screen dark:text-gray-200", noto.className)}>
+        <Navbar />
+        <BackGround />
+        <div className="container flex min-h-screen flex-col">{children}</div>
       </body>
     </html>
   );

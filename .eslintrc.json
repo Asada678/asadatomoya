@@ -1,6 +1,6 @@
 {
   "extends": ["prettier"],
-  "plugins": ["import", "unused-imports"],
+  "plugins": ["import", "prettier"],
   "rules": {
     "sort-imports": [
       "error",
@@ -27,31 +27,31 @@
         "pathGroups": [
           {
             "pattern": "react",
-            "group": "external",
+            "group": "builtin",
             "position": "before"
           },
           {
             "pattern": "next/**",
-            "group": "external",
-            "position": "before"
-          },
-          {
-            "pattern": "api",
-            "group": "internal",
+            "group": "builtin",
             "position": "before"
           },
           {
             "pattern": "asadatomoya-common/**",
-            "group": "internal",
+            "group": "external",
             "position": "after"
           },
           {
-            "pattern": "**\\.css",
-            "group": "index",
+            "pattern": "@*",
+            "group": "internal",
+            "position": "before"
+          },
+          {
+            "pattern": "@*/**",
+            "group": "internal",
             "position": "after"
           }
         ],
-        "pathGroupsExcludedImportTypes": ["react", "next/**"],
+        "pathGroupsExcludedImportTypes": [],
         "newlines-between": "always",
         "alphabetize": { "order": "asc", "caseInsensitive": false }
       }

@@ -1,0 +1,11 @@
+@use "sass:math";
+@use "./fonts" as *;
+@use "./variables" as *;
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  @extend .font-14-16;
+}

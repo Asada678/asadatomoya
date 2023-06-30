@@ -9,14 +9,15 @@ module.exports = {
     extend: {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      },
+      backgroundImage: {
+        "black-gradient": "radial-gradient(#000000, #191919)",
+        "white-gradient": "radial-gradient(#ffffff, #f0f0f0)",
       },
     },
     container: {
       center: true,
-      padding: "0.5rem",
     },
   },
-  plugins: [],
 };

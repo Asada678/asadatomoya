@@ -6,7 +6,11 @@
     "asadatomoya-admin",
     "asadatomoya-common"
   ],
+  "scripts": {
+    "dev": "concurrently \"cd asadatomoya-web && pnpm run dev\" \"cd asadatomoya-admin && pnpm run dev\""
+  },
   "devDependencies": {
+    "concurrently": "^8.1.0",
     "eslint": "^8.42.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.27.5",
