@@ -20,15 +20,13 @@ export const metadata = {
   },
 };
 
-console.log("cn:", cn);
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ja">
       <body className={cn("min-h-screen dark:text-gray-200", noto.className)}>
         <Navbar />
         <BackGround />
-        {children}
+        <div className="container flex min-h-screen flex-col">{children}</div>
       </body>
     </html>
   );

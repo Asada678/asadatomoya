@@ -1,6 +1,6 @@
 {
-  "extends": ["prettier", "plugin:prettier/recommended"],
-  "plugins": ["import", "unused-imports", "prettier"],
+  "extends": ["prettier"],
+  "plugins": ["import", "prettier"],
   "rules": {
     "sort-imports": [
       "error",

@@ -10,7 +10,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const passionOne = Passion_One({
   subsets: ["latin"],
-  weight: ["400", "700", "900"],
+  weight: ["400"],
 });
 
 interface NavbarProps {}
@@ -21,11 +21,11 @@ const Navbar: FC<NavbarProps> = ({}) => {
   const asadatomoya = useRef<HTMLHeadingElement>(null);
   const [isTop, setIsTop] = useState(true);
   useEffect(() => {
-    let context = gsap.context(() => {
+    gsap.context(() => {
       ScrollTrigger.create({
         trigger: asadatomoya.current,
         start: "center top",
-        markers: true,
+        // markers: true,
         onEnter() {
           gsap.to(asadatomoya.current, {
             duration: 0.3,
@@ -54,11 +54,9 @@ const Navbar: FC<NavbarProps> = ({}) => {
         },
       });
     });
+  }, [isTop]);
 
-    return () => context.revert();
-  }, []);
-
-  const links = ["profile", "objects", "carrer", "qualifications"];
+  const links = ["webgl", "three", "career", "qualifications"];
 
   return (
     <>
@@ -68,13 +66,16 @@ const Navbar: FC<NavbarProps> = ({}) => {
             <Link className="flex rounded py-1" href={"/"}>
               <Image
                 src={"/img/logo/icon.webp"}
-                className="relative z-20"
+                className="relative z-20 h-14 w-14"
                 width={60}
                 height={60}
                 alt="logo"
                 ref={logo}
               />
-              <h1 className={`font-16-48 ${passionOne.className}`} ref={asadatomoya}>
+              <h1
+                className={`font-24-48 flex items-center !italic ${passionOne.className}`}
+                ref={asadatomoya}
+              >
                 Asada Tomoya
               </h1>
             </Link>

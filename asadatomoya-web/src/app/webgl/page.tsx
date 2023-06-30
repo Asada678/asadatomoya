@@ -1,15 +1,14 @@
 "use client";
-import BackGround from "@components/BackGround";
-import Three from "@components/Three";
+import { type FC } from "react";
 
-export default async function WebGl() {
+import ThreeLoader from "@components/ThreeLoader";
+
+const page: FC = () => {
   return (
-    <>
-      <Three />
-      <div className="min-h-screen"></div>
-      <div className="min-h-screen"></div>
-      <div className="min-h-screen"></div>
-      <div className="min-h-screen"></div>
-    </>
+    <div>
+      <ThreeLoader />
+    </div>
   );
-}
+};
+
+export default page;
