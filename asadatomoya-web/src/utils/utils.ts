@@ -153,4 +153,5 @@
 // export { utils };
 
 export const isDebug = process.env.NEXT_PUBLIC_DEBUG === "true";
-export const isTouchDevices: boolean = Boolean("ontouchstart" in window);
+export const isTouchDevices: boolean =
+  typeof window !== "undefined" && Boolean("ontouchstart" in window);

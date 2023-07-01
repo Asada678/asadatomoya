@@ -81,7 +81,7 @@ export const WorldProvider: FC<WorldContextProps> = ({ children, background = nu
 
   useEffect(() => {
     worldRef.current = world;
-  }, [world]);
+  }, []);
 
   useLayoutEffect(() => {
     const init = () => {
@@ -123,7 +123,11 @@ export const WorldProvider: FC<WorldContextProps> = ({ children, background = nu
 
       ////////////////////////////////////////////////////////////////////////////
       // ボックスジオメトリー
-      const boxGeometry = new BoxGeometry(300, 300, 300);
+      const boxGeometry = new BoxGeometry(
+        viewport.width / 3,
+        viewport.width / 3,
+        viewport.width / 3,
+      );
       const boxMaterial = new MeshLambertMaterial({
         color: "#2497f0",
       });
