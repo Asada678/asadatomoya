@@ -13,8 +13,6 @@ import { useViewport } from "@context/ViewportContext";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon, HamburgerMenuIcon } from "@radix-ui/react-icons";
 
-import DialogDemo from "./DialogDemo";
-
 const passionOne = Passion_One({
   subsets: ["latin"],
   weight: ["400"],
