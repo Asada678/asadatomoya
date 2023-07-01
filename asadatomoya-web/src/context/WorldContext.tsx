@@ -4,9 +4,7 @@ import React, {
   FC,
   useCallback,
   useContext,
-  useEffect,
   useLayoutEffect,
-  useRef,
   useState,
 } from "react";
 
@@ -80,27 +78,16 @@ interface WorldProviderProps {
 
 export const WorldProvider: FC<WorldProviderProps> = ({ children, background = null }) => {
   const [world, setWorld] = useState<World>(initialWorld);
-  // const worldRef = useRef(world);
-  // const [tick, setTick] = useState(0);
-  const [isSetup, setIsSetup] = useState(false);
-  // const tickRef = useRef(tick);
+  const [isSetup, setIsSetup] = useState(false); // worldのsetupを検知するためのフラグ
   const { viewport } = useViewport();
 
-  // useEffect(() => {
-  //   console.log("world use effect:");
-  //   worldRef.current = world;
-  //   // tickRef.current = tick;
-  // }, []);
-
   useLayoutEffect(() => {
-    console.log("init use layout effect:");
     const init = () => {
       if (viewport.width === 0 || world.tick > 0) return;
       const canvas = viewport.canvas;
       if (!canvas) {
         throw new Error("WebGLRenderer needs a HTMLCanvasElement!");
       }
-      console.log("init implement:");
 
       // レンダラー
       let renderer = new WebGLRenderer({
@@ -156,7 +143,6 @@ export const WorldProvider: FC<WorldProviderProps> = ({ children, background = n
           composer,
           controls,
         };
-        // worldRef.current = w;
         return w;
       });
       setIsSetup(true);
@@ -168,11 +154,9 @@ export const WorldProvider: FC<WorldProviderProps> = ({ children, background = n
   }, [viewport]);
 
   useLayoutEffect(() => {
-    console.log("render use layout effect:");
     const render = () => {
       if (!isSetup) return;
 
-      // const currentWorld = worldRef.current;
       setWorld((prev) => {
         const newWorld = {
           ...prev,
@@ -184,10 +168,10 @@ export const WorldProvider: FC<WorldProviderProps> = ({ children, background = n
       if (world.composer) {
         world.composer.render();
       }
-      requestAnimationFrame(render);
       if (world.controls) {
         world.controls.update();
       }
+      requestAnimationFrame(render);
     };
 
     render();
@@ -207,7 +191,6 @@ export const WorldProvider: FC<WorldProviderProps> = ({ children, background = n
         scene,
         webGlObjects,
       };
-      // worldRef.current = w;
       return w;
     });
   }, []);
@@ -216,7 +199,6 @@ export const WorldProvider: FC<WorldProviderProps> = ({ children, background = n
     <WorldContext.Provider value={{ world, addWebGlObject }}>
       {isDebug && (
         <div>
-          {/* <h1 className="font-24-48 mt-16">tick: {tick}</h1> */}
           <h1 className="font-24-48 mt-8">world.tick: {world.tick}</h1>
           <h1 className="font-24-48 mt-8">
             world.webGlObjects.length: {world.webGlObjects.length}
