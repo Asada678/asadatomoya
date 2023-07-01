@@ -40,6 +40,7 @@ const initialWorld: World = {
   scene: null,
   composer: null,
   camera: null,
+  box: null,
   // renderActions: new Set<() => void>(),
   // raycastingMeshes: [] as Mesh[],
   // init,
@@ -63,6 +64,7 @@ interface World {
   scene: Scene | null;
   camera: PerspectiveCamera | null;
   composer: EffectComposer | null;
+  box: Mesh | null;
 }
 
 const WorldContext = createContext(initialWorld);
@@ -75,13 +77,7 @@ interface WorldContextProps {
 export const WorldProvider: FC<WorldContextProps> = ({ children, background = null }) => {
   const [world, setWorld] = useState<World>(initialWorld);
   const worldRef = useRef(world); // ここでworldを追跡するrefを作成します
-  const animationFrameId = useRef<number | null>(null);
   const { viewport } = useViewport();
-  let canvas: HTMLElement;
-
-  // useEffect(() => {
-  //   canvas = viewport.canvas;
-  // }, [viewport]);
 
   useEffect(() => {
     worldRef.current = world;
@@ -114,9 +110,16 @@ export const WorldProvider: FC<WorldContextProps> = ({ children, background = nu
       let camera = new PerspectiveCamera(fov, aspect, near, far);
       camera.position.z = cameraZ;
 
+      // コンポーザー
       const composer = new EffectComposer(renderer);
       const renderPass = new RenderPass(scene, camera);
       composer.addPass(renderPass);
+
+      // Stats
+      if (isDebug) {
+        const stats = new Stats();
+        document.body.appendChild(stats.dom);
+      }
 
       ////////////////////////////////////////////////////////////////////////////
       // ボックスジオメトリー
@@ -129,77 +132,57 @@ export const WorldProvider: FC<WorldContextProps> = ({ children, background = nu
       box.rotation.set(10, 10, 10);
       scene.add(box);
 
+      // ライト
+      const ambientLight = new AmbientLight(0xffffff, 0.7);
+      scene.add(ambientLight);
+      const pointLight = new PointLight(0xffffff, 0.2);
+      pointLight.position.set(1, 2, 3);
+      scene.add(pointLight);
+
+      ////////////////////////////////////////////////////////////////////////////
+
       setWorld({
         tick: world.tick,
         renderer,
         scene,
         camera,
         composer,
+        box,
       });
-
-      // アニメーション
-      const clock = new Clock();
-      const render = () => {
-        const elapsedTime = clock.getElapsedTime();
-        box.rotation.x = elapsedTime;
-        box.rotation.y = elapsedTime;
-
-        const currentWorld = worldRef.current;
-        setWorld((prev) => {
-          const newWorld = {
-            ...prev,
-            tick: prev.tick++,
-          };
-          worldRef.current = newWorld;
-          return newWorld;
-        });
-        if (currentWorld.renderer && currentWorld.scene && currentWorld.camera) {
-          currentWorld.renderer.render(currentWorld.scene, currentWorld.camera);
-        }
-        requestAnimationFrame(render);
-        // animationFrameId.current = requestAnimationFrame(render);
-      };
-      render();
-
-      if (isDebug) {
-        const stats = new Stats();
-        document.body.appendChild(stats.dom);
-      }
     };
     init();
 
-    return () => {
-      if (animationFrameId.current !== null) {
-        cancelAnimationFrame(animationFrameId.current);
-      }
-    };
+    return () => {};
   }, [viewport]);
 
-  // useLayoutEffect(() => {
-  //   const render = () => {
-  //     const currentWorld = worldRef.current;
-  //     setWorld((prev) => {
-  //       const newWorld = {
-  //         ...prev,
-  //         tick: prev.tick++,
-  //       };
-  //       worldRef.current = newWorld;
-  //       return newWorld;
-  //     });
-  //     if (currentWorld.renderer && currentWorld.scene && currentWorld.camera) {
-  //       currentWorld.renderer.render(currentWorld.scene, currentWorld.camera);
-  //     }
-  //     animationFrameId.current = requestAnimationFrame(render);
-  //   };
+  useLayoutEffect(() => {
+    // アニメーション
+    const clock = new Clock();
+    const render = () => {
+      const elapsedTime = clock.getElapsedTime();
+      let currentWorld = worldRef.current;
+      const box = currentWorld.box;
+      if (box) {
+        box.rotation.x = elapsedTime;
+        box.rotation.y = elapsedTime;
+      }
+      setWorld((prev) => {
+        const newWorld = {
+          ...prev,
+          tick: prev.tick++,
+        };
+        worldRef.current = newWorld;
+        return newWorld;
+      });
+      if (currentWorld.renderer && currentWorld.scene && currentWorld.camera) {
+        currentWorld.renderer.render(currentWorld.scene, currentWorld.camera);
+      }
+      requestAnimationFrame(render);
+    };
+    render();
 
-  //   // render();
-
-  //   return () => {
-  //     if (animationFrameId.current !== null) {
-  //       cancelAnimationFrame(animationFrameId.current);
-  //     }
-  //   };
-  // }, []);
+    return () => {};
+  }, []);
 
   return <WorldContext.Provider value={world}>{children}</WorldContext.Provider>;
 };
