@@ -11,7 +11,8 @@ import React, {
   useState,
 } from "react";
 
-import { config, Viewport } from "@utils";
+import { Viewport } from "@model";
+import { config } from "@utils";
 
 const initialViewport: Viewport = {
   canvas: null,
@@ -54,21 +55,6 @@ export const ViewportProvider: FC<ViewportProviderProps> = ({
 }) => {
   const [viewport, setViewport] = useState<Viewport>(initialViewport);
   const viewportRef = useRef(viewport);
-
-  const addResizeAction = useCallback((action: (viewport?: Viewport) => void) => {
-    setViewport((prev) => ({
-      ...prev,
-      actions: new Set(prev.actions).add(action),
-    }));
-  }, []);
-
-  const removeResizeAction = useCallback((action: (viewport?: Viewport) => void) => {
-    setViewport((prev) => {
-      const newActions = new Set(prev.actions);
-      newActions.delete(action);
-      return { ...prev, actions: newActions };
-    });
-  }, []);
 
   useEffect(() => {
     viewportRef.current = viewport;
@@ -125,6 +111,21 @@ export const ViewportProvider: FC<ViewportProviderProps> = ({
     };
   }, [canvasRef]);
 
+  const addResizeAction = useCallback((action: (viewport?: Viewport) => void) => {
+    setViewport((prev) => ({
+      ...prev,
+      actions: new Set(prev.actions).add(action),
+    }));
+  }, []);
+
+  const removeResizeAction = useCallback((action: (viewport?: Viewport) => void) => {
+    setViewport((prev) => {
+      const newActions = new Set(prev.actions);
+      newActions.delete(action);
+      return { ...prev, actions: newActions };
+    });
+  }, []);
+
   return (
     <ViewportContext.Provider value={{ viewport, addResizeAction, removeResizeAction }}>
       {children}
@@ -135,8 +136,8 @@ export const ViewportProvider: FC<ViewportProviderProps> = ({
 export function useViewport() {
   const context = useContext(ViewportContext);
   if (!context) {
-    throw new Error("useViewport must be used within a ViewportProvider");
+    throw new Error("useViewportはViewportProviderの内部から使用してください。");
   }
-  const { viewport, addResizeAction, removeResizeAction }: ViewportContextType = context;
+  const { viewport, addResizeAction, removeResizeAction } = context;
   return { viewport, addResizeAction, removeResizeAction };
 }

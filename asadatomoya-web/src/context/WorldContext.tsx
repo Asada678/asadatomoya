@@ -2,6 +2,7 @@
 import React, {
   createContext,
   FC,
+  useCallback,
   useContext,
   useEffect,
   useLayoutEffect,
@@ -11,12 +12,10 @@ import React, {
 
 import {
   AmbientLight,
-  BoxGeometry,
-  Clock,
+  AxesHelper,
   Color,
-  Mesh,
-  MeshBasicMaterial,
-  MeshLambertMaterial,
+  Event,
+  Object3D,
   PerspectiveCamera,
   PointLight,
   Scene,
@@ -31,16 +30,26 @@ import { isDebug, isTouchDevices } from "@utils";
 
 import { useViewport } from "./ViewportContext";
 
+interface World {
+  tick: number;
+  renderer: WebGLRenderer | null;
+  scene: Scene | null;
+  camera: PerspectiveCamera | null;
+  composer: EffectComposer | null;
+  webGlObjects: Object3D<Event>[];
+  controls?: OrbitControls | null;
+}
+
 const initialWorld: World = {
   // os: [] as Ob[],
   // raycaster: new Raycaster(),
-
   tick: 0,
   renderer: null,
   scene: null,
   composer: null,
   camera: null,
-  box: null,
+  webGlObjects: [],
+  controls: null,
   // renderActions: new Set<() => void>(),
   // raycastingMeshes: [] as Mesh[],
   // init,
@@ -58,28 +67,24 @@ const initialWorld: World = {
   // addRaycastingTarget,
 };
 
-interface World {
-  tick: number;
-  renderer: WebGLRenderer | null;
-  scene: Scene | null;
-  camera: PerspectiveCamera | null;
-  composer: EffectComposer | null;
-  box: Mesh | null;
-}
-
-const WorldContext = createContext(initialWorld);
-
 interface WorldContextProps {
+  world: World;
+  addWebGlObject: (...obj: Object3D<Event>[]) => void;
+}
+const WorldContext = createContext<WorldContextProps | undefined>(undefined);
+
+interface WorldProviderProps {
   children: React.ReactNode;
   background?: string;
 }
 
-export const WorldProvider: FC<WorldContextProps> = ({ children, background = null }) => {
+export const WorldProvider: FC<WorldProviderProps> = ({ children, background = null }) => {
   const [world, setWorld] = useState<World>(initialWorld);
-  const worldRef = useRef(world); // ここでworldを追跡するrefを作成します
+  const worldRef = useRef(world);
   const { viewport } = useViewport();
 
   useEffect(() => {
+    console.log("world use effect:");
     worldRef.current = world;
   }, []);
 
@@ -115,26 +120,17 @@ export const WorldProvider: FC<WorldContextProps> = ({ children, background = nu
       const renderPass = new RenderPass(scene, camera);
       composer.addPass(renderPass);
 
-      // Stats
+      let controls: OrbitControls | null = null;
       if (isDebug) {
         const stats = new Stats();
         document.body.appendChild(stats.dom);
+        controls = new OrbitControls(camera, renderer.domElement);
+        controls.update();
+        const axesHelper = new AxesHelper(1000);
+        scene.add(axesHelper);
       }
 
-      ////////////////////////////////////////////////////////////////////////////
-      // ボックスジオメトリー
-      const boxGeometry = new BoxGeometry(
-        viewport.width / 3,
-        viewport.width / 3,
-        viewport.width / 3,
-      );
-      const boxMaterial = new MeshLambertMaterial({
-        color: "#2497f0",
-      });
-      const box = new Mesh(boxGeometry, boxMaterial);
-      box.position.z = -5;
-      box.rotation.set(10, 10, 10);
-      scene.add(box);
+      //TODO//////////////////////////////////////////////////////////////////////////
 
       // ライト
       const ambientLight = new AmbientLight(0xffffff, 0.7);
@@ -145,13 +141,16 @@ export const WorldProvider: FC<WorldContextProps> = ({ children, background = nu
 
       ////////////////////////////////////////////////////////////////////////////
 
-      setWorld({
-        tick: world.tick,
-        renderer,
-        scene,
-        camera,
-        composer,
-        box,
+      setWorld((prev) => {
+        const w = {
+          ...prev,
+          renderer,
+          scene,
+          camera,
+          composer,
+          controls,
+        };
+        return w;
       });
     };
     init();
@@ -160,16 +159,9 @@ export const WorldProvider: FC<WorldContextProps> = ({ children, background = nu
   }, [viewport]);
 
   useLayoutEffect(() => {
-    // アニメーション
-    const clock = new Clock();
     const render = () => {
-      const elapsedTime = clock.getElapsedTime();
-      let currentWorld = worldRef.current;
-      const box = currentWorld.box;
-      if (box) {
-        box.rotation.x = elapsedTime;
-        box.rotation.y = elapsedTime;
-      }
+      const currentWorld = worldRef.current;
+
       setWorld((prev) => {
         const newWorld = {
           ...prev,
@@ -178,19 +170,47 @@ export const WorldProvider: FC<WorldContextProps> = ({ children, background = nu
         worldRef.current = newWorld;
         return newWorld;
       });
-      if (currentWorld.renderer && currentWorld.scene && currentWorld.camera) {
-        currentWorld.renderer.render(currentWorld.scene, currentWorld.camera);
+
+      if (currentWorld.composer) {
+        currentWorld.composer.render();
       }
       requestAnimationFrame(render);
+      if (currentWorld.controls) {
+        currentWorld.controls.update();
+      }
     };
+
     render();
 
     return () => {};
+  }, [worldRef]);
+  const addWebGlObject = useCallback((obj: Object3D<Event>) => {
+    setWorld((prev) => {
+      const scene = prev.scene;
+      if (prev.scene) {
+        prev.scene.add(obj);
+      }
+      const webGlObjects = [...prev.webGlObjects, obj];
+      const w = {
+        ...prev,
+        scene,
+        webGlObjects,
+      };
+      worldRef.current = w;
+      return w;
+    });
   }, []);
 
-  return <WorldContext.Provider value={world}>{children}</WorldContext.Provider>;
+  return (
+    <WorldContext.Provider value={{ world, addWebGlObject }}>{children}</WorldContext.Provider>
+  );
 };
 
 export function useWorld() {
-  return useContext(WorldContext);
+  const context = useContext(WorldContext);
+  if (!context) {
+    throw new Error("useWorldはWorldProviderの内部から使用してください。");
+  }
+  const { world, addWebGlObject } = context;
+  return { world, addWebGlObject };
 }

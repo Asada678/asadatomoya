@@ -4,6 +4,7 @@ import { type FC, useEffect } from "react";
 
 import {
   AmbientLight,
+  AxesHelper,
   BoxGeometry,
   Clock,
   Mesh,
@@ -13,6 +14,7 @@ import {
   Scene,
   WebGLRenderer,
 } from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 interface ThreeProps {}
 
@@ -61,6 +63,12 @@ const Three: FC<ThreeProps> = ({}) => {
     pointLight.position.set(1, 2, 3);
     scene.add(pointLight);
 
+    const controls = new OrbitControls(camera, renderer.domElement);
+    
+    const axesHelper = new AxesHelper(1000);
+    camera.position.z = 5;
+    
+    scene.add(axesHelper);
     // アニメーション
     const clock = new Clock();
     const tick = () => {
@@ -68,6 +76,8 @@ const Three: FC<ThreeProps> = ({}) => {
       box.rotation.x = elapsedTime;
       box.rotation.y = elapsedTime;
       window.requestAnimationFrame(tick);
+      controls.update();
+
       renderer.render(scene, camera);
     };
     tick();
