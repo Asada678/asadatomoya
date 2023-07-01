@@ -23,6 +23,7 @@ const Child: FC = ({}) => {
   }, []);
 
   const handleClick = () => {
+    console.log("world:", world);
     function getRandomColor() {
       const letters = "0123456789ABCDEF";
       let color = "#";
