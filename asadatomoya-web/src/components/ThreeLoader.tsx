@@ -3,6 +3,8 @@ import { type FC, useEffect, useRef, useState } from "react";
 
 import { LinearFilter, Texture, TextureLoader } from "three";
 
+import vertex from "@glsl/template/vertex.glsl";
+
 interface ThreeLoaderProps {}
 
 const ThreeLoader: FC<ThreeLoaderProps> = () => {
