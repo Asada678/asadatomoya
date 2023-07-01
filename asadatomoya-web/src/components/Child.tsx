@@ -57,7 +57,7 @@ const Child: FC = ({}) => {
 
   return (
     <div className="my-16 px-4">
-      <button className="my-4 rounded bg-blue-400 px-8 py-4" onClick={handleClick}>
+      <button className="m-4 rounded bg-blue-400 px-8 py-4" onClick={handleClick}>
         add box
       </button>
       <div>viewport.width: {viewport.width}</div>

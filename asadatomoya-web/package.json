@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-three/fiber": "^8.13.4",
     "@types/node": "20.2.5",
     "@types/react": "18.2.8",
     "@types/react-dom": "18.2.4",
@@ -20,6 +21,7 @@
     "eslint-config-next": "13.4.4",
     "fiber: ^8.11.6": "link:@react-three/fiber: ^8.11.6",
     "gsap": "^3.12.1",
+    "leva": "^0.9.35",
     "lil-gui": "^0.18.2",
     "next": "13.4.4",
     "postcss": "8.4.24",

@@ -1,7 +1,7 @@
 "use client";
 import Three from "@components/Three";
 
-export default async function WebGl() {
+export default function WebGl() {
   return (
     <>
       <Three />

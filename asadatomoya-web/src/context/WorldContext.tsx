@@ -41,7 +41,6 @@ interface World {
 }
 
 const initialWorld: World = {
-  // os: [] as Ob[],
   // raycaster: new Raycaster(),
   tick: 0,
   renderer: null,
@@ -69,6 +68,7 @@ const initialWorld: World = {
 
 interface WorldContextProps {
   world: World;
+  // tick: number;
   addWebGlObject: (...obj: Object3D<Event>[]) => void;
 }
 const WorldContext = createContext<WorldContextProps | undefined>(undefined);
@@ -80,21 +80,27 @@ interface WorldProviderProps {
 
 export const WorldProvider: FC<WorldProviderProps> = ({ children, background = null }) => {
   const [world, setWorld] = useState<World>(initialWorld);
-  const worldRef = useRef(world);
+  // const worldRef = useRef(world);
+  // const [tick, setTick] = useState(0);
+  const [isSetup, setIsSetup] = useState(false);
+  // const tickRef = useRef(tick);
   const { viewport } = useViewport();
 
-  useEffect(() => {
-    console.log("world use effect:");
-    worldRef.current = world;
-  }, []);
+  // useEffect(() => {
+  //   console.log("world use effect:");
+  //   worldRef.current = world;
+  //   // tickRef.current = tick;
+  // }, []);
 
   useLayoutEffect(() => {
+    console.log("init use layout effect:");
     const init = () => {
       if (viewport.width === 0 || world.tick > 0) return;
       const canvas = viewport.canvas;
       if (!canvas) {
         throw new Error("WebGLRenderer needs a HTMLCanvasElement!");
       }
+      console.log("init implement:");
 
       // レンダラー
       let renderer = new WebGLRenderer({
@@ -150,40 +156,45 @@ export const WorldProvider: FC<WorldProviderProps> = ({ children, background = n
           composer,
           controls,
         };
+        // worldRef.current = w;
         return w;
       });
+      setIsSetup(true);
     };
+
     init();
 
     return () => {};
   }, [viewport]);
 
   useLayoutEffect(() => {
+    console.log("render use layout effect:");
     const render = () => {
-      const currentWorld = worldRef.current;
+      if (!isSetup) return;
 
+      // const currentWorld = worldRef.current;
       setWorld((prev) => {
         const newWorld = {
           ...prev,
-          tick: prev.tick++,
+          tick: prev.tick + 1,
         };
-        worldRef.current = newWorld;
         return newWorld;
       });
 
-      if (currentWorld.composer) {
-        currentWorld.composer.render();
+      if (world.composer) {
+        world.composer.render();
       }
       requestAnimationFrame(render);
-      if (currentWorld.controls) {
-        currentWorld.controls.update();
+      if (world.controls) {
+        world.controls.update();
       }
     };
 
     render();
 
     return () => {};
-  }, [worldRef]);
+  }, [isSetup]);
+
   const addWebGlObject = useCallback((obj: Object3D<Event>) => {
     setWorld((prev) => {
       const scene = prev.scene;
@@ -196,13 +207,24 @@ export const WorldProvider: FC<WorldProviderProps> = ({ children, background = n
         scene,
         webGlObjects,
       };
-      worldRef.current = w;
+      // worldRef.current = w;
       return w;
     });
   }, []);
 
   return (
-    <WorldContext.Provider value={{ world, addWebGlObject }}>{children}</WorldContext.Provider>
+    <WorldContext.Provider value={{ world, addWebGlObject }}>
+      {isDebug && (
+        <div>
+          {/* <h1 className="font-24-48 mt-16">tick: {tick}</h1> */}
+          <h1 className="font-24-48 mt-8">world.tick: {world.tick}</h1>
+          <h1 className="font-24-48 mt-8">
+            world.webGlObjects.length: {world.webGlObjects.length}
+          </h1>
+        </div>
+      )}
+      {children}
+    </WorldContext.Provider>
   );
 };
 
