@@ -7,10 +7,12 @@ import gsap from "gsap";
 import {
   Mesh,
   PlaneGeometry,
+  Points,
   Shader,
   ShaderMaterial,
   Texture,
   Vector2,
+  Vector3,
   Vector4,
   WebGLRenderer,
 } from "three";
@@ -25,7 +27,13 @@ export interface BaseUniforms {
   uProgress: { value: number };
   uAlpha: { value: number };
   uResolution: { value: Vector4 };
-  [key: string]: { value: number } | { value: Texture } | { value: Vector2 } | { value: Vector4 };
+  [key: string]:
+    | { value: number }
+    | { value: Texture }
+    | { value: Vector2 }
+    | { value: Vector3 }
+    | { value: Vector4 }
+    | { value: null };
 }
 abstract class Ob {
   $: { el: HTMLElement };
@@ -40,7 +48,7 @@ abstract class Ob {
   fragmentShader!: string;
   material!: ShaderMaterial;
   geometry!: PlaneGeometry;
-  mesh!: Mesh<any, any>;
+  mesh!: Mesh<any, any> | Points<any, any>;
   fixed: any;
 
   constructor({ textures, el }: { textures: Texture[]; el: HTMLElement; type: string }) {
@@ -93,7 +101,7 @@ abstract class Ob {
   }
 
   // ShaderMaterialのuniformsに設定する値
-  setupUniforms() {
+  setupUniforms(): BaseUniforms {
     return {
       uTick: { value: 0 },
       uMouse: { value: new Vector2(0.5, 0.5) },
@@ -134,7 +142,6 @@ abstract class Ob {
 
   // 2023/5/5 WebGL1.0対応
   onBeforeCompile(shader: Shader, renderer: WebGLRenderer) {
-    console.log("shader, renderer:", shader, renderer);
     if (renderer.capabilities.isWebGL2) return; // WebGL 2.0の場合、変更は不要
 
     // WebGL1.0の場合はtexture関数が見つからないため、texture2Dにシェーダのコードを置換
