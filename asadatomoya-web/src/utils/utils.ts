@@ -2,6 +2,8 @@
 // import { getGPUTier } from "detect-gpu";
 // import { Mesh, Quaternion, Vector3, Vector4 } from "three";
 
+import { Vector4 } from "three";
+
 // interface Rectangle {
 //   width: number;
 //   height: number;
@@ -155,3 +157,29 @@
 export const isDebug = process.env.NEXT_PUBLIC_DEBUG === "true";
 export const isTouchDevices: boolean =
   typeof window !== "undefined" && Boolean("ontouchstart" in window);
+
+// テクスチャのアスペクト値の算出
+export function getResolutionUniform(htmlRect: DOMRect, mediaRect: DOMRect) {
+  const { width: htmlW, height: htmlH } = htmlRect;
+  const resolution = new Vector4(htmlW, htmlH, 1, 1);
+
+  if (!mediaRect) return resolution;
+
+  const { width: mediaW, height: mediaH } = mediaRect;
+
+  const mediaAspect = mediaH / mediaW;
+  const toAspect = htmlH / htmlW;
+
+  let xAspect, yAspect;
+  if (toAspect > mediaAspect) {
+    xAspect = (1 / toAspect) * mediaAspect;
+    yAspect = 1;
+  } else {
+    xAspect = 1;
+    yAspect = toAspect / mediaAspect;
+  }
+
+  resolution.z = xAspect;
+  resolution.w = yAspect;
+  return resolution;
+}
