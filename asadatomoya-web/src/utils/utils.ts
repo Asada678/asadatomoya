@@ -2,6 +2,7 @@
 // import { getGPUTier } from "detect-gpu";
 // import { Mesh, Quaternion, Vector3, Vector4 } from "three";
 
+import { detect as detectBrowser } from "detect-browser";
 import { Vector4 } from "three";
 
 // interface Rectangle {
@@ -157,6 +158,8 @@ import { Vector4 } from "three";
 export const isDebug = process.env.NEXT_PUBLIC_DEBUG === "true";
 export const isTouchDevices: boolean =
   typeof window !== "undefined" && Boolean("ontouchstart" in window);
+
+export const isSafari = detectBrowser()?.name === "safari";
 
 // テクスチャのアスペクト値の算出
 export const getResolutionUniform = (htmlRect: DOMRect, mediaRect: DOMRect) => {

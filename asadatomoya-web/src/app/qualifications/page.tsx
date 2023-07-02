@@ -9,6 +9,11 @@ export default function Qualifications() {
         type="particles"
       />
       <div className="min-h-screen"></div>
+      <Particles
+        textureUrls={["/img/sample/tree.jpg", "/img/sample/sea.jpg", "/img/sample/dog.jpg"]}
+        type="particles"
+      />
+      <div className="min-h-screen"></div>
       <div className="min-h-screen"></div>
       <div className="min-h-screen"></div>
       <div className="min-h-screen"></div>

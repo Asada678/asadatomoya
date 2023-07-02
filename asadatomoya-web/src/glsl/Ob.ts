@@ -18,7 +18,8 @@ import {
 } from "three";
 
 // import loader from "#/component/loader"; // コンポーネント内で取得するので不要
-import { config, getResolutionUniform, INode, isDebug } from "@utils";
+import { Viewport } from "@model";
+import { getResolutionUniform, INode, isDebug } from "@utils";
 
 export interface BaseUniforms {
   uTick: { value: number };
@@ -49,9 +50,17 @@ abstract class Ob {
   material!: ShaderMaterial;
   geometry!: PlaneGeometry;
   mesh!: Mesh<any, any> | Points<any, any>;
-  fixed: any;
+  fixed: boolean = false;
 
-  constructor({ textures, el }: { textures: Texture[]; el: HTMLElement; type: string }) {
+  constructor({
+    textures,
+    el,
+    viewport,
+  }: {
+    textures: Texture[];
+    el: HTMLElement;
+    viewport: Viewport;
+  }) {
     this.$ = { el };
     this.textures = textures ?? [];
 
@@ -82,12 +91,14 @@ abstract class Ob {
       this.geometry = this.setupGeometry();
       this.mesh = this.setupMesh();
       this.disableOriginalElem();
+      this.scroll(viewport);
     } catch (e) {
       if (isDebug) {
         console.log(e);
       }
       return;
     }
+    return this;
   }
 
   // メッシュの作成前に実行する処理を記載
@@ -197,7 +208,7 @@ abstract class Ob {
   }
 
   // 画面幅の変更に伴うエフェクトの位置や大きさの制御
-  async resize(duration = 1) {
+  async resize(viewport: Viewport, duration = 1) {
     this.resizing = true;
 
     const {
@@ -244,14 +255,14 @@ abstract class Ob {
   }
 
   // メッシュのWorldポジションをHTMLの位置情報や大きさから取得するメソッド
-  getWorldPosition(rect: DOMRect, canvasRect: DOMRect) {
-    const x = rect.left + rect.width / 2 - canvasRect.width / 2;
-    const y = -rect.top - rect.height / 2 + canvasRect.height / 2;
+  getWorldPosition(rect: DOMRect, { width, height }: DOMRect | Viewport) {
+    const x = rect.left + rect.width / 2 - width / 2;
+    const y = -rect.top - rect.height / 2 + height / 2;
     return { x, y };
   }
 
   // スクロールに伴うメッシュの位置情報の変更を行うメソッド
-  scroll() {
+  scroll(viewport: Viewport) {
     if (this.fixed) return;
     const {
       $: { el },

@@ -3,8 +3,9 @@ import { type FC, useEffect, useRef } from "react";
 
 import { LinearFilter, PlaneGeometry, Points, Texture, TextureLoader, Vector3 } from "three";
 
-import { isTouchDevices, removeDuplicateArray } from "@utils";
+import { isSafari, isTouchDevices, removeDuplicateArray } from "@utils";
 
+import { useViewport } from "@context/ViewportContext";
 import { useWorld } from "@context/WorldContext";
 
 import fragmentShader from "./fragment.glsl";
@@ -77,7 +78,7 @@ class P extends Ob {
         this.mesh.visible = false;
         this.running = false;
         this.activeSlideIdx = idx;
-        if (activeEl.paused || utils.isSafari()) {
+        if (activeEl.paused || isSafari) {
           activeEl.play?.();
         }
       },
@@ -130,10 +131,12 @@ interface ParticlesProps {
 
 const Particles: FC<ParticlesProps> = ({ textureUrls, type }) => {
   const divRef = useRef<HTMLDivElement>(null);
-  const { ready, addObject } = useWorld();
+  const { ready, addOb } = useWorld();
+  const { viewport } = useViewport();
   //TODO textureCache
   useEffect(() => {
     if (!ready) return;
+    if (!(viewport.width > 0)) return;
     const div = divRef.current;
     if (!div) return;
     const loadTextures = async (textureUrls: string[]) => {
@@ -168,9 +171,9 @@ const Particles: FC<ParticlesProps> = ({ textureUrls, type }) => {
       const o = new P({
         textures,
         el: div,
-        type,
+        viewport,
       });
-      addObject(o.mesh);
+      addOb(o);
     };
     loadTextures(textureUrls);
 
@@ -180,7 +183,7 @@ const Particles: FC<ParticlesProps> = ({ textureUrls, type }) => {
   return (
     <>
       <h2 className="mb-16 text-xl font-bold">Particles</h2>
-      <div className="h-16 w-16 bg-blue-600" style={{ height: 500 }} ref={divRef}></div>
+      <div className="" style={{ height: 500 }} ref={divRef}></div>
     </>
   );
 };

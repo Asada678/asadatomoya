@@ -8,24 +8,15 @@ import React, {
   useState,
 } from "react";
 
-import { render } from "react-dom";
-import {
-  AmbientLight,
-  AxesHelper,
-  Color,
-  Event,
-  Object3D,
-  PerspectiveCamera,
-  PointLight,
-  Scene,
-  WebGLRenderer,
-} from "three";
+import { AxesHelper, Color, Event, Object3D, PerspectiveCamera, Scene, WebGLRenderer } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "three/examples/jsm/libs/stats.module";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer";
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass";
 
 import { isDebug, isTouchDevices } from "@utils";
+
+import { Ob } from "@glsl/Ob";
 
 import { useViewport } from "./ViewportContext";
 
@@ -65,11 +56,12 @@ const initialWorld: World = {
   // addRaycastingTarget,
 };
 
+type AddOb = <T extends Ob>(obj: T) => void;
 interface WorldContextProps {
   world: World;
   tick: number;
   ready: boolean;
-  addObject: (...obj: Object3D<Event>[]) => void;
+  addOb: AddOb;
   // TODO グローバルにテクスチャを保持
 }
 const WorldContext = createContext<WorldContextProps | undefined>(undefined);
@@ -84,6 +76,7 @@ export const WorldProvider: FC<WorldProviderProps> = ({ children, background = n
   const [tick, setTick] = useState(0);
   const [ready, setReady] = useState(false); // worldのsetupを検知するためのフラグ
   const { viewport } = useViewport();
+  const [obs, setObs] = useState<Ob[]>([]);
 
   useLayoutEffect(() => {
     const init = () => {
@@ -127,17 +120,6 @@ export const WorldProvider: FC<WorldProviderProps> = ({ children, background = n
         scene.add(axesHelper);
       }
 
-      //TODO//////////////////////////////////////////////////////////////////////////
-
-      // ライト
-      const ambientLight = new AmbientLight(0xffffff, 0.7);
-      scene.add(ambientLight);
-      const pointLight = new PointLight(0xffffff, 0.2);
-      pointLight.position.set(1, 2, 3);
-      scene.add(pointLight);
-
-      ////////////////////////////////////////////////////////////////////////////
-
       setWorld((prev) => {
         const w = {
           ...prev,
@@ -169,39 +151,39 @@ export const WorldProvider: FC<WorldProviderProps> = ({ children, background = n
       if (world.controls) {
         world.controls.update();
       }
+      obs.forEach((ob) => {
+        ob.scroll(viewport);
+      });
       requestAnimationFrame(render);
     };
 
     render();
 
     return () => {};
-  }, [ready]);
+  }, [ready, obs]);
 
-  const addObject = useCallback((obj: Object3D<Event>) => {
+  const addOb = useCallback<WorldContextProps["addOb"]>((ob) => {
     // TODO リサイズ時、sceneのchildrenかwebGlObjectsを参照するか確認する
     setWorld((prev) => {
       const scene = prev.scene;
       if (prev.scene) {
-        prev.scene.add(obj);
+        prev.scene.add(ob.mesh);
       }
-      const webGlObjects = [...prev.webGlObjects, obj];
       const w = {
         ...prev,
         scene,
-        webGlObjects,
       };
       return w;
     });
+    setObs((prev) => [...prev, ob]);
   }, []);
 
   return (
-    <WorldContext.Provider value={{ world, tick, ready, addObject }}>
+    <WorldContext.Provider value={{ world, tick, ready, addOb }}>
       {isDebug && (
         <div>
           <h1 className="font-24-48 mt-8">tick: {tick}</h1>
-          <h1 className="font-24-48 mt-8">
-            world.webGlObjects.length: {world.webGlObjects.length}
-          </h1>
+          <h1 className="font-24-48 mt-8">obs.length: {obs.length}</h1>
         </div>
       )}
       {children}
@@ -214,6 +196,6 @@ export function useWorld() {
   if (!context) {
     throw new Error("useWorldはWorldProviderの内部から使用してください。");
   }
-  const { world, tick, ready, addObject } = context;
-  return { world, tick, ready, addObject };
+  const { world, tick, ready, addOb } = context;
+  return { world, tick, ready, addOb };
 }
