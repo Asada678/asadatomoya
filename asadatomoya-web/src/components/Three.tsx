@@ -64,10 +64,10 @@ const Three: FC<ThreeProps> = ({}) => {
     scene.add(pointLight);
 
     const controls = new OrbitControls(camera, renderer.domElement);
-    
+
     const axesHelper = new AxesHelper(1000);
     camera.position.z = 5;
-    
+
     scene.add(axesHelper);
     // アニメーション
     const clock = new Clock();

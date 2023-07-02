@@ -146,6 +146,9 @@ importers:
       react-dom:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
+      smooth-scrollbar:
+        specifier: ^8.8.4
+        version: 8.8.4
       tailwindcss:
         specifier: 3.3.2
         version: 3.3.2
@@ -1491,6 +1494,11 @@ packages:
       tree-kill: 1.2.2
       yargs: 17.7.2
     dev: true
+
+  /core-js@3.31.0:
+    resolution: {integrity: sha512-NIp2TQSGfR6ba5aalZD+ZQ1fSxGhDo/s1w0nx3RYzf2pnJxt7YynxFlFScP6eV7+GZsKO95NSjGxyJsU3DZgeQ==}
+    requiresBuild: true
+    dev: false
 
   /cross-spawn@7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
@@ -3524,6 +3532,13 @@ packages:
   /slash@4.0.0:
     resolution: {integrity: sha512-3dOsAHXXUkQTpOYcoAxLIorMTp4gIQr5IW3iVb7A7lFIp0VHhnynm9izx6TssdrIcVIESAlVjtnO2K8bg+Coew==}
     engines: {node: '>=12'}
+
+  /smooth-scrollbar@8.8.4:
+    resolution: {integrity: sha512-Wn2Q/iE+PE1ef4EfhFMhgaIMfSrjJl2LalRu0hBWSrw5nZKGsUIjWFWHnLB/Lpx7N+a1pJH6+wkQzBr+5nWPUg==}
+    dependencies:
+      core-js: 3.31.0
+      tslib: 1.14.1
+    dev: false
 
   /source-map-js@1.0.2:
     resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}
