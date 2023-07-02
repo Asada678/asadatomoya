@@ -76,8 +76,13 @@ class P extends Ob {
         this.uniforms.texCurrent.value = this.uniforms.texNext.value;
         this.uniforms.uProgress.value = 0;
         const activeEl = this.getChildMediaEl(_idx);
-        activeEl.style.opacity = "1";
-        this.$.el.style.opacity = "1";
+        const change = {
+          opacity: 1,
+          duration: 0.7,
+          ease: "slow",
+        };
+        gsap.to(activeEl, change);
+        gsap.to(this.$.el, change);
         this.mesh.visible = false;
         this.running = false;
         this.activeSlideIdx = idx;
