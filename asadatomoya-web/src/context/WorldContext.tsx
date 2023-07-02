@@ -174,6 +174,8 @@ export const WorldProvider: FC<WorldProviderProps> = ({ children, background = n
       return w;
     });
     setObs((prev) => [...prev, ob]);
+    //TODO afterInitを実行する場所が良くない
+    ob.afterInit();
   }, []);
 
   return (

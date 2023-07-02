@@ -187,9 +187,22 @@ export const getResolutionUniform = (htmlRect: DOMRect, mediaRect: DOMRect) => {
   return resolution;
 };
 
-// 配列の重複を排除する
+/**
+ * 配列の重複を排除する
+ * @param array
+ * @returns
+ */
 export const removeDuplicateArray = <T>(array: T[]): T[] => {
   const set = new Set<T>(array);
   const newArray = [...set];
   return newArray;
+};
+
+/**
+ * string[]を返す
+ * @param item
+ * @returns
+ */
+export const createArray = (item: string | string[]): string[] => {
+  return Array.isArray(item) ? item : [item];
 };

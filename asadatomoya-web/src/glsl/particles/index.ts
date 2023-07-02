@@ -1,19 +1,15 @@
-"use client";
-import { type FC, useEffect, useRef } from "react";
-
 import { gsap } from "gsap";
-import { LinearFilter, PlaneGeometry, Points, Texture, TextureLoader, Vector3 } from "three";
+import { PlaneGeometry, Points, Vector3 } from "three";
 
-import { isSafari, isTouchDevices, removeDuplicateArray } from "@utils";
+import { isSafari, isTouchDevices } from "@utils";
 
-import { useViewport } from "@context/ViewportContext";
-import { useWorld } from "@context/WorldContext";
 import { BaseUniforms, Ob } from "@glsl/Ob";
 
 import fragmentShader from "./fragment.glsl";
 import vertexShader from "./vertex.glsl";
 
-class P extends Ob {
+// eslint-disable-next-line import/no-anonymous-default-export
+export default class extends Ob {
   activeSlideIdx: number = 0;
   childMediaEls: HTMLElement[] = [];
   beforeCreateMesh() {}
@@ -115,6 +111,7 @@ class P extends Ob {
     });
     this.goTo(0);
   }
+  // TODO
   // debug(folder) {
   //   // folder.open();
 
@@ -139,74 +136,3 @@ class P extends Ob {
   //     });
   // }
 }
-
-interface ParticlesProps {
-  textureUrls: string[];
-  height?: number | string;
-  //TODO cover or contain
-  //TODO height
-}
-
-const Particles: FC<ParticlesProps> = ({ textureUrls }) => {
-  const divRef = useRef<HTMLDivElement>(null);
-  const { ready, addOb } = useWorld();
-  const { viewport } = useViewport();
-  //TODO textureCache
-  useEffect(() => {
-    if (!ready) return;
-    if (!(viewport.width > 0)) return;
-    const div = divRef.current;
-    if (!div) return;
-    const loadTextures = async (textureUrls: string[]) => {
-      const newArray = removeDuplicateArray(textureUrls);
-      const loadImg = async (url: string) => {
-        try {
-          const textureLoader = new TextureLoader();
-          const tex = await textureLoader.loadAsync(url);
-          tex.magFilter = LinearFilter;
-          tex.minFilter = LinearFilter;
-          tex.needsUpdate = false;
-          return tex;
-        } catch (e) {
-          throw new Error();
-        } finally {
-        }
-      };
-      const texturePromises: Promise<Texture | void>[] = [];
-      newArray.forEach((url) => {
-        const promise: Promise<Texture | void> = loadImg(url)
-          .then((tex) => {
-            return tex;
-          })
-          .catch((error) => {
-            console.log("error:", error);
-          });
-        texturePromises.push(promise);
-      });
-      const textures = (await Promise.all(texturePromises)).filter(
-        (texture): texture is Texture => texture !== undefined,
-      );
-      const p = new P({
-        textures,
-        el: div,
-        viewport,
-      });
-      p.afterInit();
-      addOb(p);
-    };
-    loadTextures(textureUrls);
-
-    return () => {
-      // TODO pをworldから削除
-      console.log("unmounted particles:", );
-    };
-  }, [ready]);
-
-  return (
-    <>
-      <div className="relative" style={{ minHeight: "60vh" }} ref={divRef}></div>
-    </>
-  );
-};
-
-export default Particles;
