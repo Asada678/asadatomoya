@@ -1,5 +1,5 @@
 "use client";
-import { type FC, useCallback, useEffect } from "react";
+import { type FC, useCallback, useEffect, useState } from "react";
 
 import { BoxGeometry, Mesh, MeshLambertMaterial } from "three";
 
@@ -8,22 +8,24 @@ import { useWorld } from "@context/WorldContext";
 
 const Child: FC = ({}) => {
   const { viewport, addResizeAction, removeResizeAction } = useViewport();
-  const { world, addWebGlObject } = useWorld();
+  const { world, ready, addObject } = useWorld();
 
   const action = useCallback(() => {
     console.log("added action");
   }, []);
 
   useEffect(() => {
-    addResizeAction(action);
+    if (ready) {
+      addResizeAction(action);
+      addObj();
+    }
 
     return () => {
       removeResizeAction(action);
     };
-  }, []);
+  }, [ready]);
 
-  const handleClick = () => {
-    console.log("world:", world);
+  const addObj = () => {
     function getRandomColor() {
       const letters = "0123456789ABCDEF";
       let color = "#";
@@ -48,11 +50,11 @@ const Child: FC = ({}) => {
     box.position.y = getRandomInt(-500, 500);
     box.position.z = getRandomInt(-500, 500);
     box.rotation.set(getRandomInt(-45, 45), getRandomInt(-45, 45), getRandomInt(-45, 45));
-    addWebGlObject(box);
+    addObject(box);
   };
 
-  const renderClick = () => {
-    // render();
+  const handleClick = () => {
+    addObj();
   };
 
   return (

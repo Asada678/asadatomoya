@@ -8,6 +8,7 @@ import React, {
   useState,
 } from "react";
 
+import { render } from "react-dom";
 import {
   AmbientLight,
   AxesHelper,
@@ -66,8 +67,9 @@ const initialWorld: World = {
 
 interface WorldContextProps {
   world: World;
-  // tick: number;
-  addWebGlObject: (...obj: Object3D<Event>[]) => void;
+  tick: number;
+  ready: boolean;
+  addObject: (...obj: Object3D<Event>[]) => void;
 }
 const WorldContext = createContext<WorldContextProps | undefined>(undefined);
 
@@ -78,7 +80,8 @@ interface WorldProviderProps {
 
 export const WorldProvider: FC<WorldProviderProps> = ({ children, background = null }) => {
   const [world, setWorld] = useState<World>(initialWorld);
-  const [isSetup, setIsSetup] = useState(false); // worldのsetupを検知するためのフラグ
+  const [tick, setTick] = useState(0);
+  const [ready, setReady] = useState(false); // worldのsetupを検知するためのフラグ
   const { viewport } = useViewport();
 
   useLayoutEffect(() => {
@@ -145,7 +148,7 @@ export const WorldProvider: FC<WorldProviderProps> = ({ children, background = n
         };
         return w;
       });
-      setIsSetup(true);
+      setReady(true);
     };
 
     init();
@@ -155,15 +158,9 @@ export const WorldProvider: FC<WorldProviderProps> = ({ children, background = n
 
   useLayoutEffect(() => {
     const render = () => {
-      if (!isSetup) return;
-
-      setWorld((prev) => {
-        const newWorld = {
-          ...prev,
-          tick: prev.tick + 1,
-        };
-        return newWorld;
-      });
+      if (!ready) return;
+      setTick((prev) => prev + 1);
+      setWorld(world); // この行がないと動かない
 
       if (world.composer) {
         world.composer.render();
@@ -177,9 +174,10 @@ export const WorldProvider: FC<WorldProviderProps> = ({ children, background = n
     render();
 
     return () => {};
-  }, [isSetup]);
+  }, [ready]);
 
-  const addWebGlObject = useCallback((obj: Object3D<Event>) => {
+  const addObject = useCallback((obj: Object3D<Event>) => {
+    // TODO リサイズ時、sceneのchildrenかwebGlObjectsを参照するか確認する
     setWorld((prev) => {
       const scene = prev.scene;
       if (prev.scene) {
@@ -196,10 +194,10 @@ export const WorldProvider: FC<WorldProviderProps> = ({ children, background = n
   }, []);
 
   return (
-    <WorldContext.Provider value={{ world, addWebGlObject }}>
+    <WorldContext.Provider value={{ world, tick, ready, addObject }}>
       {isDebug && (
         <div>
-          <h1 className="font-24-48 mt-8">world.tick: {world.tick}</h1>
+          <h1 className="font-24-48 mt-8">tick: {tick}</h1>
           <h1 className="font-24-48 mt-8">
             world.webGlObjects.length: {world.webGlObjects.length}
           </h1>
@@ -215,6 +213,6 @@ export function useWorld() {
   if (!context) {
     throw new Error("useWorldはWorldProviderの内部から使用してください。");
   }
-  const { world, addWebGlObject } = context;
-  return { world, addWebGlObject };
+  const { world, tick, ready, addObject } = context;
+  return { world, tick, ready, addObject };
 }
