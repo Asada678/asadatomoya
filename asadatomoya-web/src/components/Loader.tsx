@@ -23,7 +23,7 @@ const Loader: FC = () => {
   }, [ready]);
 
   return (
-    isDebug && (
+    !isDebug && (
       <div
         className="fixed left-0 top-0 z-50 flex h-screen w-screen items-center justify-center bg-black"
         ref={ref}
