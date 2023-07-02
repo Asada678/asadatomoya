@@ -70,6 +70,7 @@ interface WorldContextProps {
   tick: number;
   ready: boolean;
   addObject: (...obj: Object3D<Event>[]) => void;
+  // TODO グローバルにテクスチャを保持
 }
 const WorldContext = createContext<WorldContextProps | undefined>(undefined);
 

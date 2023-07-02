@@ -4,7 +4,7 @@ interface INode {
   htmlToEl: (htmlStr: string) => ChildNode | null;
   getElement: (elementOrSelector: ElementParameter) => Element | null;
   isElement: (target: ElementParameter) => boolean;
-  getRect: (el: ElementParameter) => DOMRect | null;
+  getRect: (el: ElementParameter) => DOMRect;
 }
 
 type ElementParameter = Element | string | null;

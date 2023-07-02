@@ -184,6 +184,7 @@ export const getResolutionUniform = (htmlRect: DOMRect, mediaRect: DOMRect) => {
   return resolution;
 };
 
+// 配列の重複を排除する
 export const removeDuplicateArray = <T>(array: T[]): T[] => {
   const set = new Set<T>(array);
   const newArray = [...set];
