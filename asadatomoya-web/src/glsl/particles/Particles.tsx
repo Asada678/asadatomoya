@@ -1,22 +1,22 @@
 "use client";
 import { type FC, useEffect, useRef } from "react";
 
+import { gsap } from "gsap";
 import { LinearFilter, PlaneGeometry, Points, Texture, TextureLoader, Vector3 } from "three";
 
 import { isSafari, isTouchDevices, removeDuplicateArray } from "@utils";
 
 import { useViewport } from "@context/ViewportContext";
 import { useWorld } from "@context/WorldContext";
+import { BaseUniforms, Ob } from "@glsl/Ob";
 
 import fragmentShader from "./fragment.glsl";
 import vertexShader from "./vertex.glsl";
-import { BaseUniforms, Ob } from "../Ob";
 
 class P extends Ob {
-  activeSlideIdx: number;
-  beforeCreateMesh() {
-    this.$.childMediaEls = [];
-  }
+  activeSlideIdx: number = 0;
+  childMediaEls: HTMLElement[] = [];
+  beforeCreateMesh() {}
   setupGeometry() {
     const width = this.rect.width,
       height = this.rect.height,
@@ -64,9 +64,11 @@ class P extends Ob {
       duration,
       ease: "none",
       onStart: () => {
-        this.$.childMediaEls.forEach((el) => {
-          el.style.opacity = 0;
-          el.pause?.();
+        this.childMediaEls.forEach((el) => {
+          el.style.opacity = "0";
+          if (el instanceof HTMLVideoElement) {
+            el.pause?.();
+          }
         });
         this.mesh.visible = true;
       },
@@ -74,25 +76,25 @@ class P extends Ob {
         this.uniforms.texCurrent.value = this.uniforms.texNext.value;
         this.uniforms.uProgress.value = 0;
         const activeEl = this.getChildMediaEl(_idx - 1);
-        activeEl.style.opacity = 1;
+        activeEl.style.opacity = "1";
         this.mesh.visible = false;
         this.running = false;
         this.activeSlideIdx = idx;
-        if (activeEl.paused || isSafari) {
+        if (activeEl instanceof HTMLVideoElement && (activeEl.paused || isSafari)) {
           activeEl.play?.();
         }
       },
     });
   }
   getChildMediaEl(idx: number) {
-    return this.$.childMediaEls[idx % this.textures.length];
+    return this.childMediaEls[idx % this.textures.length];
   }
-  afterInit() {
+  async afterInit() {
     this.textures.forEach((tex) => {
       const mediaEl = tex.source.data.cloneNode();
       mediaEl.classList.add("particle-child");
       this.$.el.parentElement?.append(mediaEl);
-      this.$.childMediaEls.push(mediaEl);
+      this.childMediaEls.push(mediaEl);
       mediaEl.addEventListener("click", () => {
         mediaEl.play?.();
       });
@@ -126,10 +128,9 @@ class P extends Ob {
 
 interface ParticlesProps {
   textureUrls: string[];
-  type: "particles" | "something";
 }
 
-const Particles: FC<ParticlesProps> = ({ textureUrls, type }) => {
+const Particles: FC<ParticlesProps> = ({ textureUrls }) => {
   const divRef = useRef<HTMLDivElement>(null);
   const { ready, addOb } = useWorld();
   const { viewport } = useViewport();

@@ -6,6 +6,7 @@
 import gsap from "gsap";
 import {
   Mesh,
+  Object3D,
   PlaneGeometry,
   Points,
   Shader,
@@ -37,7 +38,9 @@ export interface BaseUniforms {
     | { value: null };
 }
 abstract class Ob {
-  $: { el: HTMLElement };
+  $: {
+    el: HTMLElement;
+  };
   textures: Texture[];
   scale: { width: number; height: number; depth: number };
   resizing: boolean;
@@ -49,7 +52,7 @@ abstract class Ob {
   fragmentShader!: string;
   material!: ShaderMaterial;
   geometry!: PlaneGeometry;
-  mesh!: Mesh<any, any> | Points<any, any>;
+  mesh!: Object3D;
   fixed: boolean = false;
 
   constructor({
@@ -197,7 +200,7 @@ abstract class Ob {
   }
 
   // メッシュを返すメソッド
-  setupMesh() {
+  setupMesh(): Object3D {
     return new Mesh(this.geometry, this.material);
   }
 
@@ -280,8 +283,7 @@ abstract class Ob {
   }
 
   // エフェクトの作成後に実行されるメソッド
-  async afterInit() {}
-
+  abstract afterInit(): any;
   // 動画テクスチャの再生用メソッド
   // async playVideo(texId = `${config.prefix.tex}1`) {
   //   this.uniforms[texId].value.source.data.play?.();

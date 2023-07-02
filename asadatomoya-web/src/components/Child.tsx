@@ -8,7 +8,7 @@ import { useWorld } from "@context/WorldContext";
 
 const Child: FC = ({}) => {
   const { viewport, addResizeAction, removeResizeAction } = useViewport();
-  const { world, ready, addObject } = useWorld();
+  const { world, ready, addOb } = useWorld();
 
   const action = useCallback(() => {
     console.log("added action");
@@ -17,7 +17,7 @@ const Child: FC = ({}) => {
   useEffect(() => {
     if (ready) {
       addResizeAction(action);
-      addObj();
+      // addObj();
     }
 
     return () => {
@@ -25,36 +25,36 @@ const Child: FC = ({}) => {
     };
   }, [ready]);
 
-  const addObj = () => {
-    function getRandomColor() {
-      const letters = "0123456789ABCDEF";
-      let color = "#";
-      for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-      }
-      return color;
-    }
-    function getRandomInt(min: number, max: number) {
-      min = Math.ceil(min);
-      max = Math.floor(max);
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-    addResizeAction(action);
-    const size = getRandomInt(30, 300);
-    const boxGeometry = new BoxGeometry(size, size, size);
-    const boxMaterial = new MeshLambertMaterial({
-      color: getRandomColor(),
-    });
-    const box = new Mesh(boxGeometry, boxMaterial);
-    box.position.x = getRandomInt(-500, 500);
-    box.position.y = getRandomInt(-500, 500);
-    box.position.z = getRandomInt(-500, 500);
-    box.rotation.set(getRandomInt(-45, 45), getRandomInt(-45, 45), getRandomInt(-45, 45));
-    addObject(box);
-  };
+  // const addObj = () => {
+  //   function getRandomColor() {
+  //     const letters = "0123456789ABCDEF";
+  //     let color = "#";
+  //     for (let i = 0; i < 6; i++) {
+  //       color += letters[Math.floor(Math.random() * 16)];
+  //     }
+  //     return color;
+  //   }
+  //   function getRandomInt(min: number, max: number) {
+  //     min = Math.ceil(min);
+  //     max = Math.floor(max);
+  //     return Math.floor(Math.random() * (max - min + 1)) + min;
+  //   }
+  //   addResizeAction(action);
+  //   const size = getRandomInt(30, 300);
+  //   const boxGeometry = new BoxGeometry(size, size, size);
+  //   const boxMaterial = new MeshLambertMaterial({
+  //     color: getRandomColor(),
+  //   });
+  //   const box = new Mesh(boxGeometry, boxMaterial);
+  //   box.position.x = getRandomInt(-500, 500);
+  //   box.position.y = getRandomInt(-500, 500);
+  //   box.position.z = getRandomInt(-500, 500);
+  //   box.rotation.set(getRandomInt(-45, 45), getRandomInt(-45, 45), getRandomInt(-45, 45));
+  //   addOb(box);
+  // };
 
   const handleClick = () => {
-    addObj();
+    // addObj();
   };
 
   return (

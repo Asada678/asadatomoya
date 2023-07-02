@@ -26,7 +26,6 @@ interface World {
   scene: Scene | null;
   camera: PerspectiveCamera | null;
   composer: EffectComposer | null;
-  webGlObjects: Object3D<Event>[];
   controls?: OrbitControls | null;
 }
 
@@ -37,7 +36,6 @@ const initialWorld: World = {
   scene: null,
   composer: null,
   camera: null,
-  webGlObjects: [],
   controls: null,
   // renderActions: new Set<() => void>(),
   // raycastingMeshes: [] as Mesh[],
@@ -163,7 +161,7 @@ export const WorldProvider: FC<WorldProviderProps> = ({ children, background = n
   }, [ready, obs]);
 
   const addOb = useCallback<WorldContextProps["addOb"]>((ob) => {
-    // TODO リサイズ時、sceneのchildrenかwebGlObjectsを参照するか確認する
+    // TODO リサイズ時、sceneのchildrenを参照するか確認する
     setWorld((prev) => {
       const scene = prev.scene;
       if (prev.scene) {
