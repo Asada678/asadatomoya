@@ -135,7 +135,6 @@ const Particles: FC<ParticlesProps> = ({ textureUrls, type }) => {
   useEffect(() => {
     if (!ready) return;
     const div = divRef.current;
-    console.log("div:", div);
     if (!div) return;
     const loadTextures = async (textureUrls: string[]) => {
       const newArray = removeDuplicateArray(textureUrls);
@@ -166,13 +165,11 @@ const Particles: FC<ParticlesProps> = ({ textureUrls, type }) => {
       const textures = (await Promise.all(texturePromises)).filter(
         (texture): texture is Texture => texture !== undefined,
       );
-      console.log("textures:", textures);
       const o = new P({
         textures,
         el: div,
         type,
       });
-      console.log("o:", o);
       addObject(o.mesh);
     };
     loadTextures(textureUrls);

@@ -4,7 +4,7 @@ module.exports = {
   webpack: (config, options) => {
     config.module.rules.push({
       test: /\.(glsl|vs|fs|vert|frag)$/,
-      use: ["raw-loader"],
+      use: ["raw-loader", "glslify-loader"],
     });
 
     return config;
