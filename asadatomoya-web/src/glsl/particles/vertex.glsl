@@ -17,7 +17,7 @@ void main() {
     float time = uTick * uSpeed;
     const float cameraZ = 2000.;
     vec3 pos = position;
-    float progress = parabola(uProgress, 0.5);
+    float progress = parabola(uProgress, 0.85);
 
     vec3 expand = vec3(pos.x * uExpand.x, pos.y * uExpand.y, 1.);
     vec3 noise = cnoise(vec3(pos.x * uCnoise.x + time * 0.05, pos.y * uCnoise.y + time * 0.05, (pos.x + pos.y) * uCnoise.z));
