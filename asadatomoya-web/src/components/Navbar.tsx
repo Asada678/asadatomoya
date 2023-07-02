@@ -123,7 +123,7 @@ const Navbar: FC<NavbarProps> = ({}) => {
               </Dialog.Trigger>
               <Dialog.Portal>
                 <Dialog.Overlay className="bg-overlay fixed inset-0" />
-                <Dialog.Content className="animate-in fixed left-1/2 top-1/2 z-50 h-[85vh] w-[90vw] max-w-[450px] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-[6px] bg-white focus:outline-none">
+                <Dialog.Content className="animate-in fixed left-1/2 top-1/2 z-50 h-[85vh] w-[300px] max-w-[450px] -translate-x-1/2 -translate-y-1/2 overflow-y-auto bg-white">
                   <Dialog.Title className="text-mauve12 font-24-48 m-0 text-center font-bold uppercase">
                     Menu
                   </Dialog.Title>
@@ -146,7 +146,7 @@ const Navbar: FC<NavbarProps> = ({}) => {
 
                   <Dialog.Close asChild>
                     <button
-                      className="focus:shadow-violet7 absolute right-[10px] top-[10px] inline-flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-full focus:shadow-[0_0_0_2px] focus:outline-none"
+                      className="focus:shadow-violet7 absolute right-[10px] top-[10px] inline-flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-full"
                       aria-label="Close"
                     >
                       <Cross2Icon />

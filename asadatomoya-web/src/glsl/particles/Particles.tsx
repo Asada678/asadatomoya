@@ -186,17 +186,20 @@ const Particles: FC<ParticlesProps> = ({ textureUrls }) => {
       const textures = (await Promise.all(texturePromises)).filter(
         (texture): texture is Texture => texture !== undefined,
       );
-      const o = new P({
+      const p = new P({
         textures,
         el: div,
         viewport,
       });
-      o.afterInit();
-      addOb(o);
+      p.afterInit();
+      addOb(p);
     };
     loadTextures(textureUrls);
 
-    return () => {};
+    return () => {
+      // TODO pをworldから削除
+      console.log("unmounted particles:", );
+    };
   }, [ready]);
 
   return (

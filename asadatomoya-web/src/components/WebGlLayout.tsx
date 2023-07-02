@@ -5,6 +5,7 @@ import { ViewportProvider } from "@context/ViewportContext";
 import { WorldProvider } from "@context/WorldContext";
 
 import Background from "./Background";
+import Loader from "./Loader";
 import Navbar from "./Navbar";
 
 interface LayoutProps {
@@ -19,6 +20,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
       <ViewportProvider canvasRef={canvasRef}>
         <WorldProvider>
           <div>
+            <Loader />
             <Navbar />
             <canvas
               id="canvas"

@@ -14,8 +14,8 @@ module.exports = {
       },
       keyframes: {
         in: {
-          "0%": { top: "55%", opacity: 0 },
-          "100%": { top: "50%", opacity: 1 },
+          "0%": { left: "100%", opacity: 0 },
+          "100%": { left: "50%", opacity: 1 },
         },
       },
       animation: {
