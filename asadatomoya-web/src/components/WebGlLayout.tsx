@@ -1,8 +1,5 @@
 "use client";
-import { type FC, useEffect, useRef } from "react";
-
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Scrollbar from "smooth-scrollbar";
+import { type FC, useRef } from "react";
 
 import { ViewportProvider } from "@context/ViewportContext";
 import { WorldProvider } from "@context/WorldContext";
@@ -14,32 +11,14 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
-const SCROLL_WRAPPER = "scroll-wrapper";
-
 const Layout: FC<LayoutProps> = ({ children }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  useEffect(() => {
-    const scrollWrapper = document.getElementById(SCROLL_WRAPPER);
-    if (scrollWrapper) {
-      const scrollbar = Scrollbar.init(scrollWrapper, { delegateTo: document, damping: 0.06 });
-      ScrollTrigger.scrollerProxy(scrollWrapper, {
-        scrollTop(value) {
-          if (arguments.length && value) {
-            scrollbar.scrollTop = value;
-          }
-          return scrollbar.scrollTop;
-        },
-
-      });
-    }
-    return () => {};
-  }, []);
 
   return (
     <>
       <ViewportProvider canvasRef={canvasRef}>
         <WorldProvider>
-          <div id={SCROLL_WRAPPER} className="h-screen overflow-hidden">
+          <div>
             <Navbar />
             <canvas
               id="canvas"
@@ -47,8 +26,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
               ref={canvasRef}
             ></canvas>
             {children}
+            <Background />
           </div>
-          <Background />
         </WorldProvider>
       </ViewportProvider>
     </>
