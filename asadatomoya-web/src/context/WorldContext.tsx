@@ -179,9 +179,9 @@ export const WorldProvider: FC<WorldProviderProps> = ({ children, background = n
   return (
     <WorldContext.Provider value={{ world, tick, ready, addOb }}>
       {isDebug && (
-        <div>
-          <h1 className="font-24-48 mt-8">tick: {tick}</h1>
-          <h1 className="font-24-48 mt-8">obs.length: {obs.length}</h1>
+        <div className="fixed bottom-3 pl-2">
+          <h3 className="font-14-16">tick: {tick}</h3>
+          <h3 className="font-14-16">obs.length: {obs.length}</h3>
         </div>
       )}
       {children}

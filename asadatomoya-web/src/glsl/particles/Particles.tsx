@@ -56,7 +56,7 @@ class P extends Ob {
     if (this.running) return;
     this.running = true;
 
-    const nextTex = this.textures[_idx - 1];
+    const nextTex = this.textures[_idx];
     this.uniforms.texNext.value = nextTex;
 
     gsap.to(this.uniforms.uProgress, {
@@ -75,8 +75,9 @@ class P extends Ob {
       onComplete: () => {
         this.uniforms.texCurrent.value = this.uniforms.texNext.value;
         this.uniforms.uProgress.value = 0;
-        const activeEl = this.getChildMediaEl(_idx - 1);
+        const activeEl = this.getChildMediaEl(_idx);
         activeEl.style.opacity = "1";
+        this.$.el.style.opacity = "1";
         this.mesh.visible = false;
         this.running = false;
         this.activeSlideIdx = idx;
@@ -92,14 +93,22 @@ class P extends Ob {
   async afterInit() {
     this.textures.forEach((tex) => {
       const mediaEl = tex.source.data.cloneNode();
-      mediaEl.classList.add("particle-child");
-      this.$.el.parentElement?.append(mediaEl);
+      mediaEl.classList.add(
+        "absolute",
+        "top-0",
+        "left-0",
+        "w-full",
+        "h-full",
+        "object-cover",
+        "m-0",
+      );
+      this.$.el.append(mediaEl);
       this.childMediaEls.push(mediaEl);
       mediaEl.addEventListener("click", () => {
         mediaEl.play?.();
       });
     });
-    this.goTo(0, 0.1);
+    this.goTo(0);
   }
   // debug(folder) {
   //   // folder.open();
@@ -128,6 +137,9 @@ class P extends Ob {
 
 interface ParticlesProps {
   textureUrls: string[];
+  height?: number | string;
+  //TODO cover or contain
+  //TODO height
 }
 
 const Particles: FC<ParticlesProps> = ({ textureUrls }) => {
@@ -174,6 +186,7 @@ const Particles: FC<ParticlesProps> = ({ textureUrls }) => {
         el: div,
         viewport,
       });
+      o.afterInit();
       addOb(o);
     };
     loadTextures(textureUrls);
@@ -183,8 +196,7 @@ const Particles: FC<ParticlesProps> = ({ textureUrls }) => {
 
   return (
     <>
-      <h2 className="mb-16 text-xl font-bold">Particles</h2>
-      <div className="" style={{ height: 500 }} ref={divRef}></div>
+      <div className="relative" style={{ minHeight: "60vh" }} ref={divRef}></div>
     </>
   );
 };
