@@ -159,7 +159,7 @@ export const isTouchDevices: boolean =
   typeof window !== "undefined" && Boolean("ontouchstart" in window);
 
 // テクスチャのアスペクト値の算出
-export function getResolutionUniform(htmlRect: DOMRect, mediaRect: DOMRect) {
+export const getResolutionUniform = (htmlRect: DOMRect, mediaRect: DOMRect) => {
   const { width: htmlW, height: htmlH } = htmlRect;
   const resolution = new Vector4(htmlW, htmlH, 1, 1);
 
@@ -182,4 +182,10 @@ export function getResolutionUniform(htmlRect: DOMRect, mediaRect: DOMRect) {
   resolution.z = xAspect;
   resolution.w = yAspect;
   return resolution;
-}
+};
+
+export const removeDuplicateArray = <T>(array: T[]): T[] => {
+  const set = new Set<T>(array);
+  const newArray = [...set];
+  return newArray;
+};
