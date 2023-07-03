@@ -6,18 +6,18 @@ export default function Cylinder() {
       <p>cylinder</p>
       <div className="h-screen">
         <div className="py-32"></div>
-        <div className="mx-auto flex w-full max-w-2xl items-center justify-center">
+        <div className="mx-auto flex w-full max-w-xl items-center justify-center">
           <WebGl
             webgl="cylinder"
             texture={[
-              // "/img/profile.jpg",
+              "/img/sample/tree.jpg",
+              "/img/profile.jpg",
               "/img/sample/sea.jpg",
               "/img/sample/dog.jpg",
-              "/img/sample/sea.jpg",
+              "/img/logo/icon.webp",
             ]}
-            className="aspect-video w-full bg-white"
+            className="aspect-video w-full"
           />
-          <h3>webgl cylinder</h3>
         </div>
       </div>
     </div>

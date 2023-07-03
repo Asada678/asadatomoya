@@ -9,7 +9,7 @@ export default function Qualifications() {
         <div className="mx-auto flex w-full max-w-2xl items-center justify-center">
           <WebGl
             webgl="slider-world"
-            texture={["/img/sample/sea.jpg", "/img/sample/dog.jpg", "/img/sample/sea.jpg"]}
+            texture={["/img/sample/tree.jpg", "/img/sample/dog.jpg", "/img/sample/sea.jpg"]}
             className="aspect-video w-full"
           />
         </div>

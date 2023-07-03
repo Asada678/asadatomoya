@@ -66,6 +66,11 @@ export default class extends Ob<Mesh<CylinderGeometry, MeshBasicMaterial>> {
       alphaTest: 0.5,
     });
     const cylinder = new Mesh(cylinderGeo, cylinderMate);
+    cylinder.position.z = -this.radius;
+
+    const { position, normal } = cylinderGeo.attributes;
+    const ONE_LOOP = cylinderGeo.attributes.position.count / 2; // 頂点の個数 / 2
+    const step = Math.floor(ONE_LOOP / this.textures.length); // 頂点をテクスチャの数で割った整数値
 
     let idx = 0;
     this.textures.forEach((tex) => {
@@ -80,6 +85,17 @@ export default class extends Ob<Mesh<CylinderGeometry, MeshBasicMaterial>> {
       const planeGeo = this.geometry;
       const plane = new Mesh(planeGeo, planeMate);
 
+      const pickedIdx = idx * step;
+      plane.position.x = position.getX(pickedIdx);
+      plane.position.z = position.getZ(pickedIdx);
+
+      const originalDir = { x: 0, y: 0, z: 1 }; // Z方向に対して正面を向いている状態
+      const targetDir = { // 画像が存在する頂点に対する法線のベクトル
+        x: normal.getX(pickedIdx),
+        y: 0,
+        z: normal.getZ(pickedIdx),
+      };
+      pointTo(plane, originalDir, targetDir);
       cylinder.add(plane);
 
       idx++;

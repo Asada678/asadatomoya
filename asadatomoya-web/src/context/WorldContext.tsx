@@ -26,7 +26,7 @@ interface World {
   scene: Scene | null;
   camera: PerspectiveCamera | null;
   composer: EffectComposer | null;
-  controls?: OrbitControls | null;
+  controls: OrbitControls | null;
 }
 
 const initialWorld: World = {
@@ -54,7 +54,7 @@ const initialWorld: World = {
   // addRaycastingTarget,
 };
 
-type ObType = Ob<Object3D>
+type ObType = Ob<Object3D>;
 type AddOb = (obj: ObType) => void;
 interface WorldContextProps {
   world: World;
@@ -117,6 +117,7 @@ export const WorldProvider: FC<WorldProviderProps> = ({ children, background = n
         controls.update();
         const axesHelper = new AxesHelper(1000);
         scene.add(axesHelper);
+        renderer.domElement.style.zIndex = "1";
       }
 
       setWorld((prev) => {
