@@ -167,13 +167,19 @@ importers:
       typescript:
         specifier: 5.1.3
         version: 5.1.3
+      uuid:
+        specifier: ^9.0.0
+        version: 9.0.0
     devDependencies:
       '@types/three':
         specifier: ^0.152.1
         version: 0.152.1
+      '@types/uuid':
+        specifier: ^9.0.2
+        version: 9.0.2
       eslint-plugin-prettier:
         specifier: ^4.2.1
-        version: 4.2.1(eslint@8.42.0)(prettier@2.8.8)
+        version: 4.2.1(eslint-config-prettier@8.8.0)(eslint@8.42.0)(prettier@2.8.8)
       glslify-loader:
         specifier: ^2.0.0
         version: 2.0.0
@@ -991,6 +997,10 @@ packages:
       '@types/webxr': 0.5.2
       fflate: 0.6.10
       lil-gui: 0.17.0
+    dev: true
+
+  /@types/uuid@9.0.2:
+    resolution: {integrity: sha512-kNnC1GFBLuhImSnV7w4njQkUiJi0ZXUycu1rUaouPqiKlXkh77JKgdRnTAp1x5eBwcIwbtI+3otwzuIDEuDoxQ==}
     dev: true
 
   /@types/webxr@0.5.2:
@@ -1899,7 +1909,7 @@ packages:
       semver: 6.3.0
     dev: false
 
-  /eslint-plugin-prettier@4.2.1(eslint@8.42.0)(prettier@2.8.8):
+  /eslint-plugin-prettier@4.2.1(eslint-config-prettier@8.8.0)(eslint@8.42.0)(prettier@2.8.8):
     resolution: {integrity: sha512-f/0rXLXUt0oFYs8ra4w49wYZBG5GKZpAYsJSm6rnYL5uVDjd+zowwMwVZHnAjf4edNrKpCDYfXDgmRE/Ak7QyQ==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
@@ -1911,6 +1921,7 @@ packages:
         optional: true
     dependencies:
       eslint: 8.42.0
+      eslint-config-prettier: 8.8.0(eslint@8.42.0)
       prettier: 2.8.8
       prettier-linter-helpers: 1.0.0
     dev: true
@@ -4114,6 +4125,11 @@ packages:
 
   /util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
+    dev: false
+
+  /uuid@9.0.0:
+    resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
+    hasBin: true
     dev: false
 
   /v8n@1.5.1:

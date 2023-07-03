@@ -15,7 +15,7 @@ interface WebGlProps extends HTMLAttributes<HTMLDivElement> {
 
 const WebGl: FC<WebGlProps> = ({ texture, webgl, style = {}, className = "" }) => {
   const divRef = useRef<HTMLDivElement>(null);
-  const { ready, addOb } = useWorld();
+  const { ready, addOb, removeOb } = useWorld();
   const { viewport } = useViewport();
   //TODO textureCache
 
@@ -24,6 +24,8 @@ const WebGl: FC<WebGlProps> = ({ texture, webgl, style = {}, className = "" }) =
     if (!(viewport.width > 0)) return;
     const div = divRef.current;
     if (!div) return;
+
+    let obId = ""; // アンマウント時にremoveObへと渡すid
 
     const createOb = async () => {
       const newArray = removeDuplicateArray(createArray(texture));
@@ -58,14 +60,14 @@ const WebGl: FC<WebGlProps> = ({ texture, webgl, style = {}, className = "" }) =
         return new Ob({ textures, el: div, viewport });
       });
       addOb(ob);
+      obId = ob.id;
     };
     createOb();
 
     return () => {
-      // TODO obをworldから削除
-      console.log("unmounted component:");
+      removeOb(obId);
     };
-  }, [ready]);
+  }, [ready]); // worldの作成が完了していたら実行
 
   return <div className={`relative ${className}`} style={style} ref={divRef}></div>;
 };

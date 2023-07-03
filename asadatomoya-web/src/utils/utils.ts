@@ -1,6 +1,6 @@
 import { detect as detectBrowser } from "detect-browser";
 import { Object3D, Quaternion, Vector3, Vector4 } from "three";
-
+import { v4 as uuidv4 } from "uuid";
 // interface Rectangle {
 //   width: number;
 //   height: number;
@@ -243,3 +243,5 @@ export const lerp = (a: number, b: number, n: number, limit: number = 0.001) => 
   if (Math.abs(b - current) < limit) current = b;
   return current;
 };
+
+export const generateId = () => uuidv4();

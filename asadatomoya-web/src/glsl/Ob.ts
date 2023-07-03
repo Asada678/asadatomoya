@@ -17,7 +17,7 @@ import {
 } from "three";
 
 import { Viewport } from "@model";
-import { getResolutionUniform, INode, isDebug } from "@utils";
+import { generateId, getResolutionUniform, INode, isDebug } from "@utils";
 
 export interface Uniforms {
   uTick: { value: number };
@@ -34,7 +34,10 @@ export interface Uniforms {
     | { value: Vector4 }
     | { value: null };
 }
+
+export type ObType = Ob<Object3D>;
 abstract class Ob<T extends Object3D> {
+  id: string;
   $: {
     el: HTMLElement;
   };
@@ -61,6 +64,7 @@ abstract class Ob<T extends Object3D> {
     el: HTMLElement;
     viewport: Viewport;
   }) {
+    this.id = generateId();
     this.$ = { el };
     this.textures = textures ?? [];
 

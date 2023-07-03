@@ -16,7 +16,7 @@ import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass";
 
 import { isDebug, isTouchDevices } from "@utils";
 
-import { Ob } from "@glsl/Ob";
+import { Ob, ObType } from "@glsl/Ob";
 
 import { useViewport } from "./ViewportContext";
 
@@ -54,13 +54,13 @@ const initialWorld: World = {
   // addRaycastingTarget,
 };
 
-type ObType = Ob<Object3D>;
-type AddOb = (obj: ObType) => void;
+type ObAction = (obj: ObType) => void;
 interface WorldContextProps {
   world: World;
   tick: number;
   ready: boolean;
-  addOb: AddOb;
+  addOb: ObAction;
+  removeOb: (id: string) => void;
   // TODO グローバルにテクスチャを保持
 }
 const WorldContext = createContext<WorldContextProps | undefined>(undefined);
@@ -162,26 +162,32 @@ export const WorldProvider: FC<WorldProviderProps> = ({ children, background = n
     return () => {};
   }, [ready, obs]);
 
-  const addOb = useCallback<WorldContextProps["addOb"]>((ob) => {
-    // TODO リサイズ時、sceneのchildrenを参照するか確認する
-    setWorld((prev) => {
-      const scene = prev.scene;
-      if (prev.scene) {
-        prev.scene.add(ob.mesh);
-      }
-      const w = {
-        ...prev,
-        scene,
-      };
-      return w;
-    });
-    setObs((prev) => [...prev, ob]);
-    //TODO afterInitを実行する場所が良くない
-    ob.afterInit();
-  }, []);
+  const addOb = useCallback<WorldContextProps["addOb"]>(
+    (ob) => {
+      // TODO リサイズ時、sceneのchildrenを参照するか確認する
+      world.scene?.add(ob.mesh);
+      setObs((prev) => [...prev, ob]);
+      //TODO afterInitを実行する場所が良くない
+      ob.afterInit();
+    },
+    [ready],
+  );
+
+  const removeOb = useCallback<WorldContextProps["removeOb"]>(
+    (targetId) => {
+      setObs((prevObs) => {
+        const targetOb = prevObs.find((ob) => ob.id === targetId);
+        if (targetOb) {
+          world.scene?.remove(targetOb.mesh);
+        }
+        return prevObs.filter((ob) => ob.id !== targetId);
+      });
+    },
+    [ready],
+  );
 
   return (
-    <WorldContext.Provider value={{ world, tick, ready, addOb }}>
+    <WorldContext.Provider value={{ world, tick, ready, addOb, removeOb }}>
       {isDebug && (
         <div className="fixed bottom-3 pl-2">
           <h3 className="font-14-16">tick: {tick}</h3>
@@ -198,6 +204,6 @@ export function useWorld() {
   if (!context) {
     throw new Error("useWorldはWorldProviderの内部から使用してください。");
   }
-  const { world, tick, ready, addOb } = context;
-  return { world, tick, ready, addOb };
+  const { world, tick, ready, addOb, removeOb } = context;
+  return { world, tick, ready, addOb, removeOb };
 }

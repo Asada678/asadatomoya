@@ -13,4 +13,4 @@ export interface Viewport {
   actions: Set<(viewport?: Viewport) => void>;
   isLoaded: boolean;
 }
-DOMRect
+
