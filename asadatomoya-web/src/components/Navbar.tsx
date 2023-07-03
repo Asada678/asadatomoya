@@ -17,7 +17,7 @@ const passionOne = Passion_One({
   subsets: ["latin"],
   weight: ["400"],
 });
-const links = ["webgl", "three", "career", "qualifications"];
+const links = ["webgl", "three", "career", "qualifications", "cylinder"];
 
 interface NavbarProps {}
 gsap.registerPlugin(ScrollTrigger);

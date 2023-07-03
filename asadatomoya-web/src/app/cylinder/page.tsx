@@ -1,12 +1,12 @@
 import WebGl from "@glsl/WebGl";
 
-export default function Qualifications() {
+export default function Cylinder() {
   return (
     <div className="">
-      <p>qualifications</p>
+      <p>cylinder</p>
       <div className="flex h-screen items-center justify-center">
         <WebGl
-          webgl="slider-world"
+          webgl="cylinder"
           texture={[
             // "/img/profile.jpg",
             "/img/sample/sea.jpg",
@@ -17,10 +17,6 @@ export default function Qualifications() {
         />
       </div>
       <div className="min-h-screen"></div>
-      {/* <WebGl
-        webgl="particles"
-        texture={["/img/sample/tree.jpg", "/img/sample/sea.jpg", "/img/sample/dog.jpg"]}
-      /> */}
       <div className="min-h-screen"></div>
       <div className="min-h-screen"></div>
       <div className="min-h-screen"></div>

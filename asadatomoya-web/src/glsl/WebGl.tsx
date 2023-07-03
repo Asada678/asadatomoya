@@ -1,5 +1,5 @@
 "use client";
-import { type FC, useEffect, useRef } from "react";
+import { type FC, HTMLAttributes, useEffect, useRef } from "react";
 
 import { LinearFilter, Texture, TextureLoader } from "three";
 
@@ -8,20 +8,18 @@ import { createArray, removeDuplicateArray } from "@utils";
 import { useViewport } from "@context/ViewportContext";
 import { useWorld } from "@context/WorldContext";
 
-interface WebGlProps {
+interface WebGlProps extends HTMLAttributes<HTMLDivElement> {
   texture: string | string[];
-  webgl: "particles";
-  height?: number | string;
+  webgl: "slider-world" | "particles" | "cylinder";
 }
 
-const WebGl: FC<WebGlProps> = ({ texture, webgl, height = "50vh" }) => {
+const WebGl: FC<WebGlProps> = ({ texture, webgl, style = {}, className = "" }) => {
   const divRef = useRef<HTMLDivElement>(null);
   const { ready, addOb } = useWorld();
   const { viewport } = useViewport();
   //TODO textureCache
 
   useEffect(() => {
-    console.log("height:", height);
     if (!ready) return;
     if (!(viewport.width > 0)) return;
     const div = divRef.current;
@@ -69,11 +67,7 @@ const WebGl: FC<WebGlProps> = ({ texture, webgl, height = "50vh" }) => {
     };
   }, [ready]);
 
-  return (
-    <>
-      <div className="relative" style={{ height }} ref={divRef}></div>
-    </>
-  );
+  return <div className={`relative ${className}`} style={style} ref={divRef}></div>;
 };
 
 export default WebGl;

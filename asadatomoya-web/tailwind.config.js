@@ -18,6 +18,9 @@ module.exports = {
           "100%": { left: "50%", opacity: 1 },
         },
       },
+      height: {
+        "screen1/2": '50vh' 
+      },
       animation: {
         in: "in 0.3s ease-in-out",
       },

@@ -1,15 +1,15 @@
 import { gsap } from "gsap";
-import { PlaneGeometry, Points, Vector3 } from "three";
+import { PlaneGeometry, Points, ShaderMaterial, Vector3 } from "three";
 
 import { isSafari, isTouchDevices } from "@utils";
 
-import { BaseUniforms, Ob } from "@glsl/Ob";
+import { Ob, Uniforms } from "@glsl/Ob";
 
 import fragmentShader from "./fragment.glsl";
 import vertexShader from "./vertex.glsl";
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default class extends Ob {
+export default class extends Ob<Points<PlaneGeometry, ShaderMaterial>> {
   activeSlideIdx: number = 0;
   childMediaEls: HTMLElement[] = [];
   beforeCreateMesh() {}
@@ -39,7 +39,7 @@ export default class extends Ob {
   setupFragment() {
     return fragmentShader;
   }
-  setupTexes(uniforms: BaseUniforms) {
+  setupTexes(uniforms: Uniforms) {
     uniforms.texCurrent = { value: this.textures[0] };
     uniforms.texNext = { value: null };
     return uniforms;

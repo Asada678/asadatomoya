@@ -1,9 +1,5 @@
-// import { detect as detectBrowser } from "detect-browser";
-// import { getGPUTier } from "detect-gpu";
-// import { Mesh, Quaternion, Vector3, Vector4 } from "three";
-
 import { detect as detectBrowser } from "detect-browser";
-import { Vector4 } from "three";
+import { Object3D, Quaternion, Vector3, Vector4 } from "three";
 
 // interface Rectangle {
 //   width: number;
@@ -205,4 +201,45 @@ export const removeDuplicateArray = <T>(array: T[]): T[] => {
  */
 export const createArray = (item: string | string[]): string[] => {
   return Array.isArray(item) ? item : [item];
+};
+
+/**
+ * メッシュの向きの変更
+ * @param _mesh
+ * @param originalDir
+ * @param targetDir
+ */
+type xyz = Vector3 | { x: number; y: number; z: number };
+export const pointTo = (_mesh: Object3D, originalDir: xyz, targetDir: xyz) => {
+  // 回転軸の計算
+  const _originalDir = new Vector3(originalDir.x, originalDir.y, originalDir.z).normalize();
+  const _targetDir = new Vector3(targetDir.x, targetDir.y, targetDir.z).normalize();
+  const dir = new Vector3().crossVectors(_originalDir, _targetDir).normalize();
+
+  // 回転角の計算
+  const dot = _originalDir.dot(_targetDir);
+  const rad = Math.acos(dot);
+
+  // クォータニオンの作成
+  const q = new Quaternion();
+  q.setFromAxisAngle(dir, rad);
+
+  // メッシュを回転
+  _mesh.rotation.setFromQuaternion(q);
+};
+
+/**
+ * 線形補間
+ * 補間係数nを用いて、aからbへの補間を行う。
+ * nが0の場合、結果はaとなり、nが1の場合、結果はbとなる。
+ * @param a 補間の開始値
+ * @param b 補間の終了値
+ * @param n 補間係数(0~1)
+ * @param limit 現在の値とbとの差の下限値、補間がほぼ完了したときbを返す
+ * @returns
+ */
+export const lerp = (a: number, b: number, n: number, limit: number = 0.001) => {
+  let current = (1 - n) * a + n * b;
+  if (Math.abs(b - current) < limit) current = b;
+  return current;
 };

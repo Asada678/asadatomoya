@@ -5,10 +5,8 @@
  */
 import gsap from "gsap";
 import {
-  Mesh,
   Object3D,
   PlaneGeometry,
-  Points,
   Shader,
   ShaderMaterial,
   Texture,
@@ -18,11 +16,10 @@ import {
   WebGLRenderer,
 } from "three";
 
-// import loader from "#/component/loader"; // コンポーネント内で取得するので不要
 import { Viewport } from "@model";
 import { getResolutionUniform, INode, isDebug } from "@utils";
 
-export interface BaseUniforms {
+export interface Uniforms {
   uTick: { value: number };
   uMouse: { value: Vector2 };
   uHover: { value: number };
@@ -37,7 +34,7 @@ export interface BaseUniforms {
     | { value: Vector4 }
     | { value: null };
 }
-abstract class Ob {
+abstract class Ob<T extends Object3D> {
   $: {
     el: HTMLElement;
   };
@@ -47,12 +44,12 @@ abstract class Ob {
   rect: DOMRect;
   originalRect: DOMRect;
   defines!: { PI: number };
-  uniforms!: BaseUniforms;
+  uniforms!: Uniforms;
   vertexShader!: string;
   fragmentShader!: string;
   material!: ShaderMaterial;
   geometry!: PlaneGeometry;
-  mesh!: Object3D;
+  mesh!: T;
   fixed: boolean = false;
 
   constructor({
@@ -74,7 +71,7 @@ abstract class Ob {
 
     if (!this.rect.width || !this.rect.height) {
       if (isDebug) {
-        console.log(
+        console.error(
           "要素に1px x 1px以上の大きさがないため、メッシュの作成をスキップします:",
           this.$.el,
         );
@@ -115,7 +112,7 @@ abstract class Ob {
   }
 
   // ShaderMaterialのuniformsに設定する値
-  setupUniforms(): BaseUniforms {
+  setupUniforms(): Uniforms {
     return {
       uTick: { value: 0 },
       uMouse: { value: new Vector2(0.5, 0.5) },
@@ -127,7 +124,7 @@ abstract class Ob {
   }
 
   // ShaderMaterialのuniformsに設定する値（テクスチャ用）
-  setupTexes(uniforms: BaseUniforms) {
+  setupTexes(uniforms: Uniforms) {
     this.textures?.forEach((tex, key) => {
       const num = key + 1;
       uniforms["tex" + num] = { value: tex };
@@ -170,7 +167,7 @@ abstract class Ob {
   abstract setupFragment(): string;
 
   // テクスチャのアスペクト比計算に必要なuResolutionを計算するメソッド
-  setupResolution(uniforms: BaseUniforms) {
+  setupResolution(uniforms: Uniforms) {
     const media = this.textures[0].source.data;
 
     let mediaRect: DOMRect = {
@@ -200,9 +197,9 @@ abstract class Ob {
   }
 
   // メッシュを返すメソッド
-  setupMesh(): Object3D {
-    return new Mesh(this.geometry, this.material);
-  }
+  abstract setupMesh(): T;
+  // 継承先で特別なMeshが必要でない場合、以下の実装をする
+  // {return new Mesh(this.geometry, this.material);}
 
   // 読み込んだ画像タグ等の透明度を0にするメソッド
   disableOriginalElem() {
