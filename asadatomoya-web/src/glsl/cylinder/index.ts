@@ -24,9 +24,11 @@ export default class extends Ob<Mesh<CylinderGeometry, MeshBasicMaterial>> {
       transparent: true,
       opacity: 0,
       alphaTest: 0.5,
+      wireframe: true,
+      color: 0xff0000,
     });
     const cylinder = new Mesh(cylinderGeo, cylinderMate);
-    console.log('cylinder:', cylinder);
+    cylinder.position.z = -this.radius;
     return cylinder;
   }
   setupVertex() {

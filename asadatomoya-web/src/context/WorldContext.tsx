@@ -54,7 +54,8 @@ const initialWorld: World = {
   // addRaycastingTarget,
 };
 
-type AddOb = <T extends Ob>(obj: T) => void;
+type ObType = Ob<Object3D>
+type AddOb = (obj: ObType) => void;
 interface WorldContextProps {
   world: World;
   tick: number;
@@ -74,7 +75,7 @@ export const WorldProvider: FC<WorldProviderProps> = ({ children, background = n
   const [tick, setTick] = useState(0);
   const [ready, setReady] = useState(false); // worldのsetupを検知するためのフラグ
   const { viewport } = useViewport();
-  const [obs, setObs] = useState<Ob[]>([]);
+  const [obs, setObs] = useState<ObType[]>([]);
 
   useLayoutEffect(() => {
     const init = () => {

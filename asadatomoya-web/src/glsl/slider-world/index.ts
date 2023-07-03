@@ -5,6 +5,7 @@ import {
   Mesh,
   MeshBasicMaterial,
   PlaneGeometry,
+  ShaderMaterial,
   Vector3,
   VideoTexture,
 } from "three";
@@ -188,7 +189,8 @@ export default class extends Ob<Mesh<CylinderGeometry, MeshBasicMaterial>> {
   playVideo(idx: number) {
     const i = idx % this.slides.length;
     const slide = this.slides.at(i);
-    const tex1Value = slide?.material.uniforms.tex1.value;
+    const slideShaderMaterial = slide?.material as ShaderMaterial;
+    const tex1Value = slideShaderMaterial.uniforms.tex1.value;
     this.playingVideo?.pause();
     if (tex1Value instanceof VideoTexture) {
       this.playInterval = setInterval(() => {
