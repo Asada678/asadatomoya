@@ -4,19 +4,20 @@ import React, {
   FC,
   useCallback,
   useContext,
+  useEffect,
   useLayoutEffect,
   useState,
 } from "react";
 
-import { AxesHelper, Color, Event, Object3D, PerspectiveCamera, Scene, WebGLRenderer } from "three";
+import { AxesHelper, Color, PerspectiveCamera, Scene, WebGLRenderer } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "three/examples/jsm/libs/stats.module";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer";
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass";
 
-import { isDebug, isTouchDevices } from "@utils";
+import { gui, isDebug, isTouchDevices } from "@utils";
 
-import { Ob, ObType } from "@glsl/Ob";
+import { ObType } from "@glsl/Ob";
 
 import { useViewport } from "./ViewportContext";
 
@@ -27,6 +28,7 @@ interface World {
   camera: PerspectiveCamera | null;
   composer: EffectComposer | null;
   controls: OrbitControls | null;
+  axesHelper: AxesHelper | null;
 }
 
 const initialWorld: World = {
@@ -37,6 +39,7 @@ const initialWorld: World = {
   composer: null,
   camera: null,
   controls: null,
+  axesHelper: null,
   // renderActions: new Set<() => void>(),
   // raycastingMeshes: [] as Mesh[],
   // init,
@@ -109,17 +112,6 @@ export const WorldProvider: FC<WorldProviderProps> = ({ children, background = n
       const renderPass = new RenderPass(scene, camera);
       composer.addPass(renderPass);
 
-      let controls: OrbitControls | null = null;
-      if (isDebug) {
-        const stats = new Stats();
-        document.body.appendChild(stats.dom);
-        controls = new OrbitControls(camera, renderer.domElement);
-        controls.update();
-        const axesHelper = new AxesHelper(1000);
-        scene.add(axesHelper);
-        renderer.domElement.style.zIndex = "1";
-      }
-
       setWorld((prev) => {
         const w = {
           ...prev,
@@ -127,7 +119,6 @@ export const WorldProvider: FC<WorldProviderProps> = ({ children, background = n
           scene,
           camera,
           composer,
-          controls,
         };
         return w;
       });
@@ -161,6 +152,47 @@ export const WorldProvider: FC<WorldProviderProps> = ({ children, background = n
 
     return () => {};
   }, [ready, obs]);
+
+  useEffect(() => {
+    if (!ready) return;
+    const initGui = async () => {
+      if (isDebug) {
+        await gui.init();
+        gui.add((gui) => {
+          const isActive = { value: false };
+
+          gui
+            .add(isActive, "value")
+            .name("OrbitControl")
+            .onChange(() => {
+              if (world.scene == null || world.camera == null || world.renderer == null) return;
+              if (isActive.value) {
+                world.axesHelper = new AxesHelper(1000);
+                world.scene.add(world.axesHelper);
+                world.controls = new OrbitControls(world.camera, world.renderer.domElement);
+                world.renderer.domElement.style.zIndex = "1";
+              } else {
+                world.axesHelper?.dispose();
+                world.controls?.dispose();
+                world.renderer.domElement.style.zIndex = "-1";
+              }
+            });
+        });
+      }
+    };
+
+    const initStats = () => {
+      if (isDebug) {
+        const stats = new Stats();
+        document.body.appendChild(stats.dom);
+      }
+    };
+
+    initGui();
+    initStats();
+
+    return () => {};
+  }, [ready]);
 
   const addOb = useCallback<WorldContextProps["addOb"]>(
     (ob) => {

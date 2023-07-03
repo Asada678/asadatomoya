@@ -1,9 +1,10 @@
 "use client";
 import { type FC, HTMLAttributes, useEffect, useRef } from "react";
 
-import { LinearFilter, Texture, TextureLoader } from "three";
+import { AxesHelper, LinearFilter, Texture, TextureLoader } from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
-import { createArray, removeDuplicateArray } from "@utils";
+import { config, createArray, gui, INode, removeDuplicateArray } from "@utils";
 
 import { useViewport } from "@context/ViewportContext";
 import { useWorld } from "@context/WorldContext";
@@ -15,7 +16,7 @@ interface WebGlProps extends HTMLAttributes<HTMLDivElement> {
 
 const WebGl: FC<WebGlProps> = ({ texture, webgl, style = {}, className = "" }) => {
   const divRef = useRef<HTMLDivElement>(null);
-  const { ready, addOb, removeOb } = useWorld();
+  const { world,ready, addOb, removeOb } = useWorld();
   const { viewport } = useViewport();
   //TODO textureCache
 
@@ -61,6 +62,30 @@ const WebGl: FC<WebGlProps> = ({ texture, webgl, style = {}, className = "" }) =
       });
       addOb(ob);
       obId = ob.id;
+
+      // gui.init();
+
+      // // function addGUI(world) {
+      // gui.add((gui) => {
+      //   const isActive = { value: false };
+      //   console.log("isActive:", isActive);
+
+      //   let axesHelper = null;
+      //   gui
+      //     .add(isActive, "value")
+      //     .name("OrbitControl")
+      //     .onChange(() => {
+      //       if (isActive.value) {
+      //         axesHelper = new AxesHelper(1000);
+      //         world.scene?.add(axesHelper);
+      //         world.controls = new OrbitControls(world.camera, world.renderer?.domElement);
+      //         world.renderer.domElement.style.zIndex = '1';
+      //       } else {
+      //         world.controls?.dispose();
+      //         world.renderer.domElement.style.zIndex = '-1';
+      //       }
+      //     });
+      // });
     };
     createOb();
 
@@ -71,5 +96,7 @@ const WebGl: FC<WebGlProps> = ({ texture, webgl, style = {}, className = "" }) =
 
   return <div className={`relative ${className}`} style={style} ref={divRef}></div>;
 };
+
+// lil-guiへの項目の追加
 
 export default WebGl;
