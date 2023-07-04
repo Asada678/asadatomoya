@@ -9,3 +9,8 @@
 html {
   @extend .font-14-16;
 }
+
+// lil-gui.titleの長さを制限するため
+.lil-gui.root > .children > .lil-gui > .title {
+  overflow: hidden;
+}

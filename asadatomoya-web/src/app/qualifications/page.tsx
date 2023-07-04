@@ -14,11 +14,18 @@ export default function Qualifications() {
           />
         </div>
       </div>
-      <div className="relative min-h-screen">
+      <div className="relative mx-auto min-h-screen max-w-xl">
         <WebGl
           webgl="particles"
           texture={["/img/sample/sea.jpg", "/img/sample/dog.jpg"]}
-          className="absolute aspect-square w-full"
+          className="aspect-square w-full"
+        />
+      </div>
+      <div className="relative mx-auto min-h-screen max-w-xl">
+        <WebGl
+          webgl="particles"
+          texture={["/img/sample/sea.jpg", "/img/sample/dog.jpg"]}
+          className="aspect-square w-full"
         />
       </div>
       <div className="min-h-screen"></div>

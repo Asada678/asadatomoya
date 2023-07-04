@@ -1,4 +1,5 @@
 import gsap from "gsap";
+import GUI from "lil-gui";
 import {
   CylinderGeometry,
   DoubleSide,
@@ -34,7 +35,6 @@ export default class extends Ob<Mesh<CylinderGeometry, MeshBasicMaterial>> {
     this.rotateAxis = new Vector3(0.2, 0.8, 0.2).normalize();
     this.activeSlideIdx = 0;
     this.diffRad = 0;
-    console.log("this:", this);
   }
   setupGeometry() {
     return new PlaneGeometry(this.rect.width, this.rect.height, 50, 1);
@@ -90,7 +90,8 @@ export default class extends Ob<Mesh<CylinderGeometry, MeshBasicMaterial>> {
       plane.position.z = position.getZ(pickedIdx);
 
       const originalDir = { x: 0, y: 0, z: 1 }; // Z方向に対して正面を向いている状態
-      const targetDir = { // 画像が存在する頂点に対する法線のベクトル
+      const targetDir = {
+        // 画像が存在する頂点に対する法線のベクトル
         x: normal.getX(pickedIdx),
         y: 0,
         z: normal.getZ(pickedIdx),
@@ -103,6 +104,8 @@ export default class extends Ob<Mesh<CylinderGeometry, MeshBasicMaterial>> {
 
     this.slides = [...cylinder.children] as Mesh[];
 
+    // cylinder.up: Vector3 {x: 0, y: 1, z: 0}（シリンダーの上方向の向き）
+    // rotateAxisの方向に回転
     pointTo(cylinder, cylinder.up, this.rotateAxis);
 
     return cylinder;
@@ -222,38 +225,37 @@ export default class extends Ob<Mesh<CylinderGeometry, MeshBasicMaterial>> {
     this.textures.forEach((tex) => {
       tex?.source.data.pause?.();
     });
-    console.log("slider-world after init:");
     this.goTo(this.activeSlideIdx);
   }
-  // debug(folder) {
-  //   const changeRotateAxis = () => {
-  //     utils.pointTo(this.mesh, this.mesh.up, this.rotateAxis.normalize());
-  //   };
-  //   folder.add(this.uniforms.uDist, "value", 0, 1, 0.01).name("uDist").listen();
-  //   folder
-  //     .add(this.rotateAxis, "x", -1, 1, 0.01)
-  //     .name("rotation.x")
-  //     .listen()
-  //     .onChange(changeRotateAxis);
-  //   folder
-  //     .add(this.rotateAxis, "y", -1, 1, 0.01)
-  //     .name("rotation.y")
-  //     .listen()
-  //     .onChange(changeRotateAxis);
+  debug(folder: GUI) {
+    const changeRotateAxis = () => {
+      pointTo(this.mesh, this.mesh.up, this.rotateAxis.normalize());
+    };
+    folder.add(this.uniforms.uDist, "value", 0, 1, 0.01).name("uDist").listen();
+    folder
+      .add(this.rotateAxis, "x", -1, 1, 0.01)
+      .name("rotation.x")
+      .listen()
+      .onChange(changeRotateAxis);
+    folder
+      .add(this.rotateAxis, "y", -1, 1, 0.01)
+      .name("rotation.y")
+      .listen()
+      .onChange(changeRotateAxis);
 
-  //   folder
-  //     .add(this.rotateAxis, "z", -1, 1, 0.01)
-  //     .name("rotation.z")
-  //     .listen()
-  //     .onChange(changeRotateAxis);
+    folder
+      .add(this.rotateAxis, "z", -1, 1, 0.01)
+      .name("rotation.z")
+      .listen()
+      .onChange(changeRotateAxis);
 
-  //   const sliderIdx = { value: 0 };
-  //   folder
-  //     .add(sliderIdx, "value", 0, 12, 1)
-  //     .name("goTo")
-  //     .listen()
-  //     .onChange(() => {
-  //       this.goTo(sliderIdx.value);
-  //     });
-  // }
+    const sliderIdx = { value: 0 };
+    folder
+      .add(sliderIdx, "value", 0, 12, 1)
+      .name("goTo")
+      .listen()
+      .onChange(() => {
+        this.goTo(sliderIdx.value);
+      });
+  }
 }

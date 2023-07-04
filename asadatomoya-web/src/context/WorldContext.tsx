@@ -157,28 +157,31 @@ export const WorldProvider: FC<WorldProviderProps> = ({ children, background = n
     if (!ready) return;
     const initGui = async () => {
       if (isDebug) {
-        await gui.init();
-        gui.add((gui) => {
-          const isActive = { value: false };
-
-          gui
-            .add(isActive, "value")
-            .name("OrbitControl")
-            .onChange(() => {
-              if (world.scene == null || world.camera == null || world.renderer == null) return;
-              if (isActive.value) {
-                world.axesHelper = new AxesHelper(1000);
-                world.scene.add(world.axesHelper);
-                world.controls = new OrbitControls(world.camera, world.renderer.domElement);
-                world.renderer.domElement.style.zIndex = "1";
-              } else {
-                world.axesHelper?.dispose();
-                world.controls?.dispose();
-                world.renderer.domElement.style.zIndex = "-1";
-              }
-            });
-        });
+        gui.init();
+        addOrbitControls();
       }
+    };
+    const addOrbitControls = () => {
+      gui.add((gui) => {
+        const isActive = { value: false };
+
+        gui
+          .add(isActive, "value")
+          .name("OrbitControl")
+          .onChange(() => {
+            if (world.scene == null || world.camera == null || world.renderer == null) return;
+            if (isActive.value) {
+              world.axesHelper = new AxesHelper(1000);
+              world.scene.add(world.axesHelper);
+              world.controls = new OrbitControls(world.camera, world.renderer.domElement);
+              world.renderer.domElement.style.zIndex = "1";
+            } else {
+              world.axesHelper?.dispose();
+              world.controls?.dispose();
+              world.renderer.domElement.style.zIndex = "-1";
+            }
+          });
+      });
     };
 
     const initStats = () => {
@@ -193,6 +196,27 @@ export const WorldProvider: FC<WorldProviderProps> = ({ children, background = n
 
     return () => {};
   }, [ready]);
+
+  useEffect(() => {
+    const addGui = () => {
+      if (!isDebug) return;
+      // TODO ページ遷移した時、前のページのfolderが残ってしまう
+      gui.add((gui) => {
+        obs.forEach((o) => {
+          if (!o.debug) return;
+          const webglId = `${o.webgl}: ${o.id}`;
+          const folderTitles = gui.folders.map((f) => f._title);
+          if (!folderTitles.includes(webglId)) {
+            const folder = gui.addFolder(webglId);
+            o.debug(folder);
+          }
+        });
+      });
+    };
+    addGui();
+
+    return () => {};
+  }, [obs]);
 
   const addOb = useCallback<WorldContextProps["addOb"]>(
     (ob) => {

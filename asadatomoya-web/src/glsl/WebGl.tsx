@@ -1,10 +1,9 @@
 "use client";
 import { type FC, HTMLAttributes, useEffect, useRef } from "react";
 
-import { AxesHelper, LinearFilter, Texture, TextureLoader } from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { LinearFilter, Texture, TextureLoader } from "three";
 
-import { config, createArray, gui, INode, removeDuplicateArray } from "@utils";
+import { createArray, removeDuplicateArray } from "@utils";
 
 import { useViewport } from "@context/ViewportContext";
 import { useWorld } from "@context/WorldContext";
@@ -16,7 +15,7 @@ interface WebGlProps extends HTMLAttributes<HTMLDivElement> {
 
 const WebGl: FC<WebGlProps> = ({ texture, webgl, style = {}, className = "" }) => {
   const divRef = useRef<HTMLDivElement>(null);
-  const { world,ready, addOb, removeOb } = useWorld();
+  const { ready, addOb, removeOb } = useWorld();
   const { viewport } = useViewport();
   //TODO textureCache
 
@@ -58,34 +57,10 @@ const WebGl: FC<WebGlProps> = ({ texture, webgl, style = {}, className = "" }) =
         (texture): texture is Texture => texture !== undefined,
       );
       const ob = await import(`./${webgl}/index`).then(({ default: Ob }) => {
-        return new Ob({ textures, el: div, viewport });
+        return new Ob({ textures, el: div, viewport, webgl });
       });
       addOb(ob);
       obId = ob.id;
-
-      // gui.init();
-
-      // // function addGUI(world) {
-      // gui.add((gui) => {
-      //   const isActive = { value: false };
-      //   console.log("isActive:", isActive);
-
-      //   let axesHelper = null;
-      //   gui
-      //     .add(isActive, "value")
-      //     .name("OrbitControl")
-      //     .onChange(() => {
-      //       if (isActive.value) {
-      //         axesHelper = new AxesHelper(1000);
-      //         world.scene?.add(axesHelper);
-      //         world.controls = new OrbitControls(world.camera, world.renderer?.domElement);
-      //         world.renderer.domElement.style.zIndex = '1';
-      //       } else {
-      //         world.controls?.dispose();
-      //         world.renderer.domElement.style.zIndex = '-1';
-      //       }
-      //     });
-      // });
     };
     createOb();
 

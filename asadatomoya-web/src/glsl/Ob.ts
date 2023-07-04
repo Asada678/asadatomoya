@@ -4,6 +4,7 @@
  * 概要：エフェクトを作成する際は必ずObクラスを継承すること
  */
 import gsap from "gsap";
+import GUI from "lil-gui";
 import {
   Object3D,
   PlaneGeometry,
@@ -38,6 +39,7 @@ export interface Uniforms {
 export type ObType = Ob<Object3D>;
 abstract class Ob<T extends Object3D> {
   id: string;
+  webgl: string;
   $: {
     el: HTMLElement;
   };
@@ -59,12 +61,15 @@ abstract class Ob<T extends Object3D> {
     textures,
     el,
     viewport,
+    webgl,
   }: {
     textures: Texture[];
     el: HTMLElement;
     viewport: Viewport;
+    webgl: string;
   }) {
     this.id = generateId();
+    this.webgl = webgl;
     this.$ = { el };
     this.textures = textures ?? [];
 
@@ -296,8 +301,7 @@ abstract class Ob<T extends Object3D> {
   // }
 
   // lil-guiにパラメータを追加するためのメソッド
-  // debug(folder) {
-  // }
+  debug(folder: GUI) {}
 }
 
 export { Ob };

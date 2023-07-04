@@ -48,7 +48,6 @@ export default class extends Ob<Mesh<CylinderGeometry, MeshBasicMaterial>> {
 
     let idx = 0;
     this.textures.forEach((texture) => {
-      console.log("idx:", idx);
       const planeMate = this.material.clone();
       planeMate.uniforms.tex1 = { value: texture };
       const planeGeo = this.geometry;

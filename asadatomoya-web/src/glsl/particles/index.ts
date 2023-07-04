@@ -1,4 +1,5 @@
 import { gsap } from "gsap";
+import GUI from "lil-gui";
 import { PlaneGeometry, Points, ShaderMaterial, Vector3 } from "three";
 
 import { isSafari, isTouchDevices } from "@utils";
@@ -111,28 +112,45 @@ export default class extends Ob<Points<PlaneGeometry, ShaderMaterial>> {
     });
     this.goTo(0);
   }
-  // TODO
-  // debug(folder) {
-  //   // folder.open();
+  debug(folder: GUI) {
+    // folder.open();
 
-  //   folder.add(this.uniforms.uSpeed, "value", 0, 0.1, 0.001).name("uSpeed").listen();
+    folder.add(this.uniforms.uSpeed, "value", 0, 0.1, 0.001).name("uSpeed").listen();
 
-  //   folder.add(this.uniforms.uCnoise.value, "x", 0, 0.01, 0.001).name("cnoise.x").listen();
-  //   folder.add(this.uniforms.uCnoise.value, "y", 0, 0.01, 0.001).name("cnoise.y").listen();
-  //   folder.add(this.uniforms.uCnoise.value, "z", 0, 0.01, 0.001).name("cnoise.z").listen();
+    folder
+      .add(this.uniforms.uCnoise.value as Object, "x", 0, 0.01, 0.001)
+      .name("cnoise.x")
+      .listen();
+    folder
+      .add(this.uniforms.uCnoise.value as Object, "y", 0, 0.01, 0.001)
+      .name("cnoise.y")
+      .listen();
+    folder
+      .add(this.uniforms.uCnoise.value as Object, "z", 0, 0.01, 0.001)
+      .name("cnoise.z")
+      .listen();
 
-  //   folder.add(this.uniforms.uExpand.value, "x", 0, 10, 0.1).name("expand.x").listen();
-  //   folder.add(this.uniforms.uExpand.value, "y", 0, 10, 0.1).name("expand.y").listen();
-  //   folder.add(this.uniforms.uExpand.value, "z", 0, 10, 0.1).name("expand.z").listen();
+    folder
+      .add(this.uniforms.uExpand.value as Object, "x", 0, 10, 0.1)
+      .name("expand.x")
+      .listen();
+    folder
+      .add(this.uniforms.uExpand.value as Object, "y", 0, 10, 0.1)
+      .name("expand.y")
+      .listen();
+    folder
+      .add(this.uniforms.uExpand.value as Object, "z", 0, 10, 0.1)
+      .name("expand.z")
+      .listen();
 
-  //   folder.add(this.uniforms.uProgress, "value", 0, 1, 0.1).name("progress").listen();
-  //   const sliderIdx = { value: 0 };
-  //   folder
-  //     .add(sliderIdx, "value", -12, 12, 1)
-  //     .name("goTo")
-  //     .listen()
-  //     .onChange(() => {
-  //       this.goTo(sliderIdx.value);
-  //     });
-  // }
+    folder.add(this.uniforms.uProgress, "value", 0, 1, 0.1).name("progress").listen();
+    const sliderIdx = { value: 0 };
+    folder
+      .add(sliderIdx, "value", -12, 12, 1)
+      .name("goTo")
+      .listen()
+      .onChange(() => {
+        this.goTo(sliderIdx.value);
+      });
+  }
 }
