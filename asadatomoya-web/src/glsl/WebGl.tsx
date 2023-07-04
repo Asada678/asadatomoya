@@ -1,5 +1,13 @@
 "use client";
-import { type FC, HTMLAttributes, useEffect, useRef } from "react";
+import {
+  forwardRef,
+  HTMLAttributes,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 
 import { LinearFilter, Texture, TextureLoader } from "three";
 
@@ -13,65 +21,89 @@ interface WebGlProps extends HTMLAttributes<HTMLDivElement> {
   webgl: "slider-world" | "particles" | "cylinder";
 }
 
-const WebGl: FC<WebGlProps> = ({ texture, webgl, style = {}, className = "" }) => {
-  const divRef = useRef<HTMLDivElement>(null);
-  const { ready, addOb, removeOb } = useWorld();
-  const { viewport } = useViewport();
-  //TODO textureCache
+export interface WebGlHandle {
+  nextSlide: () => void;
+  prevSlide: () => void;
+}
 
-  useEffect(() => {
-    if (!ready) return;
-    if (!(viewport.width > 0)) return;
-    const div = divRef.current;
-    if (!div) return;
+const WebGl = forwardRef<WebGlHandle, WebGlProps>(
+  ({ texture, webgl, style = {}, className = "" }, ref) => {
+    const divRef = useRef<HTMLDivElement>(null);
+    const { ready, addOb, removeOb } = useWorld();
+    const { viewport } = useViewport();
+    const [ob, setOb] = useState<any>(null); // TODO anyで逃げ
+    //TODO textureCache
 
-    let obId = ""; // アンマウント時にremoveObへと渡すid
+    useEffect(() => {
+      if (!ready) return;
+      if (!(viewport.width > 0)) return;
+      const div = divRef.current;
+      if (!div) return;
 
-    const createOb = async () => {
-      const newArray = removeDuplicateArray(createArray(texture));
-      const loadImg = async (url: string) => {
-        try {
-          const textureLoader = new TextureLoader();
-          const tex = await textureLoader.loadAsync(url);
-          tex.magFilter = LinearFilter;
-          tex.minFilter = LinearFilter;
-          tex.needsUpdate = false;
-          return tex;
-        } catch (e) {
-          throw new Error();
-        } finally {
-        }
-      };
-      const texturePromises: Promise<Texture | void>[] = [];
-      newArray.forEach((url) => {
-        const promise: Promise<Texture | void> = loadImg(url)
-          .then((tex) => {
+      let obId = ""; // アンマウント時にremoveObへと渡すid
+
+      const createOb = async () => {
+        const newArray = removeDuplicateArray(createArray(texture));
+        const loadImg = async (url: string) => {
+          try {
+            const textureLoader = new TextureLoader();
+            const tex = await textureLoader.loadAsync(url);
+            tex.magFilter = LinearFilter;
+            tex.minFilter = LinearFilter;
+            tex.needsUpdate = false;
             return tex;
-          })
-          .catch((error) => {
-            console.log("error:", error);
-          });
-        texturePromises.push(promise);
-      });
-      const textures = (await Promise.all(texturePromises)).filter(
-        (texture): texture is Texture => texture !== undefined,
-      );
-      const ob = await import(`./${webgl}/index`).then(({ default: Ob }) => {
-        return new Ob({ textures, el: div, viewport, webgl });
-      });
-      addOb(ob);
-      obId = ob.id;
-    };
-    createOb();
+          } catch (e) {
+            throw new Error();
+          } finally {
+          }
+        };
+        const texturePromises: Promise<Texture | void>[] = [];
+        newArray.forEach((url) => {
+          const promise: Promise<Texture | void> = loadImg(url)
+            .then((tex) => {
+              return tex;
+            })
+            .catch((error) => {
+              console.log("error:", error);
+            });
+          texturePromises.push(promise);
+        });
+        const textures = (await Promise.all(texturePromises)).filter(
+          (texture): texture is Texture => texture !== undefined,
+        );
+        const ob = await import(`./${webgl}/index`).then(({ default: Ob }) => {
+          return new Ob({ textures, el: div, viewport, webgl });
+        });
+        addOb(ob);
+        setOb(ob);
+        obId = ob.id;
+      };
+      createOb();
 
-    return () => {
-      removeOb(obId);
-    };
-  }, [ready]); // worldの作成が完了していたら実行
+      return () => {
+        removeOb(obId);
+      };
+    }, [ready]); // worldの作成が完了していたら実行
 
-  return <div className={`relative ${className}`} style={style} ref={divRef}></div>;
-};
+    const prevSlide = useCallback(() => {
+      if (!ob || ob.activeSlideIdx == null || !ob.goTo) return;
+      const nextIdx = ob.activeSlideIdx - 1;
+      ob.goTo(nextIdx);
+    }, [ob]);
+    const nextSlide = useCallback(() => {
+      if (!ob || ob.activeSlideIdx == null || !ob.goTo) return;
+      const nextIdx = ob.activeSlideIdx + 1;
+      ob.goTo(nextIdx);
+    }, [ob]);
 
-// lil-guiへの項目の追加
+    useImperativeHandle(ref, () => ({
+      prevSlide,
+      nextSlide,
+    }));
 
+    return <div className={`relative ${className}`} style={style} ref={divRef}></div>;
+  },
+);
+
+WebGl.displayName = "WebGl";
 export default WebGl;

@@ -21,10 +21,10 @@ import vertexShader from "./vertex.glsl";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default class extends Ob<Mesh<CylinderGeometry, MeshBasicMaterial>> {
+  activeSlideIdx: number = 0;
+  diffRad: number = 0;
   radius!: number;
   rotateAxis!: Vector3;
-  activeSlideIdx!: number;
-  diffRad!: number;
   slides!: Mesh[];
   playingVideo: any;
   playInterval!: NodeJS.Timer;
@@ -33,8 +33,6 @@ export default class extends Ob<Mesh<CylinderGeometry, MeshBasicMaterial>> {
     // this.textures.forEach((tex) => tex === null && this.textures.delete(key));
     this.radius = this.rect.width;
     this.rotateAxis = new Vector3(0.2, 0.8, 0.2).normalize();
-    this.activeSlideIdx = 0;
-    this.diffRad = 0;
   }
   setupGeometry() {
     return new PlaneGeometry(this.rect.width, this.rect.height, 50, 1);
@@ -189,7 +187,7 @@ export default class extends Ob<Mesh<CylinderGeometry, MeshBasicMaterial>> {
   goTo(idx: number) {
     this.diffRad -= ((idx - this.activeSlideIdx) / this.slides.length) * 2 * Math.PI;
     this.activeSlideIdx = idx;
-    // this.playVideo(idx);
+    // TODO this.playVideo(idx);
   }
   render(tick: number) {
     super.render(tick);
