@@ -210,7 +210,7 @@ export const WorldProvider: FC<WorldProviderProps> = ({ children, background = n
           if (!folderTitles.includes(webglId)) {
             const folder = gui.addFolder(webglId);
             o.debug(folder);
-            // folder.close();
+            folder.close();
           }
         });
       });

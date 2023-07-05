@@ -22,12 +22,14 @@ const Layout: FC<LayoutProps> = ({ children }) => {
           <div>
             <Loader />
             <Navbar />
-            <canvas
-              id="canvas"
-              className="fixed left-0 top-0 -z-20 h-screen w-screen"
-              ref={canvasRef}
-            ></canvas>
-            {children}
+            <main>
+              <canvas
+                id="canvas"
+                className="fixed left-0 top-0 -z-20 h-screen w-screen"
+                ref={canvasRef}
+              ></canvas>
+              {children}
+            </main>
             <Background />
           </div>
         </WorldProvider>
