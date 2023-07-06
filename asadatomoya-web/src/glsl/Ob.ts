@@ -270,7 +270,6 @@ abstract class Ob<T extends Object3D> {
   getWorldPosition(rect: DOMRect, { width, height }: DOMRect | Viewport) {
     const x = rect.left + rect.width / 2 - width / 2;
     const y = -rect.top - rect.height / 2 + height / 2;
-    console.log("x,y:", x, y);
     return { x, y };
   }
 

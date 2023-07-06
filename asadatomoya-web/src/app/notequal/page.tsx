@@ -1,12 +1,18 @@
 "use client";
 import { useRef } from "react";
 
+import { config } from "@utils";
+
 import SectionHr from "@components/SectionHr";
 import SectionTitle from "@components/SectionTitle";
+import { useViewport } from "@context/ViewportContext";
 import WebGl, { WebGlHandle } from "@glsl/WebGl";
+import { ArrowRightIcon } from "@radix-ui/react-icons";
 
 export default function NotEqual() {
   const sliderRef = useRef<WebGlHandle | null>(null);
+  const { viewport } = useViewport();
+  const iconSize = viewport.width < config.breakpoint ? 20 : 36;
   return (
     <>
       <section id="fv" className="relative h-screen">
@@ -81,7 +87,7 @@ export default function NotEqual() {
         <div className="flex flex-col xl:flex-row">
           <div className="relative flex grow basis-1/2 flex-col">
             <WebGl
-              webgl="particles"
+              webgl="ray-marching"
               texture={["/img/sample/dog.jpg", "/img/sample/dog.jpg"]}
               className="mx-auto mb-6 aspect-video w-full max-w-sm xl:m-0 xl:max-w-none"
             />
@@ -95,11 +101,47 @@ export default function NotEqual() {
               <p className="" data-scroll-trigger="fade">
                 WebGLを一般的な選択肢として普及させ、Web制作業界の表現の幅を広げる。
               </p>
+              <div className="mt-12 pr-6 text-right">
+                <button className="font-16-24 w-36 rounded-3xl border border-white px-2 py-3 transition-[letter-spacing] transition-colors duration-200 hover:border-blue-600 hover:bg-blue-600 hover:tracking-widest hover:text-white xl:w-48">
+                  <span>more</span>
+                  <ArrowRightIcon className="inline-block" width={iconSize} height={iconSize} />
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </section>
       <SectionHr />
+      <section id="diverse" className="min-h-screen">
+        <div className="font-16-24 flex flex-col xl:flex-row xl:items-center">
+          <div className="flex grow basis-1/2 flex-col items-center text-center xl:text-left">
+            <div className="mx-auto max-w-md">
+              <SectionTitle>diverse</SectionTitle>
+              <p className="diverse__desc" data-scroll-trigger="fade">
+                他とは違う少し変わったウェブサイトで差を付けよう。
+                <br className="sm-hidden" />
+                あなただけのエフェクトを簡単にWebサイトに組み込もう。
+              </p>
+              <div className="mt-12 pr-6 text-right">
+                <button className="font-16-24 w-36 rounded-3xl border border-white px-2 py-3 transition-[letter-spacing] transition-colors duration-200 hover:border-blue-600 hover:bg-blue-600 hover:tracking-widest hover:text-white xl:w-48">
+                  <span>more</span>
+                  <ArrowRightIcon className="inline-block" width={iconSize} height={iconSize} />
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="flex grow basis-1/2 flex-col">
+            <div className="relative mx-auto flex h-[40vh] w-full items-center xl:h-[50vh]">
+              <WebGl
+                webgl="particles"
+                texture={["/img/sample/tree.jpg", "/img/sample/sea.jpg"]}
+                className="mx-auto mb-6 aspect-video w-full max-w-sm xl:m-0 xl:max-w-none"
+              />
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </section>
     </>
   );
 }
