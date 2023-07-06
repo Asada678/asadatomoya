@@ -1,4 +1,4 @@
-import { CylinderGeometry, Mesh, MeshBasicMaterial, Object3D } from "three";
+import { CylinderGeometry, Mesh, MeshBasicMaterial } from "three";
 
 import { Ob, Uniforms } from "@glsl/Ob";
 
@@ -9,12 +9,8 @@ import vertexShader from "./vertex.glsl";
 /**
  * 以下をアンコメントして使用
  */
-// export default class extends Ob<Object3D> {
-//   radius!: number;
+// export default class extends Ob<Mesh> {
 
-//   setupMesh():  {
-
-//   }
 //   setupVertex() {
 //     return vertexShader;
 //   }

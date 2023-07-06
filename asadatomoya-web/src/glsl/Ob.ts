@@ -3,9 +3,11 @@
  *
  * 概要：エフェクトを作成する際は必ずObクラスを継承すること
  */
+
 import gsap from "gsap";
 import GUI from "lil-gui";
 import {
+  Mesh,
   Object3D,
   PlaneGeometry,
   Shader,
@@ -54,7 +56,7 @@ abstract class Ob<T extends Object3D> {
   fragmentShader!: string;
   material!: ShaderMaterial;
   geometry!: PlaneGeometry;
-  mesh!: T;
+  mesh!: T | Mesh;
   fixed: boolean = false;
 
   constructor({
@@ -206,9 +208,10 @@ abstract class Ob<T extends Object3D> {
   }
 
   // メッシュを返すメソッド
-  abstract setupMesh(): T;
   // 継承先で特別なMeshが必要でない場合、以下の実装をする
-  // {return new Mesh(this.geometry, this.material);}
+  setupMesh(): T | Mesh {
+    return new Mesh(this.geometry, this.material);
+  }
 
   // 読み込んだ画像タグ等の透明度を0にするメソッド
   disableOriginalElem() {
@@ -267,6 +270,7 @@ abstract class Ob<T extends Object3D> {
   getWorldPosition(rect: DOMRect, { width, height }: DOMRect | Viewport) {
     const x = rect.left + rect.width / 2 - width / 2;
     const y = -rect.top - rect.height / 2 + height / 2;
+    console.log("x,y:", x, y);
     return { x, y };
   }
 
@@ -279,7 +283,7 @@ abstract class Ob<T extends Object3D> {
     } = this;
     const rect = INode.getRect(el);
     const { x, y } = this.getWorldPosition(rect, viewport);
-    // mesh.position.x = x;
+    mesh.position.x = x;
     mesh.position.y = y;
   }
 
