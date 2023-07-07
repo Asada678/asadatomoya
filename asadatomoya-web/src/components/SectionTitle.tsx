@@ -6,7 +6,7 @@ interface SectionTitleProps extends HTMLAttributes<HTMLHeadingElement> {
 
 const SectionTitle: FC<SectionTitleProps> = ({ children, className }) => {
   return (
-    <h2 className={`${className} font-36-60 relative mb-6 text-center font-bold xl:text-left`}>
+    <h2 className={`${className} font-montserrat font-36-60 relative mb-6 text-center font-bold xl:text-left`}>
       <span className="inline-block uppercase">{children}</span>
     </h2>
   );

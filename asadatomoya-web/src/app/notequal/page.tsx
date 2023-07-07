@@ -19,7 +19,11 @@ export default function NotEqual() {
         <div className="font-48-110 absolute left-1/2 top-1/4 mx-auto w-full max-w-3xl -translate-x-1/2 -translate-y-1/2 overflow-x-hidden text-center xl:bottom-16 xl:left-0 xl:top-auto xl:max-w-5xl xl:transform-none xl:text-left">
           <div className="block">
             <p className="font-14-16">Produced by Not Equal</p>
-            <h1 className="relative mt-6 font-bold" data-mouse="highlight" data-mouse-scale="4">
+            <h1
+              className="font-montserrat relative mt-6 font-bold leading-none"
+              data-mouse="highlight"
+              data-mouse-scale="4"
+            >
               <span>
                 Make It
                 <br />

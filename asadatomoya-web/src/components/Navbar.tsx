@@ -2,7 +2,6 @@
 import { type FC, useEffect, useRef, useState } from "react";
 import React from "react";
 
-import { Passion_One } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -13,10 +12,6 @@ import { useViewport } from "@context/ViewportContext";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon, HamburgerMenuIcon } from "@radix-ui/react-icons";
 
-const passionOne = Passion_One({
-  subsets: ["latin"],
-  weight: ["400"],
-});
 const links = ["webgl", "three", "career", "qualifications", "notequal"];
 
 interface NavbarProps {}
@@ -73,7 +68,9 @@ const Navbar: FC<NavbarProps> = ({}) => {
 
   return (
     <>
-      <header className={`sticky left-0 top-0 z-10 w-full ${isTop ? "" : "backdrop-blur-sm"}`}>
+      <header
+        className={`sticky left-0 top-0 z-10 w-full font-serif ${isTop ? "" : "backdrop-blur-sm"}`}
+      >
         <div className="container flex w-full">
           <div className="">
             <Link className="flex rounded py-1" href={"/"}>
@@ -85,10 +82,7 @@ const Navbar: FC<NavbarProps> = ({}) => {
                 alt="logo"
                 ref={logo}
               />
-              <h1
-                className={`font-24-48 flex items-center !italic ${passionOne.className}`}
-                ref={asadatomoya}
-              >
+              <h1 className="font-24-48 font-passion flex items-center !italic" ref={asadatomoya}>
                 Asada Tomoya
               </h1>
             </Link>

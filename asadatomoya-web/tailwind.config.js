@@ -19,10 +19,15 @@ module.exports = {
         },
       },
       height: {
-        "screen1/2": '50vh' 
+        "screen1/2": "50vh",
       },
       animation: {
         in: "in 0.3s ease-in-out",
+      },
+      fontFamily: {
+        serif: ["var(--noto-serif-jp)"],
+        passion: ["var(--passion-one)"],
+        montserrat: ["var(--montserrat)"],
       },
     },
     container: {
