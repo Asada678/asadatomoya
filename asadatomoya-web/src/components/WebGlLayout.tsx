@@ -12,7 +12,7 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
-const Layout: FC<LayoutProps> = ({ children }) => {
+const WebGlLayout: FC<LayoutProps> = ({ children }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   return (
@@ -38,4 +38,4 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   );
 };
 
-export default Layout;
+export default WebGlLayout;

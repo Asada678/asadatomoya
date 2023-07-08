@@ -12,6 +12,7 @@ export default function Home() {
         webgl="particles"
         texture={["/img/profile.jpg", "/img/profile.jpg"]}
         style={{ height: "70vh" }}
+        aspectVideo={false}
       />
       <p>1994/09/23</p>
       <p>rugby, soccer, baseball</p>

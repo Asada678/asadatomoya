@@ -8,11 +8,13 @@ import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+import { config } from "@utils";
+
 import { useViewport } from "@context/ViewportContext";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon, HamburgerMenuIcon } from "@radix-ui/react-icons";
 
-const links = ["webgl", "three", "career", "qualifications", "notequal"];
+const links = config.nav.items;
 
 interface NavbarProps {}
 gsap.registerPlugin(ScrollTrigger);

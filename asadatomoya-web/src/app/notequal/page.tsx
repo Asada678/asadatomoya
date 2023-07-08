@@ -225,6 +225,77 @@ export default function NotEqual() {
           </div>
         </div>
       </section>
+      <SectionHr />
+      <section id="graphic" className="text-center xl:text-left">
+        <div className="">
+          <SectionTitle className="">graphic</SectionTitle>
+          <p className="font-16-20 mb-8" data-scroll-trigger="fade">
+            エフェクトを追加して、オリジナルのWebサイトを作成しよう。
+          </p>
+          <div className="font-12-14 flex flex-wrap justify-center gap-[5%] text-left xl:justify-around">
+            <div className="grow-0 basis-full sm:basis-2/5 lg:basis-1/4">
+              <a className="" href="">
+                <WebGl webgl="plane-sphere" texture="/img/sample/cat.jpg" className="inli" />
+                <span className="panel__content" data-scroll-trigger="fade">
+                  <span className="block text-[1em]">
+                    <span className="mr-4 text-[1em]">2022.12.14</span>
+                    <span className="">ATTRIBUTE</span>
+                  </span>
+                  <span className="font-20-24 mb-12 mt-2 block font-bold">Vertex Shader</span>
+                </span>
+              </a>
+            </div>
+            <div className="grow-0 basis-full sm:basis-2/5 lg:basis-1/4">
+              <a className="" href="">
+                <WebGl webgl="plane-sphere" texture="/img/sample/dog.jpg" className="inli" />
+                <span className="panel__content" data-scroll-trigger="fade">
+                  <span className="block text-[1em]">
+                    <span className="mr-4 text-[1em]">2022.12.14</span>
+                    <span className="">ATTRIBUTE</span>
+                  </span>
+                  <span className="font-20-24 mb-12 mt-2 block font-bold">Vertex Shader</span>
+                </span>
+              </a>
+            </div>
+            <div className="grow-0 basis-full sm:basis-2/5 lg:basis-1/4">
+              <a className="" href="">
+                <WebGl webgl="plane-sphere" texture="/img/sample/sea.jpg" className="inli" />
+                <span className="panel__content" data-scroll-trigger="fade">
+                  <span className="block text-[1em]">
+                    <span className="mr-4 text-[1em]">2022.12.14</span>
+                    <span className="">ATTRIBUTE</span>
+                  </span>
+                  <span className="font-20-24 mb-12 mt-2 block font-bold">Vertex Shader</span>
+                </span>
+              </a>
+            </div>
+            <div className="grow-0 basis-full sm:basis-2/5 lg:basis-1/4">
+              <a className="" href="">
+                <WebGl webgl="plane-sphere" texture="/img/sample/mountain.jpg" className="inli" />
+                <span className="panel__content" data-scroll-trigger="fade">
+                  <span className="block text-[1em]">
+                    <span className="mr-4 text-[1em]">2022.12.14</span>
+                    <span className="">ATTRIBUTE</span>
+                  </span>
+                  <span className="font-20-24 mb-12 mt-2 block font-bold">Vertex Shader</span>
+                </span>
+              </a>
+            </div>
+            <div className="grow-0 basis-full sm:basis-2/5 lg:basis-1/4">
+              <a className="" href="">
+                <WebGl webgl="plane-sphere" texture="/img/sample/tree.jpg" className="inli" />
+                <span className="panel__content" data-scroll-trigger="fade">
+                  <span className="block text-[1em]">
+                    <span className="mr-4 text-[1em]">2022.12.14</span>
+                    <span className="">ATTRIBUTE</span>
+                  </span>
+                  <span className="font-20-24 mb-12 mt-2 block font-bold">Vertex Shader</span>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

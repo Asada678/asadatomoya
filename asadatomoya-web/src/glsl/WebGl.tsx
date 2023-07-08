@@ -18,7 +18,8 @@ import { useWorld } from "@context/WorldContext";
 
 interface WebGlProps extends HTMLAttributes<HTMLDivElement> {
   texture: string | string[];
-  webgl: "slider-world" | "particles" | "ray-marching" | "slider-reflect";
+  webgl: "slider-world" | "particles" | "ray-marching" | "slider-reflect" | "plane-sphere";
+  aspectVideo?: boolean;
 }
 
 export interface WebGlHandle {
@@ -27,7 +28,7 @@ export interface WebGlHandle {
 }
 
 const WebGl = forwardRef<WebGlHandle, WebGlProps>(
-  ({ texture, webgl, style = {}, className = "" }, ref) => {
+  ({ texture, webgl, aspectVideo = true, style = {}, className = "" }, ref) => {
     const divRef = useRef<HTMLDivElement>(null);
     const { ready, addOb, removeOb } = useWorld();
     const { viewport } = useViewport();
@@ -101,7 +102,13 @@ const WebGl = forwardRef<WebGlHandle, WebGlProps>(
       nextSlide,
     }));
 
-    return <div className={`relative ${className}`} style={style} ref={divRef}></div>;
+    return (
+      <div
+        className={`relative ${aspectVideo ? "aspect-video" : ""} ${className}`}
+        style={style}
+        ref={divRef}
+      ></div>
+    );
   },
 );
 
