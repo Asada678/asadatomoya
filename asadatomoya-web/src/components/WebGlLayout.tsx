@@ -23,7 +23,7 @@ const WebGlLayout: FC<LayoutProps> = ({ children }) => {
           <div>
             <Loader />
             <Navbar />
-            <main className="pt-16">
+            <main>
               <canvas
                 id="canvas"
                 className="fixed left-0 top-0 -z-20 h-screen w-screen"

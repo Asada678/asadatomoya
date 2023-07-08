@@ -8,7 +8,7 @@ import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import { config } from "@utils";
+import { config, isDebug } from "@utils";
 
 import { useViewport } from "@context/ViewportContext";
 import * as Dialog from "@radix-ui/react-dialog";
@@ -39,7 +39,7 @@ const Navbar: FC<NavbarProps> = ({}) => {
       ScrollTrigger.create({
         trigger: header.current,
         start: "center top",
-        markers: true,
+        markers: isDebug,
         onEnter() {
           if (viewport.isMobile) {
             gsap.to(asadatomoya.current, {
@@ -55,8 +55,6 @@ const Navbar: FC<NavbarProps> = ({}) => {
           setIsTop(false);
         },
         onEnterBack() {
-          // if (viewport.isMobile) {
-          // TODO 実機だとoverwriteが上手く動かない
           gsap.to(asadatomoya.current, {
             duration: 0.3,
             opacity: 1,
@@ -68,7 +66,6 @@ const Navbar: FC<NavbarProps> = ({}) => {
             x: 0,
             overwrite: true,
           });
-          // }
           setIsTop(true);
         },
       });
@@ -77,14 +74,14 @@ const Navbar: FC<NavbarProps> = ({}) => {
     return () => {
       context.revert();
     };
-  }, [viewportCreated]);
+  }, [viewportCreated]); // viewportに依存するとtrigger位置がブレるためviewportCreatedを追加
 
   const toggleMobileMenu = () => setShowMobileMenu(!showMobileMenu);
 
   return (
     <>
       <header
-        className={`fixed left-0 top-0 z-10 w-full py-1 ${isTop ? "" : "backdrop-blur-sm"}`}
+        className={`sticky left-0 top-0 z-10 w-full py-1 ${isTop ? "" : "backdrop-blur-sm"}`}
         ref={header}
       >
         <div className="container flex w-full">
