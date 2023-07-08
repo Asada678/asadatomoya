@@ -18,7 +18,7 @@ import { useWorld } from "@context/WorldContext";
 
 interface WebGlProps extends HTMLAttributes<HTMLDivElement> {
   texture: string | string[];
-  webgl: "slider-world" | "particles" | "ray-marching";
+  webgl: "slider-world" | "particles" | "ray-marching" | "slider-reflect";
 }
 
 export interface WebGlHandle {

@@ -1,4 +1,5 @@
-import { CylinderGeometry, Mesh, MeshBasicMaterial } from "three";
+import GUI from "lil-gui";
+import { Mesh } from "three";
 
 import { Ob, Uniforms } from "@glsl/Ob";
 

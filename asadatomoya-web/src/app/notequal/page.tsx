@@ -127,7 +127,7 @@ export default function NotEqual() {
                 あなただけのエフェクトを簡単にWebサイトに組み込もう。
               </p>
               <div className="mt-12 pr-6 text-right">
-                <button className="font-16-24 w-36 rounded-3xl border border-white px-2 py-3 transition-[letter-spacing] transition-colors duration-200 hover:border-blue-600 hover:bg-blue-600 hover:tracking-widest hover:text-white xl:w-48">
+                <button className="font-16-24 transition-[letter-spacing w-36 rounded-3xl border border-white px-2 py-3 transition-all duration-200 hover:border-blue-600 hover:bg-blue-600 hover:tracking-widest hover:text-white xl:w-48">
                   <span>more</span>
                   <ArrowRightIcon className="inline-block" width={iconSize} height={iconSize} />
                 </button>
@@ -145,6 +145,85 @@ export default function NotEqual() {
           </div>
         </div>
         <div></div>
+      </section>
+      <SectionHr />
+      <section
+        id="skill"
+        className="relative flex items-start px-4 py-16 text-center xl:h-screen xl:text-left"
+      >
+        <div className="w-full">
+          <div className="">
+            <SectionTitle className="">skill</SectionTitle>
+            <p className="font-16-20 mx-auto max-w-md xl:m-0">
+              クリエイティブでインタラクティブな表現を
+              <br className="sm-hidden" />
+              WebGLを使ってそのままの形で実現する。
+            </p>
+          </div>
+          <div className="font-14-20 relative mx-auto mt-16 h-72 w-96 text-center">
+            <WebGl
+              webgl="slider-reflect"
+              texture={[
+                "/img/sample/dog.jpg",
+                "/img/sample/tree.jpg",
+                "/img/sample/sea.jpg",
+                "/img/sample/cat.jpg",
+                "/img/sample/mountain.jpg",
+              ]}
+              className="aspect-video w-full"
+            />
+          </div>
+          <div className="font-14-20 mx-auto mt-4 w-full max-w-md overflow-hidden py-4 text-center leading-none xl:absolute xl:bottom-0 xl:right-0 xl:px-8 xl:py-4 xl:text-right">
+            <ul className="relative min-h-[248px] w-full list-none">
+              <li className="absolute left-0 top-0 h-full w-full opacity-100">
+                <h3 className="font-36-48 mb-1 font-bold">
+                  <span className="text-[1.5em]">01</span>
+                  正規化
+                </h3>
+                <p className="font-14-20 mx-auto text-justify leading-relaxed xl:m-auto xl:w-full">
+                  正規化とはデータを一定のルールに基づいて、利用しやすい形に変形すること。WebGLにおいては正規化によってベクトルの長さを１にしたり、ある変数の取りうる値の範囲を-1
+                  ~ 1にします。
+                </p>
+              </li>
+              <li className="absolute left-0 top-0 h-full w-full opacity-0">
+                <h3 className="font-36-48 mb-1 font-bold">
+                  <span className="text-[1.5em]">02</span>
+                  座標
+                </h3>
+                <p className="font-14-20 mx-auto text-justify leading-relaxed xl:m-auto xl:w-full">
+                  座標とは空間内の点の位置を一意に指定するための数の組みで、WebGLにおいては頂点やテクスチャ画像の位置を指定するために使用されます。
+                </p>
+              </li>
+              <li className="absolute left-0 top-0 h-full w-full opacity-0">
+                <h3 className="font-36-48 mb-1 font-bold">
+                  <span className="text-[1.5em]">03</span>
+                  ベクトル
+                </h3>
+                <p className="font-14-20 mx-auto text-justify leading-relaxed xl:m-auto xl:w-full">
+                  数学、物理学においてベクトルは大きさと方向を持つ量で、幾何学的に矢印としてイメージされます。WebGLにおいては頂点の座標やカメラや光の向きの表現に利用されます。
+                </p>
+              </li>
+              <li className="absolute left-0 top-0 h-full w-full opacity-0">
+                <h3 className="font-36-48 mb-1 font-bold">
+                  <span className="text-[1.5em]">04</span>
+                  線形補間
+                </h3>
+                <p className="font-14-20 mx-auto text-justify leading-relaxed xl:m-auto xl:w-full">
+                  線形補間とは、既知の2点の間に存在する値を線形である１次関数を用いて近似的に求める手法です。WebGLでは各フラグメントには線形補間された値が渡ってきます。
+                </p>
+              </li>
+              <li className="absolute left-0 top-0 h-full w-full opacity-0">
+                <h3 className="font-36-48 mb-1 font-bold">
+                  <span className="text-[1.5em]">05</span>
+                  行列
+                </h3>
+                <p className="font-14-20 mx-auto text-justify leading-relaxed xl:m-auto xl:w-full">
+                  行列とは数や記号を縦と横に矩形に配列したものです。WebGLにおいては頂点の座標を表すベクトルと掛け合わせることで、ベクトルの回転や長さの変更を行うことができます。
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
       </section>
     </>
   );
