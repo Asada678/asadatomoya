@@ -76,10 +76,10 @@ const Navbar: FC<NavbarProps> = ({}) => {
 
   return (
     <>
-      <header className={`sticky left-0 top-0 z-10 w-full ${isTop ? "" : "backdrop-blur-sm"}`}>
+      <header className={`fixed left-0 top-0 z-10 w-full py-1 ${isTop ? "" : "backdrop-blur-sm"}`}>
         <div className="container flex w-full">
           <div className="">
-            <Link className="flex rounded py-1" href={"/"}>
+            <Link className="flex rounded" href={"/"}>
               <Image
                 src={"/img/logo/icon.webp"}
                 className="relative z-20 h-14 w-14"
