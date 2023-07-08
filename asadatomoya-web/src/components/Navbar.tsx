@@ -8,7 +8,7 @@ import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import { config, isDebug } from "@utils";
+import { config } from "@utils";
 
 import { useViewport } from "@context/ViewportContext";
 import * as Dialog from "@radix-ui/react-dialog";
@@ -34,7 +34,6 @@ const Navbar: FC<NavbarProps> = ({}) => {
         start: "center top",
         markers: true,
         onEnter() {
-          setIsTop(false);
           if (viewport.isMobile) {
             gsap.to(asadatomoya.current, {
               duration: 0.3,
@@ -46,9 +45,9 @@ const Navbar: FC<NavbarProps> = ({}) => {
               x: 10,
             });
           }
+          setIsTop(false);
         },
         onEnterBack() {
-          setIsTop(true);
           // if (viewport.isMobile) {
           // TODO 実機だとoverwriteが上手く動かない
           gsap.to(asadatomoya.current, {
@@ -63,6 +62,7 @@ const Navbar: FC<NavbarProps> = ({}) => {
             overwrite: true,
           });
           // }
+          setIsTop(true);
         },
       });
     });
