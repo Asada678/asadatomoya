@@ -8,7 +8,7 @@ import Link from "next/link";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import { config } from "@utils";
+import { config, isDebug } from "@utils";
 
 import { useViewport } from "@context/ViewportContext";
 import * as Dialog from "@radix-ui/react-dialog";
@@ -32,6 +32,7 @@ const Navbar: FC<NavbarProps> = ({}) => {
       ScrollTrigger.create({
         trigger: asadatomoya.current,
         start: "center top",
+        markers: true,
         onEnter() {
           setIsTop(false);
           if (viewport.isMobile) {
