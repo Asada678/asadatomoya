@@ -20,17 +20,24 @@ interface NavbarProps {}
 gsap.registerPlugin(ScrollTrigger);
 
 const Navbar: FC<NavbarProps> = ({}) => {
+  const header = useRef<HTMLHeadElement>(null);
   const logo = useRef<HTMLImageElement>(null);
   const asadatomoya = useRef<HTMLHeadingElement>(null);
   const [isTop, setIsTop] = useState(true);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [viewportCreated, setViewportCreated] = useState(false);
   const { viewport } = useViewport();
 
   useLayoutEffect(() => {
     if (viewport.width === 0) return;
+    setViewportCreated(true);
+  }, [viewport]);
+
+  useEffect(() => {
+    if (!viewportCreated) return;
     const context = gsap.context(() => {
       ScrollTrigger.create({
-        trigger: asadatomoya.current,
+        trigger: header.current,
         start: "center top",
         markers: true,
         onEnter() {
@@ -70,13 +77,16 @@ const Navbar: FC<NavbarProps> = ({}) => {
     return () => {
       context.revert();
     };
-  }, [viewport]);
+  }, [viewportCreated]);
 
   const toggleMobileMenu = () => setShowMobileMenu(!showMobileMenu);
 
   return (
     <>
-      <header className={`fixed left-0 top-0 z-10 w-full py-1 ${isTop ? "" : "backdrop-blur-sm"}`}>
+      <header
+        className={`fixed left-0 top-0 z-10 w-full py-1 ${isTop ? "" : "backdrop-blur-sm"}`}
+        ref={header}
+      >
         <div className="container flex w-full">
           <div className="">
             <Link className="flex rounded" href={"/"}>
