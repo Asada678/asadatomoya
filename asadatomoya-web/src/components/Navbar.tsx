@@ -1,5 +1,5 @@
 "use client";
-import { type FC, useEffect, useRef, useState } from "react";
+import { type FC, useEffect, useLayoutEffect, useRef, useState } from "react";
 import React from "react";
 
 import Image from "next/image";
@@ -26,25 +26,25 @@ const Navbar: FC<NavbarProps> = ({}) => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const { viewport } = useViewport();
 
-  useEffect(() => {
-    // if (viewport.width === 0) return;
+  useLayoutEffect(() => {
+    if (viewport.width === 0) return;
     const context = gsap.context(() => {
       ScrollTrigger.create({
         trigger: asadatomoya.current,
         start: "center top",
         markers: true,
         onEnter() {
-          // if (viewport.isMobile) {
-          gsap.to(asadatomoya.current, {
-            duration: 0.3,
-            opacity: 0,
-            x: -10,
-          });
-          gsap.to(logo.current, {
-            duration: 0.3,
-            x: 10,
-          });
-          // }
+          if (viewport.isMobile) {
+            gsap.to(asadatomoya.current, {
+              duration: 0.3,
+              opacity: 0,
+              x: -10,
+            });
+            gsap.to(logo.current, {
+              duration: 0.3,
+              x: 10,
+            });
+          }
           setIsTop(false);
         },
         onEnterBack() {
@@ -70,7 +70,7 @@ const Navbar: FC<NavbarProps> = ({}) => {
     return () => {
       context.revert();
     };
-  }, []);
+  }, [viewport]);
 
   const toggleMobileMenu = () => setShowMobileMenu(!showMobileMenu);
 
