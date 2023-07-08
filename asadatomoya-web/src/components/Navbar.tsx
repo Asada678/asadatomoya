@@ -48,19 +48,20 @@ const Navbar: FC<NavbarProps> = ({}) => {
         },
         onEnterBack() {
           setIsTop(true);
-          if (viewport.isMobile) {
-            gsap.to(asadatomoya.current, {
-              duration: 0.3,
-              opacity: 1,
-              x: 0,
-              overwrite: true,
-            });
-            gsap.to(logo.current, {
-              duration: 0.3,
-              x: 0,
-              overwrite: true,
-            });
-          }
+          // if (viewport.isMobile) {
+          // TODO 実機だとoverwriteが上手く動かない
+          gsap.to(asadatomoya.current, {
+            duration: 0.3,
+            opacity: 1,
+            x: 0,
+            overwrite: true,
+          });
+          gsap.to(logo.current, {
+            duration: 0.3,
+            x: 0,
+            overwrite: true,
+          });
+          // }
         },
       });
     });
