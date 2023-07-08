@@ -25,7 +25,7 @@ module.exports = {
         in: "in 0.3s ease-in-out",
       },
       fontFamily: {
-        serif: ["var(--noto-serif-jp)"],
+        "serif-jp": ["var(--noto-serif-jp)"],
         passion: ["var(--passion-one)"],
         montserrat: ["var(--montserrat)"],
       },

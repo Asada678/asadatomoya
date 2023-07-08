@@ -6,7 +6,7 @@ import { cn } from "asadatomoya-common/utils";
 
 import WebGlLayout from "@components/WebGlLayout";
 
-const noto = Noto_Serif_JP({
+const serifJp = Noto_Serif_JP({
   subsets: ["latin"],
   weight: ["400", "700", "900"],
   variable: "--noto-serif-jp",
@@ -37,14 +37,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ja">
       <body
         className={cn(
-          "min-h-screen dark:text-gray-200",
-          noto.variable,
+          "font-serif-jp min-h-screen dark:text-gray-200",
+          serifJp.variable,
           passionOne.variable,
           montserrat.variable,
         )}
       >
         <WebGlLayout>
-          <div className="font-serif container flex min-h-screen flex-col">{children}</div>
+          <div className="container flex min-h-screen flex-col">{children}</div>
         </WebGlLayout>
       </body>
     </html>

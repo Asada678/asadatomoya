@@ -71,7 +71,9 @@ const Navbar: FC<NavbarProps> = ({}) => {
   return (
     <>
       <header
-        className={`sticky left-0 top-0 z-10 w-full font-serif ${isTop ? "" : "backdrop-blur-sm"}`}
+        className={`sticky left-0 top-0 z-10 w-full ${
+          isTop ? "" : "backdrop-blur-sm"
+        }`}
       >
         <div className="container flex w-full">
           <div className="">
