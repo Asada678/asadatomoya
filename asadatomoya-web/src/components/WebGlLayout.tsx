@@ -5,6 +5,7 @@ import { ViewportProvider } from "@context/ViewportContext";
 import { WorldProvider } from "@context/WorldContext";
 
 import Background from "./Background";
+import Footer from "./Footer";
 import Loader from "./Loader";
 import Navbar from "./Navbar";
 
@@ -30,6 +31,7 @@ const WebGlLayout: FC<LayoutProps> = ({ children }) => {
               ></canvas>
               {children}
             </main>
+            <Footer />
             <Background />
           </div>
         </WorldProvider>

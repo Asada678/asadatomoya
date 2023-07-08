@@ -10,6 +10,10 @@ html {
   @extend .font-14-16;
 }
 
+a:hover {
+  text-decoration: underline;
+}
+
 // lil-gui.titleの長さを制限するため
 .lil-gui.root > .children > .lil-gui > .title {
   overflow: hidden;
