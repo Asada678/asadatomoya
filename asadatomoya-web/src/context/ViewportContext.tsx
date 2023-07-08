@@ -80,7 +80,7 @@ export const ViewportProvider: FC<ViewportProviderProps> = ({
         rad,
         fov: rad * (180 / Math.PI),
         devicePixelRatio: 1,
-        isMobile: width < config.breakpoint,
+        isMobile: width < config.breakpoint.md,
         isLoaded: true,
       };
       setViewport(newViewport);

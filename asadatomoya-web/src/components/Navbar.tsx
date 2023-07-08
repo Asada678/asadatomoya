@@ -27,36 +27,40 @@ const Navbar: FC<NavbarProps> = ({}) => {
   const { viewport } = useViewport();
 
   useEffect(() => {
+    if (viewport.width === 0) return;
     const context = gsap.context(() => {
       ScrollTrigger.create({
         trigger: asadatomoya.current,
         start: "center top",
-        // markers: true,
         onEnter() {
-          gsap.to(asadatomoya.current, {
-            duration: 0.3,
-            opacity: 0,
-            x: -10,
-          });
-          gsap.to(logo.current, {
-            duration: 0.3,
-            x: 10,
-          });
           setIsTop(false);
+          if (viewport.isMobile) {
+            gsap.to(asadatomoya.current, {
+              duration: 0.3,
+              opacity: 0,
+              x: -10,
+            });
+            gsap.to(logo.current, {
+              duration: 0.3,
+              x: 10,
+            });
+          }
         },
         onEnterBack() {
-          gsap.to(asadatomoya.current, {
-            duration: 0.3,
-            opacity: 1,
-            x: 0,
-            overwrite: true,
-          });
-          gsap.to(logo.current, {
-            duration: 0.3,
-            x: 0,
-            overwrite: true,
-          });
           setIsTop(true);
+          if (viewport.isMobile) {
+            gsap.to(asadatomoya.current, {
+              duration: 0.3,
+              opacity: 1,
+              x: 0,
+              overwrite: true,
+            });
+            gsap.to(logo.current, {
+              duration: 0.3,
+              x: 0,
+              overwrite: true,
+            });
+          }
         },
       });
     });
@@ -64,17 +68,13 @@ const Navbar: FC<NavbarProps> = ({}) => {
     return () => {
       context.revert();
     };
-  }, []);
+  }, [viewport]);
 
   const toggleMobileMenu = () => setShowMobileMenu(!showMobileMenu);
 
   return (
     <>
-      <header
-        className={`sticky left-0 top-0 z-10 w-full ${
-          isTop ? "" : "backdrop-blur-sm"
-        }`}
-      >
+      <header className={`sticky left-0 top-0 z-10 w-full ${isTop ? "" : "backdrop-blur-sm"}`}>
         <div className="container flex w-full">
           <div className="">
             <Link className="flex rounded py-1" href={"/"}>

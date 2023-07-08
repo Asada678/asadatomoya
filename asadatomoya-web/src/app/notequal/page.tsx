@@ -12,7 +12,7 @@ import { ArrowRightIcon } from "@radix-ui/react-icons";
 export default function NotEqual() {
   const sliderRef = useRef<WebGlHandle | null>(null);
   const { viewport } = useViewport();
-  const iconSize = viewport.width < config.breakpoint ? 20 : 36;
+  const iconSize = viewport.width < config.breakpoint.xl ? 20 : 36;
   return (
     <>
       <section id="fv" className="relative h-screen">

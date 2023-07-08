@@ -25,7 +25,7 @@ const config = {
   //   click: "pointerdown",
   // },
   // モバイル判定 viewport.isMobile() の設定（breakpointより小さい場合はモバイル画面とする）
-  breakpoint: 1280,
+  breakpoint: { md: 768, xl: 1280 },
   nav: {
     items: ["webgl", "three", "career", "qualifications", "notequal"],
   },
