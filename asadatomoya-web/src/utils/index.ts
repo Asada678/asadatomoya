@@ -1,5 +1,4 @@
-// export * from "./utils"
-// export * from "./viewport"
+export * from "./utils";
 export * from "./gui";
-// export * from "./INode"
+export * from "./INode";
 export * from "./config";

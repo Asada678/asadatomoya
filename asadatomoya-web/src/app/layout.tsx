@@ -1,15 +1,33 @@
 import "@styles/globals.scss";
 
-import { Noto_Sans_JP } from "next/font/google";
+import { Montserrat, Noto_Sans_JP, Noto_Serif_JP, Passion_One } from "next/font/google";
 
 import { cn } from "asadatomoya-common/utils";
 
-import BackGround from "@components/BackGround";
-import Navbar from "@components/Navbar";
+import WebGlLayout from "@components/WebGlLayout";
 
-const noto = Noto_Sans_JP({
+const serifJp = Noto_Serif_JP({
   subsets: ["latin"],
   weight: ["400", "700", "900"],
+  variable: "--noto-serif-jp",
+});
+
+const sansJp = Noto_Sans_JP({
+  subsets: ["latin"],
+  weight: ["400", "700", "900"],
+  variable: "--noto-sans-jp",
+});
+
+const passionOne = Passion_One({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--passion-one",
+});
+
+const montserrat = Montserrat({
+  weight: ["400", "700", "900"],
+  variable: "--montserrat",
+  subsets: ["latin"],
 });
 
 export const metadata = {
@@ -23,10 +41,18 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ja">
-      <body className={cn("min-h-screen dark:text-gray-200", noto.className)}>
-        <Navbar />
-        <BackGround />
-        <div className="container flex min-h-screen flex-col">{children}</div>
+      <body
+        className={cn(
+          "font-sans-jp min-h-screen text-gray-700 dark:text-gray-300",
+          serifJp.variable,
+          sansJp.variable,
+          passionOne.variable,
+          montserrat.variable,
+        )}
+      >
+        <WebGlLayout>
+          <div className="container flex min-h-screen flex-col">{children}</div>
+        </WebGlLayout>
       </body>
     </html>
   );
