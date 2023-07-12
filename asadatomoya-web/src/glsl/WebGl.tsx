@@ -104,7 +104,7 @@ const WebGl = forwardRef<WebGlHandle, WebGlProps>(
 
     return (
       <div
-        className={`relative ${aspectVideo ? "aspect-video" : ""} ${className}`}
+        className={`${aspectVideo ? "aspect-video" : ""} ${className}`}
         style={style}
         ref={divRef}
       ></div>

@@ -1,10 +1,12 @@
 "use client";
 
+import { useRef } from "react";
+
 import MainHeading from "@components/MainHeading";
 import SectionHeading from "@components/SectionHeading";
 import SectionHr from "@components/SectionHr";
 import Table from "@components/Table";
-import WebGl from "@glsl/WebGl";
+import WebGl, { WebGlHandle } from "@glsl/WebGl";
 
 const profile = [
   { title: "氏名", value: "浅田 智哉" },
@@ -46,21 +48,62 @@ const qualification = [
 ];
 
 export default function Home() {
+  const sliderRef = useRef<WebGlHandle | null>(null);
   return (
     <div className="py-6">
-      <MainHeading />
-      <WebGl
-        webgl="particles"
-        texture={["/img/profile.jpg", "/img/profile.jpg"]}
-        style={{ height: "70vh" }}
-        aspectVideo={false}
-      />
+      <div className="relative mx-auto max-w-5xl" style={{ height: "60vh" }}>
+        <MainHeading className="absolute top-0 left-0 py-4" />
+        <WebGl
+          webgl="slider-world"
+          texture={["/img/profile.jpg", "/img/profile2.jpg", "/img/profile3.jpg"]}
+          style={{ aspectRatio: "9/16" }}
+          className="absolute top-1/2 -translate-y-1/2 mx-auto h-full w-11/12"
+          ref={sliderRef}
+        />
+        <div className="font-50-120 absolute top-3/4 w-full -translate-y-1/2">
+          <button
+            className="mr-6 rotate-180 cursor-pointer border-none bg-none opacity-70"
+            onClick={() => sliderRef.current?.prevSlide()}
+          >
+            <svg
+              style={{ width: "1em", height: "1em" }}
+              width="120"
+              height="120"
+              viewBox="0 0 120 120"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="60" cy="60" r="59.5" stroke="white" />
+              <path d="M85 61L47.5 82.6506L47.5 39.3494L85 61Z" fill="white" />
+            </svg>
+          </button>
+          <button
+            className="absolute right-0 top-1/2 mr-6 -translate-y-1/2  cursor-pointer border-none bg-none opacity-70"
+            onClick={() => sliderRef.current?.nextSlide()}
+          >
+            <svg
+              style={{ width: "1em", height: "1em" }}
+              width="120"
+              height="120"
+              viewBox="0 0 120 120"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="60" cy="60" r="59.5" stroke="white" />
+              <path d="M85 61L47.5 82.6506L47.5 39.3494L85 61Z" fill="white" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <SectionHr />
       <SectionHr />
 
       <SectionHeading className="px-2 py-4">ビジョン</SectionHeading>
-      <p className="font-20-36 px-2 font-serif">Webを通して、
-      <span className="block sm:hidden"></span>
-      新しい価値を社会に届ける。</p>
+      <p className="font-20-36 px-2 font-serif">
+        Webを通して、
+        <span className="block sm:hidden"></span>
+        新しい価値を社会に届ける。
+      </p>
       <SectionHr />
 
       <SectionHeading className="px-2 py-4">プロフィール</SectionHeading>
@@ -98,7 +141,7 @@ export default function Home() {
 
       <SectionHeading className="px-2 py-4">資格</SectionHeading>
       <div className="max-w-3xl">
-        <div className="flex items-center gap-4 border-b px-2 pb-2 pt-4 md:py-4 bg-gray-200 dark:bg-gray-700">
+        <div className="flex items-center gap-4 border-b bg-gray-200 px-2 pb-2 pt-4 dark:bg-gray-700 md:py-4">
           <p className="font-14-16 mb-1 w-16 md:w-48">取得年月</p>
           <p className="font-16-20 font-bold">内容</p>
         </div>
