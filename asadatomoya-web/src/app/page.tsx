@@ -10,6 +10,7 @@ const profile = [
   { title: "氏名", value: "浅田 智哉" },
   { title: "生年月日", value: "1994/09/23" },
   { title: "性別", value: "男性" },
+  { title: "職業", value: "エンジニア" },
   { title: "好きなスポーツ", value: "ラグビー、サッカー、野球" },
   // { title: "", value: "" },
 ];
@@ -34,6 +35,16 @@ const objective = [
   { title: "体脂肪率", value: ["15%未満", "17.6%", "2044/09/23"] },
 ];
 
+const qualification = [
+  { yyyyMM: "2014/08", value: "第一種普通自動車運転免許" },
+  { yyyyMM: "2019/05", value: "基本情報技術者" },
+  { yyyyMM: "2019/06", value: "TOEIC L/R 865点" },
+  { yyyyMM: "2019/12", value: "応用情報技術者" },
+  { yyyyMM: "2022/01", value: "LinuCレベル1" },
+  { yyyyMM: "2022/09", value: "ORACLE MASTER Silver DBA 2019" },
+  { yyyyMM: "2023/02", value: "JSTQB Foundation Level" },
+];
+
 export default function Home() {
   return (
     <div className="py-6">
@@ -44,6 +55,12 @@ export default function Home() {
         style={{ height: "70vh" }}
         aspectVideo={false}
       />
+      <SectionHr />
+
+      <SectionHeading className="px-2 py-4">ビジョン</SectionHeading>
+      <p className="font-20-36 px-2 font-serif">Webを通して、
+      <span className="block sm:hidden"></span>
+      新しい価値を社会に届ける。</p>
       <SectionHr />
 
       <SectionHeading className="px-2 py-4">プロフィール</SectionHeading>
@@ -69,9 +86,28 @@ export default function Home() {
       <SectionHr />
 
       <SectionHeading className="px-2 py-4">目標</SectionHeading>
+      <div className="px-2">
+        <p className="font-20-24 mb-2 font-serif">会計が分かるエンジニアになる。</p>
+        <p className="font-20-24 mb-2 font-serif">健康的で強い体でいる。</p>
+      </div>
       <Table header={objectiveHeader} data={objective} />
       <div className="text-right">
         <p className="py-2">2023/07/12時点</p>
+      </div>
+      <SectionHr />
+
+      <SectionHeading className="px-2 py-4">資格</SectionHeading>
+      <div className="max-w-3xl">
+        <div className="flex items-center gap-4 border-b px-2 pb-2 pt-4 md:py-4 bg-gray-200 dark:bg-gray-700">
+          <p className="font-14-16 mb-1 w-16 md:w-48">取得年月</p>
+          <p className="font-16-20 font-bold">内容</p>
+        </div>
+        {qualification.map((c, i) => (
+          <div className="flex items-center gap-4 border-b px-2 pb-2 pt-4 md:py-4" key={i}>
+            <p className="font-14-16 mb-1 w-16 md:w-48">{c.yyyyMM}</p>
+            <p className="font-16-20 font-bold">{c.value}</p>
+          </div>
+        ))}
       </div>
       <SectionHr />
     </div>
