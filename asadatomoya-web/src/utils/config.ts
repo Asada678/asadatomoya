@@ -27,7 +27,7 @@ const config = {
   // モバイル判定 viewport.isMobile() の設定（breakpointより小さい場合はモバイル画面とする）
   breakpoint: { md: 768, xl: 1280 },
   nav: {
-    items: ["webgl", "three", "career", "qualifications", "notequal"],
+    items: ["blog",  "notequal"],
   },
 };
 
