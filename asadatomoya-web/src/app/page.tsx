@@ -23,6 +23,17 @@ const career = [
   { yyyyMM: "2021/04", value: "GMOペイメントゲートウェイ株式会社 入社" },
 ];
 
+const objectiveHeader = ["", "目標", "現状", "期日"];
+const objective = [
+  { title: "日商簿記3級", value: ["合格", "未勉強", "2024/02/25"] },
+  { title: "ベンチプレス", value: ["100kg", "90kg", "2024/03/31"] },
+  { title: "スクワット", value: ["130kg", "110kg", "2024/03/31"] },
+  { title: "デッドリフト", value: ["130kg", "110kg", "2024/03/31"] },
+  { title: "日商簿記2級", value: ["合格", "未勉強", "2024/06/xx"] },
+  { title: "体重", value: ["65kg未満", "63.6kg", "2044/09/23"] },
+  { title: "体脂肪率", value: ["15%未満", "17.6%", "2044/09/23"] },
+];
+
 export default function Home() {
   return (
     <div className="py-6">
@@ -58,16 +69,7 @@ export default function Home() {
       <SectionHr />
 
       <SectionHeading className="px-2 py-4">目標</SectionHeading>
-      <Table
-        header={["", "目標", "現状", "期日"]}
-        data={[
-          { title: "ベンチプレス", value: ["100kg", "90kg", "2024/03/31"] },
-          { title: "スクワット", value: ["130kg", "110kg", "2024/03/31"] },
-          { title: "デッドリフト", value: ["130kg", "110kg", "2024/03/31"] },
-          { title: "体重", value: ["65kg未満", "63.6kg", "2044/09/23"] },
-          { title: "体脂肪率", value: ["15%未満", "17.6%", "2044/09/23"] },
-        ]}
-      />
+      <Table header={objectiveHeader} data={objective} />
       <div className="text-right">
         <p className="py-2">2023/07/12時点</p>
       </div>

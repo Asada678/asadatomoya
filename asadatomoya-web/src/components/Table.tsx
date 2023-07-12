@@ -8,13 +8,13 @@ interface TableProps extends HTMLAttributes<HTMLDivElement> {
 
 const Table: FC<TableProps> = ({ header, data, className, style, scrollX = true }: TableProps) => {
   return (
-    <div className={`${className} border ${scrollX ? "overflow-x-auto" : ""}`} style={style}>
+    <div className={`${className} border dark:border-gray-700 ${scrollX ? "overflow-x-auto" : ""}`} style={style}>
       <div>
         <div className="flex font-bold">
           {header.map((th, i) => (
             <div
               key={i}
-              className={`h-auto min-w-[130px] bg-gray-200 p-2 text-center md:basis-1/3 ${
+              className={`h-auto min-w-[130px] bg-gray-200 p-2 text-center dark:bg-gray-700 md:basis-1/3 ${
                 i === 0 ? " sticky left-0 " : ""
               }`}
             >
@@ -24,7 +24,7 @@ const Table: FC<TableProps> = ({ header, data, className, style, scrollX = true 
         </div>
         {data.map((d) => (
           <div key={d.title} className="flex">
-            <div className="sticky left-0 h-full min-w-[130px] bg-gray-100 px-2 py-4 text-center md:basis-1/3">
+            <div className="sticky left-0 h-full min-w-[130px] bg-gray-100 px-2 py-4 text-center dark:bg-gray-600 md:basis-1/3">
               {d.title}
             </div>
             {d.value.map((v, j) => (
