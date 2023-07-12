@@ -1,6 +1,6 @@
 import "@styles/globals.scss";
 
-import { Montserrat, Noto_Serif_JP, Passion_One } from "next/font/google";
+import { Montserrat, Noto_Sans_JP, Noto_Serif_JP, Passion_One } from "next/font/google";
 
 import { cn } from "asadatomoya-common/utils";
 
@@ -10,6 +10,12 @@ const serifJp = Noto_Serif_JP({
   subsets: ["latin"],
   weight: ["400", "700", "900"],
   variable: "--noto-serif-jp",
+});
+
+const sansJp = Noto_Sans_JP({
+  subsets: ["latin"],
+  weight: ["400", "700", "900"],
+  variable: "--noto-sans-jp",
 });
 
 const passionOne = Passion_One({
@@ -37,8 +43,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ja">
       <body
         className={cn(
-          "font-serif-jp min-h-screen dark:text-gray-200",
+          "font-sans-jp min-h-screen dark:text-gray-200",
           serifJp.variable,
+          sansJp.variable,
           passionOne.variable,
           montserrat.variable,
         )}

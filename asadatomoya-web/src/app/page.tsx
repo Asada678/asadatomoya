@@ -2,6 +2,7 @@
 import Link from "next/link";
 
 import MainHeading from "@components/MainHeading";
+import SectionHeading from "@components/SectionHeading";
 import Table from "@components/Table";
 import WebGl from "@glsl/WebGl";
 
@@ -26,7 +27,8 @@ export default function Home() {
       >
         WebGL
       </Link>
-      
+
+      <SectionHeading className="py-4">目標</SectionHeading>
       <Table
         header={["", "目標", "現状", "期日"]}
         data={[
