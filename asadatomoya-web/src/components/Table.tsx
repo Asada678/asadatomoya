@@ -1,7 +1,5 @@
 import { type FC, HTMLAttributes } from "react";
 
-import { text } from "stream/consumers";
-
 interface TableProps extends HTMLAttributes<HTMLDivElement> {
   header: string[];
   data: { title: string; value: string[]; left?: boolean }[];
@@ -10,7 +8,7 @@ interface TableProps extends HTMLAttributes<HTMLDivElement> {
 
 const Table: FC<TableProps> = ({ header, data, className, style, scrollX = true }: TableProps) => {
   return (
-    <div className={`${className} ${scrollX ? "overflow-x-auto" : ""}`} style={style}>
+    <div className={`${className} border ${scrollX ? "overflow-x-auto" : ""}`} style={style}>
       <div>
         <div className="flex font-bold">
           {header.map((th, i) => (

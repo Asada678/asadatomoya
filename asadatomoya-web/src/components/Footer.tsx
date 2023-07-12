@@ -9,9 +9,9 @@ const links = config.nav.items;
 
 const Footer: FC = () => {
   return (
-    <footer className="bg-black text-white">
+    <footer className="bg-black text-center text-white">
       <div className="container px-4 py-10 text-center">
-        <Link className="flex rounded py-1" href={"/"}>
+        <Link className="flex justify-center rounded py-1" href={"/"}>
           <Image
             src={"/img/logo/icon.webp"}
             className="relative z-20 h-12 w-12"
@@ -21,8 +21,8 @@ const Footer: FC = () => {
           />
           <h1 className="font-20-36 font-passion flex items-center !italic">Asada Tomoya</h1>
         </Link>
-        <nav className="font-16-20 mb-8">
-          <ul className="flex flex-wrap md:justify-center">
+        <nav className="font-16-20 mb-8 mt-4 flex justify-center">
+          <ul className="flex pl-8">
             {links.map((link) => (
               <li key={link} className="mb-4 mr-6">
                 <Link href={`/${link}`}>{link}</Link>
@@ -30,7 +30,7 @@ const Footer: FC = () => {
             ))}
           </ul>
         </nav>
-        <div className="font-14-16">
+        <div className="font-14-16 pl-4">
           <p>© 2023 Asada Tomoya</p>
         </div>
       </div>
