@@ -4,7 +4,7 @@ interface MainHeadingProps extends HTMLAttributes<HTMLHeadingElement> {}
 
 const MainHeading: FC<MainHeadingProps> = ({ className, style }) => {
   return (
-    <h1 className={`${className} relative drop-shadow-2xl font-48-110 font-black`} style={style}>
+    <h1 className={`${className} relative drop-shadow-2xl font-48-110 font-black dark:text-gray-200`} style={style}>
       <span className="bg-gradient-to-r from-amber-500 via-orange-500 to-orange-400 bg-clip-text text-transparent">
         {`浅田智哉`}
       </span>
