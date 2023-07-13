@@ -13,6 +13,7 @@ const profile = [
   { title: "生年月日", value: "1994/09/23" },
   { title: "性別", value: "男性" },
   { title: "職業", value: "エンジニア" },
+  { title: "身長/体重/体脂肪率", value: "168cm/63kg/17%" },
   { title: "好きなスポーツ", value: "ラグビー、サッカー、野球" },
   // { title: "", value: "" },
 ];
