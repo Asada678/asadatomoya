@@ -3,9 +3,7 @@ import { type FC } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { config } from "@utils";
-
-const links = config.nav.items;
+import { links } from "@/utils";
 
 const Footer: FC = () => {
   return (
@@ -24,8 +22,8 @@ const Footer: FC = () => {
         <nav className="font-16-20 mb-8 mt-4 flex justify-center">
           <ul className="flex pl-8">
             {links.map((link) => (
-              <li key={link} className="mb-4 mr-6">
-                <Link href={`/${link}`}>{link}</Link>
+              <li key={link.path} className="mb-4 mr-6">
+                <Link href={link.path}>{link.displayName}</Link>
               </li>
             ))}
           </ul>

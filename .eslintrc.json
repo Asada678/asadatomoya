@@ -42,11 +42,11 @@
           },
           {
             "pattern": "@*",
-            "group": "internal",
+            "group": "external",
             "position": "before"
           },
           {
-            "pattern": "@*/**",
+            "pattern": "@/**",
             "group": "internal",
             "position": "after"
           }

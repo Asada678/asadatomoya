@@ -1,16 +1,8 @@
 ﻿import GUI from "lil-gui";
-import {
-  DoubleSide,
-  Group,
-  Mesh,
-  PlaneGeometry,
-  ShaderMaterial,
-  VideoTexture,
-} from "three";
+import { DoubleSide, Group, Mesh, PlaneGeometry, ShaderMaterial, VideoTexture } from "three";
 
-import { lerp } from "@utils";
-
-import { Ob } from "@glsl/Ob";
+import { Ob } from "@/glsl/Ob";
+import { lerp } from "@/utils";
 
 import fragmentShader from "./fragment.glsl";
 import vertexShader from "./vertex.glsl";

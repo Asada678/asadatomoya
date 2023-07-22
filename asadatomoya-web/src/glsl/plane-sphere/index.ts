@@ -2,7 +2,7 @@ import gsap from "gsap";
 import GUI from "lil-gui";
 import { Group, Mesh, PlaneGeometry, ShaderMaterial, SphereGeometry } from "three";
 
-import { Ob } from "@glsl/Ob";
+import { Ob } from "@/glsl/Ob";
 
 import fragmentShader from "./fragment.glsl";
 import vertexShader from "./vertex.glsl";

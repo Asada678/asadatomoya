@@ -5,9 +5,8 @@ import { folder } from "leva";
 import GUI from "lil-gui";
 import { Mesh, Object3D } from "three";
 
-import { isTouchDevices } from "@utils";
-
-import { Ob } from "@glsl/Ob";
+import { Ob } from "@/glsl/Ob";
+import { isTouchDevices } from "@/utils";
 
 import frag from "./fragment.glsl";
 import vert from "./vertex.glsl";

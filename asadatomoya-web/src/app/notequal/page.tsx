@@ -1,18 +1,18 @@
 "use client";
 import { useRef } from "react";
 
-import { config } from "@utils";
-
-import SectionHr from "@components/SectionHr";
-import SectionTitle from "@components/SectionTitle";
-import { useViewport } from "@context/ViewportContext";
-import WebGl, { WebGlHandle } from "@glsl/WebGl";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
+
+import SectionHr from "@/components/SectionHr";
+import SectionTitle from "@/components/SectionTitle";
+import { useViewport } from "@/context/ViewportContext";
+import WebGl, { WebGlHandle } from "@/glsl/WebGl";
+import { breakpoint } from "@/utils";
 
 export default function NotEqual() {
   const sliderRef = useRef<WebGlHandle | null>(null);
   const { viewport } = useViewport();
-  const iconSize = viewport.width < config.breakpoint.xl ? 20 : 36;
+  const iconSize = viewport.width < breakpoint.xl ? 20 : 36;
   return (
     <>
       <section id="fv" className="relative h-screen">

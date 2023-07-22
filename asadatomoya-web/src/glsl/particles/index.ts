@@ -2,9 +2,8 @@ import { gsap } from "gsap";
 import GUI from "lil-gui";
 import { PlaneGeometry, Points, ShaderMaterial, Vector3 } from "three";
 
-import { isSafari, isTouchDevices } from "@utils";
-
-import { Ob, Uniforms } from "@glsl/Ob";
+import { Ob, Uniforms } from "@/glsl/Ob";
+import { isSafari, isTouchDevices } from "@/utils";
 
 import fragmentShader from "./fragment.glsl";
 import vertexShader from "./vertex.glsl";

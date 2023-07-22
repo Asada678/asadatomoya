@@ -19,8 +19,8 @@ import {
   WebGLRenderer,
 } from "three";
 
-import { Viewport } from "@model";
-import { generateId, getResolutionUniform, INode, isDebug } from "@utils";
+import { Viewport } from "@/model";
+import { generateId, getResolutionUniform, INode, isDebug } from "@/utils";
 
 export interface Uniforms {
   uTick: { value: number };

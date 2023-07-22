@@ -22,7 +22,7 @@
     ],
     "baseUrl": "./src",
     "paths": {
-      "@*": ["./*"]
+      "@/*": ["./*"]
     },
     "typeRoots": ["./glsl", "./node_modules/@types"]
   },

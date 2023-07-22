@@ -1,10 +1,10 @@
-import "@styles/globals.scss";
+import "@/styles/globals.scss";
 
 import { Montserrat, Noto_Sans_JP, Noto_Serif_JP, Passion_One } from "next/font/google";
 
 import { cn } from "asadatomoya-common/utils";
 
-import WebGlLayout from "@components/WebGlLayout";
+import GlobalLayout from "@/components/GlobalLayout";
 
 const serifJp = Noto_Serif_JP({
   subsets: ["latin"],
@@ -50,9 +50,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           montserrat.variable,
         )}
       >
-        <WebGlLayout>
+        <GlobalLayout>
           <div className="container flex min-h-screen flex-col">{children}</div>
-        </WebGlLayout>
+        </GlobalLayout>
       </body>
     </html>
   );

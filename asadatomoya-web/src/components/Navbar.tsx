@@ -1,20 +1,16 @@
 "use client";
-import { type FC, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { type FC, useEffect, useRef, useState } from "react";
 import React from "react";
 
 import Image from "next/image";
 import Link from "next/link";
 
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-import { config, isDebug } from "@utils";
-
-import { useViewport } from "@context/ViewportContext";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon, HamburgerMenuIcon } from "@radix-ui/react-icons";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const links = config.nav.items;
+import { isDebug, links } from "@/utils";
 
 interface NavbarProps {}
 gsap.registerPlugin(ScrollTrigger);
@@ -25,33 +21,23 @@ const Navbar: FC<NavbarProps> = ({}) => {
   const asadatomoya = useRef<HTMLHeadingElement>(null);
   const [isTop, setIsTop] = useState(true);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
-  const [viewportCreated, setViewportCreated] = useState(false);
-  const { viewport } = useViewport();
-
-  useLayoutEffect(() => {
-    if (viewport.width === 0) return;
-    setViewportCreated(true);
-  }, [viewport]);
 
   useEffect(() => {
-    if (!viewportCreated) return;
     const context = gsap.context(() => {
       ScrollTrigger.create({
         trigger: header.current,
         start: "center top",
         markers: isDebug,
         onEnter() {
-          if (viewport.isMobile) {
-            gsap.to(asadatomoya.current, {
-              duration: 0.3,
-              opacity: 0,
-              x: -10,
-            });
-            gsap.to(logo.current, {
-              duration: 0.3,
-              x: 10,
-            });
-          }
+          gsap.to(asadatomoya.current, {
+            duration: 0.3,
+            opacity: 0,
+            x: -10,
+          });
+          gsap.to(logo.current, {
+            duration: 0.3,
+            x: 10,
+          });
           setIsTop(false);
         },
         onEnterBack() {
@@ -74,7 +60,7 @@ const Navbar: FC<NavbarProps> = ({}) => {
     return () => {
       context.revert();
     };
-  }, [viewportCreated]); // viewportに依存するとtrigger位置がブレるためviewportCreatedを追加
+  }, []);
 
   const toggleMobileMenu = () => setShowMobileMenu(!showMobileMenu);
 
@@ -103,12 +89,12 @@ const Navbar: FC<NavbarProps> = ({}) => {
           <nav className="ml-8 hidden items-center md:flex">
             <ul className="flex items-center gap-2">
               {links.map((link) => (
-                <li key={link}>
+                <li key={link.path}>
                   <Link
-                    href={`/${link}`}
+                    href={link.path}
                     className="px-4 py-2 transition-colors duration-100 hover:bg-gray-100 hover:underline"
                   >
-                    {link}
+                    {link.displayName}
                   </Link>
                 </li>
               ))}
@@ -138,13 +124,13 @@ const Navbar: FC<NavbarProps> = ({}) => {
                   <nav className="ml-8 flex items-center">
                     <ul className="flex flex-col gap-4">
                       {links.map((link) => (
-                        <li key={link}>
+                        <li key={link.path}>
                           <Link
                             href={`/${link}`}
                             onClick={() => setShowMobileMenu(false)}
                             className="px-4 py-2 transition-colors duration-100 hover:bg-gray-100 hover:underline"
                           >
-                            {link}
+                            {link.displayName}
                           </Link>
                         </li>
                       ))}

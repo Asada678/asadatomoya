@@ -11,10 +11,9 @@ import {
 
 import { LinearFilter, Texture, TextureLoader } from "three";
 
-import { createArray, removeDuplicateArray } from "@utils";
-
-import { useViewport } from "@context/ViewportContext";
-import { useWorld } from "@context/WorldContext";
+import { useViewport } from "@/context/ViewportContext";
+import { useWorld } from "@/context/WorldContext";
+import { createArray, removeDuplicateArray } from "@/utils";
 
 interface WebGlProps extends HTMLAttributes<HTMLDivElement> {
   texture: string | string[];

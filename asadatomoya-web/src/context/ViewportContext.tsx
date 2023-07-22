@@ -11,8 +11,8 @@ import React, {
   useState,
 } from "react";
 
-import { Viewport } from "@model";
-import { config } from "@utils";
+import { Viewport } from "@/model";
+import { breakpoint } from "@/utils";
 
 const initialViewport: Viewport = {
   canvas: null,
@@ -80,7 +80,7 @@ export const ViewportProvider: FC<ViewportProviderProps> = ({
         rad,
         fov: rad * (180 / Math.PI),
         devicePixelRatio: 1,
-        isMobile: width < config.breakpoint.md,
+        isMobile: width < breakpoint.md,
         isLoaded: true,
       };
       setViewport(newViewport);

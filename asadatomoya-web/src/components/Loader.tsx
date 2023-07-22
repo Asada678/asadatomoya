@@ -2,15 +2,12 @@ import { type FC, useEffect, useRef } from "react";
 
 import { gsap } from "gsap";
 
-import { isDebug } from "@utils";
-
-import { useWorld } from "@context/WorldContext";
+import { isDebug } from "@/utils";
 
 const Loader: FC = () => {
-  const { ready } = useWorld();
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (ready && ref.current) {
+    if (ref.current) {
       gsap.to(ref.current, {
         opacity: 0,
         duration: 1,
@@ -20,7 +17,7 @@ const Loader: FC = () => {
     }
 
     return () => {};
-  }, [ready]);
+  }, []);
 
   return (
     !isDebug && (

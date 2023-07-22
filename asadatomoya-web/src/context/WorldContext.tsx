@@ -15,9 +15,8 @@ import Stats from "three/examples/jsm/libs/stats.module";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer";
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass";
 
-import { gui, isDebug, isTouchDevices } from "@utils";
-
-import { ObType } from "@glsl/Ob";
+import { ObType } from "@/glsl/Ob";
+import { gui, isDebug, isTouchDevices } from "@/utils";
 
 import { useViewport } from "./ViewportContext";
 
