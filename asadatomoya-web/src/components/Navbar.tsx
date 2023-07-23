@@ -47,9 +47,12 @@ const Navbar: FC<NavbarProps> = ({}) => {
   return (
     <>
       <header
-        className={cn("fixed left-0 top-0 z-10 w-full bg-opacity-70 py-1 md:sticky md:bg-white", {
-          "shadow-sm backdrop-blur-sm": !isTop,
-        })}
+        className={cn(
+          "fixed left-0 top-0 z-10 w-full bg-opacity-70 py-1 md:sticky md:bg-white md:dark:bg-black md:dark:bg-opacity-70",
+          {
+            "shadow-sm backdrop-blur-sm": !isTop,
+          },
+        )}
         ref={header}
       >
         <div className="container flex w-full px-4 md:grid md:grid-cols-3 md:p-0">
