@@ -1,6 +1,4 @@
 {
-  "extends": ["prettier"],
-  // "plugins": ["import", "prettier"],
   "rules": {
     "sort-imports": [
       "error",
@@ -15,15 +13,7 @@
     "import/order": [
       "error",
       {
-        "groups": [
-          "builtin",
-          "external",
-          "internal",
-          ["parent", "sibling"],
-          "object",
-          "type",
-          "index"
-        ],
+        "groups": ["builtin", "external", "internal"],
         "pathGroups": [
           {
             "pattern": "react",

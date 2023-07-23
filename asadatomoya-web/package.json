@@ -20,9 +20,7 @@
     "autoprefixer": "10.4.14",
     "detect-browser": "^5.3.0",
     "detect-gpu": "^5.0.30",
-    "eslint": "8.42.0",
     "eslint-config-next": "13.4.4",
-    "fiber: ^8.11.6": "link:@react-three/fiber: ^8.11.6",
     "glsl-easings": "^1.0.0",
     "glsl-noise": "^0.0.0",
     "glsl-rotate": "^2.0.0",
@@ -43,7 +41,6 @@
   "devDependencies": {
     "@types/three": "^0.152.1",
     "@types/uuid": "^9.0.2",
-    "eslint-plugin-prettier": "^4.2.1",
     "glslify-loader": "^2.0.0",
     "raw-loader": "^4.0.2",
     "sass": "^1.63.6"

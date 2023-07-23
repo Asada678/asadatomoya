@@ -1,13 +1,40 @@
+"use client";
+import { useEffect, useRef } from "react";
+
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ExternalLink } from "lucide-react";
 
 import WebGl from "@/glsl/WebGl";
+import { isDebug } from "@/utils";
 
 const Hero = () => {
+  const h1Ref = useRef<HTMLHeadingElement>(null);
+  useEffect(() => {
+    const context = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: h1Ref.current,
+        start: "top top",
+        markers: isDebug,
+        onEnter() {
+          gsap.to(h1Ref.current, {
+            opacity: 1,
+          });
+        },
+        onEnterBack() {},
+      });
+    });
+
+    return () => {
+      context.revert();
+    };
+  }, []);
+
   return (
     <section className="relative h-screen max-h-[800px]">
       <div className="absolute left-1/2 top-0 h-full w-full -translate-x-1/2 lg:px-0">
         <div className="absolute left-0 top-1/4 w-full max-w-2xl px-3 sm:pl-8">
-          <h1 className="font-48-90 font-black drop-shadow-2xl dark:text-gray-200">
+          <h1 ref={h1Ref} className="font-48-90 font-black drop-shadow-2xl dark:text-gray-200">
             <span className="orange-gradient tracking-wider">浅田 智哉</span>
           </h1>
           <p className="font-serif-jp font-16-20 mt-2 leading-relaxed text-gray-100 drop-shadow-2xl">
@@ -32,9 +59,10 @@ const Hero = () => {
         </div>
         <WebGl
           webgl="particles"
-          texture={["/img/hero.jpg", "/img/hero.jpg"]}
+          texture={["/img/hero.jpg", "/img/hero2.jpg"]}
           className="absolute left-0 top-0 -z-10 h-full w-full scale-x-[-1] transform"
           aspectVideo={false}
+          scrollAction="progressParticles"
         />
         <div className="absolute left-0 top-0 -z-10 h-full w-full bg-gradient-to-r from-black via-black to-transparent opacity-60"></div>
       </div>
