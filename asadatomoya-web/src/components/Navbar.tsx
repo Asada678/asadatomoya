@@ -10,6 +10,8 @@ import { Cross2Icon, HamburgerMenuIcon } from "@radix-ui/react-icons";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+import { cn } from "asadatomoya-common/utils";
+
 import { isDebug, links } from "@/utils";
 
 interface NavbarProps {}
@@ -67,7 +69,7 @@ const Navbar: FC<NavbarProps> = ({}) => {
   return (
     <>
       <header
-        className={`sticky left-0 top-0 z-10 w-full py-1 ${isTop ? "" : "backdrop-blur-sm"}`}
+        className={cn("fixed left-0 top-0 z-10 w-full py-1", { "backdrop-blur-sm": isTop })}
         ref={header}
       >
         <div className="container flex w-full">

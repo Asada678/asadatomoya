@@ -1,4 +1,14 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const path = require("path");
+module.exports = {
+  reactStrictMode: false,
+  webpack: (config, options) => {
+    config.module.rules.push({
+      test: /\.(ts|tsx)$/,
+      include: path.resolve(__dirname, "../asadatomoya-common"),
+      use: [options.defaultLoaders.babel],
+    });
 
-module.exports = nextConfig
+    return config;
+  },
+};
