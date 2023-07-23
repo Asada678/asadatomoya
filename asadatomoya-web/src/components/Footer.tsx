@@ -9,8 +9,8 @@ import { links, sns } from "@/utils";
 const Footer: FC = () => {
   return (
     <footer className="bg-black text-center text-white">
-      <div className="container px-4 py-10 text-center">
-        <h1 className="font-20-36 font-passion text-center !italic text-orange-500">
+      <div className="container px-4 py-12 text-center">
+        <h1 className="font-24-36 font-passion text-center !italic text-orange-500">
           Asada Tomoya
         </h1>
 
@@ -57,7 +57,7 @@ const Footer: FC = () => {
           </div>
         </div>
         <div className="font-14-16 mt-6 pl-4">
-          <p>© 2023 Asada Tomoya</p>
+          <p className="font-serif-jp italic">© 2023 Asada Tomoya</p>
         </div>
       </div>
     </footer>
