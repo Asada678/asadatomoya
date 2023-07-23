@@ -6,6 +6,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.orange-gradient {
+  @apply bg-gradient-to-br from-amber-500 via-orange-500 to-orange-600 bg-clip-text text-transparent;
+}
+
 // lil-gui.titleの長さを制限するため
 .lil-gui.root > .children > .lil-gui > .title {
   overflow: hidden;

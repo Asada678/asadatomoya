@@ -61,7 +61,7 @@ const Navbar: FC<NavbarProps> = ({}) => {
           <div className="flex items-center sm:col-span-1">
             <Link href={"/"}>
               <h1
-                className="font-24-48 font-passion flex items-center !italic text-orange-500 duration-200 sm:hover:tracking-wide"
+                className="font-24-48 font-passion orange-gradient flex items-center pr-8 !italic duration-200 sm:hover:tracking-wide"
                 ref={asadatomoya}
               >
                 Asada Tomoya
@@ -76,7 +76,7 @@ const Navbar: FC<NavbarProps> = ({}) => {
                 <li key={link.path}>
                   <Link
                     href={link.path}
-                    className="px-4 py-2 transition-colors duration-100 hover:underline"
+                    className="px-4 py-2 transition-colors duration-200 hover:text-blue-400 hover:underline"
                   >
                     {link.displayName}
                   </Link>

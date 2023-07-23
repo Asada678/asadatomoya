@@ -18,7 +18,10 @@ const Footer: FC = () => {
         <nav className="font-16-20 mt-4 flex justify-center">
           <ul className="flex pl-8">
             {links.map((link) => (
-              <li key={link.path} className="mb-4 mr-6 underline">
+              <li
+                key={link.path}
+                className="mb-4 mr-6 underline transition-colors duration-200 hover:text-blue-400"
+              >
                 <Link href={link.path}>{link.displayName}</Link>
               </li>
             ))}
@@ -36,7 +39,12 @@ const Footer: FC = () => {
           <p className="font-bold">SNS</p>
           <div className="flex items-center justify-center gap-5 py-2">
             {sns.map((s) => (
-              <a key={s.url} href={s.url} target="_blank" className="hover:text-blue-400 transition-colors duration-200">
+              <a
+                key={s.url}
+                href={s.url}
+                target="_blank"
+                className="transition-colors duration-200 hover:text-blue-400"
+              >
                 {s.service === "twitter" ? (
                   <Twitter className="h-4 w-4 sm:h-6 sm:w-6" />
                 ) : s.service === "instagram" ? (
