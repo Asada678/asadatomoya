@@ -1,3 +1,4 @@
+import Loader from "@/components/Loader";
 import SectionHr from "@/components/SectionHr";
 import WebGlProvider from "@/components/WebGlProvider";
 import Career from "@/components/section/Career";
@@ -10,6 +11,7 @@ import Vision from "@/components/section/Vision";
 export default function Home() {
   return (
     <WebGlProvider>
+      <Loader />
       <div>
         <Hero />
         <SectionHr />
