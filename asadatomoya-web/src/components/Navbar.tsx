@@ -19,7 +19,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Navbar: FC<NavbarProps> = ({}) => {
   const header = useRef<HTMLHeadElement>(null);
-  const logo = useRef<HTMLImageElement>(null);
   const asadatomoya = useRef<HTMLHeadingElement>(null);
   const [isTop, setIsTop] = useState(true);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -31,29 +30,9 @@ const Navbar: FC<NavbarProps> = ({}) => {
         start: "center top",
         markers: isDebug,
         onEnter() {
-          gsap.to(asadatomoya.current, {
-            duration: 0.3,
-            opacity: 0,
-            x: -10,
-          });
-          gsap.to(logo.current, {
-            duration: 0.3,
-            x: 10,
-          });
           setIsTop(false);
         },
         onEnterBack() {
-          gsap.to(asadatomoya.current, {
-            duration: 0.3,
-            opacity: 1,
-            x: 0,
-            overwrite: true,
-          });
-          gsap.to(logo.current, {
-            duration: 0.3,
-            x: 0,
-            overwrite: true,
-          });
           setIsTop(true);
         },
       });
@@ -69,32 +48,29 @@ const Navbar: FC<NavbarProps> = ({}) => {
   return (
     <>
       <header
-        className={cn("fixed left-0 top-0 z-10 w-full py-1", { "backdrop-blur-sm": isTop })}
+        className={cn("fixed left-0 top-0 z-10 w-full bg-opacity-70 py-1 md:sticky md:bg-white", {
+          "shadow-sm backdrop-blur-sm": !isTop,
+        })}
         ref={header}
       >
-        <div className="container flex w-full">
-          <div className="">
-            <Link className="flex rounded" href={"/"}>
-              <Image
-                src={"/img/logo/icon.webp"}
-                className="relative z-20 h-14 w-14"
-                width={60}
-                height={60}
-                alt="logo"
-                ref={logo}
-              />
-              <h1 className="font-24-48 font-passion flex items-center !italic" ref={asadatomoya}>
+        <div className="container flex w-full px-4 md:grid md:grid-cols-3 md:p-0">
+          <div className="flex items-center md:col-span-1">
+            <Link href={"/"}>
+              <h1
+                className="font-24-48 font-passion flex items-center !italic text-orange-500 duration-200 md:hover:tracking-wide"
+                ref={asadatomoya}
+              >
                 Asada Tomoya
               </h1>
             </Link>
           </div>
-          <nav className="ml-8 hidden items-center md:flex">
+          <nav className="ml-8 hidden items-center md:col-span-2 md:flex">
             <ul className="flex items-center gap-2">
               {links.map((link) => (
                 <li key={link.path}>
                   <Link
                     href={link.path}
-                    className="px-4 py-2 transition-colors duration-100 hover:bg-gray-100 hover:underline"
+                    className="px-4 py-2 transition-colors duration-100 hover:underline"
                   >
                     {link.displayName}
                   </Link>
@@ -102,7 +78,7 @@ const Navbar: FC<NavbarProps> = ({}) => {
               ))}
             </ul>
           </nav>
-          <div className="grow self-center pr-4 text-end md:hidden">
+          <div className="grow self-center text-end md:hidden">
             <Dialog.Root open={showMobileMenu} onOpenChange={toggleMobileMenu}>
               <Dialog.Trigger asChild>
                 <button
