@@ -2,13 +2,11 @@
 import { type FC, useEffect, useRef, useState } from "react";
 import React from "react";
 
-import dynamic from "next/dynamic";
 import Link from "next/link";
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { AlignJustify, EqualNot, Home, Pen } from "lucide-react";
-import dynamicIconImports from "lucide-react/dynamicIconImports";
 
 import { cn } from "asadatomoya-common/utils";
 
@@ -16,7 +14,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/DropdownMenu";
 import { isDebug, links } from "@/utils";
@@ -28,7 +25,6 @@ const Navbar: FC<NavbarProps> = ({}) => {
   const header = useRef<HTMLHeadElement>(null);
   const asadatomoya = useRef<HTMLHeadingElement>(null);
   const [isTop, setIsTop] = useState(true);
-  const [showMobileMenu, setShowMobileMenu] = useState(false);
 
   useEffect(() => {
     const context = gsap.context(() => {
@@ -50,24 +46,22 @@ const Navbar: FC<NavbarProps> = ({}) => {
     };
   }, []);
 
-  const toggleMobileMenu = () => setShowMobileMenu(!showMobileMenu);
-
   return (
     <>
       <header
         className={cn(
-          "fixed left-0 top-0 z-10 w-full bg-opacity-70 py-1 md:sticky md:bg-white md:dark:bg-black md:dark:bg-opacity-70",
+          "fixed left-0 top-0 z-10 w-full bg-opacity-70 py-1 sm:sticky sm:bg-white sm:dark:bg-black sm:dark:bg-opacity-70",
           {
             "shadow-sm backdrop-blur-sm": !isTop,
           },
         )}
         ref={header}
       >
-        <div className="container flex w-full px-4 md:grid md:grid-cols-3 md:p-0">
-          <div className="flex items-center md:col-span-1">
+        <div className="container flex w-full px-4 sm:grid sm:grid-cols-3 sm:px-2">
+          <div className="flex items-center sm:col-span-1">
             <Link href={"/"}>
               <h1
-                className="font-24-48 font-passion flex items-center !italic text-orange-500 duration-200 md:hover:tracking-wide"
+                className="font-24-48 font-passion flex items-center !italic text-orange-500 duration-200 sm:hover:tracking-wide"
                 ref={asadatomoya}
               >
                 Asada Tomoya
@@ -76,7 +70,7 @@ const Navbar: FC<NavbarProps> = ({}) => {
           </div>
 
           {/* PC menu */}
-          <nav className="ml-8 hidden items-center md:col-span-2 md:flex">
+          <nav className="ml-8 hidden items-center sm:col-span-2 sm:flex">
             <ul className="flex items-center gap-2">
               {links.map((link) => (
                 <li key={link.path}>
@@ -92,14 +86,14 @@ const Navbar: FC<NavbarProps> = ({}) => {
           </nav>
 
           {/* Mobile menu */}
-          <div className="grow self-center text-end md:hidden">
+          <div className="grow self-center text-end sm:hidden">
             <DropdownMenu>
               <DropdownMenuTrigger>
                 <AlignJustify className="h-8 w-8 text-gray-700 dark:text-gray-300" />
               </DropdownMenuTrigger>
 
               <DropdownMenuContent
-                className="border-gray-200 py-4 bg-gray-100 dark:bg-black dark:bg-opacity-60"
+                className="border-gray-200 bg-gray-100 py-4 dark:bg-black dark:bg-opacity-60"
                 align="end"
               >
                 <DropdownMenuItem className="">
