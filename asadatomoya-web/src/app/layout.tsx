@@ -43,7 +43,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ja">
       <body
         className={cn(
-          "font-14-16 font-sans-jp min-h-screen text-gray-800 dark:text-gray-300",
+          "font-sans-jp min-h-screen text-gray-800 dark:text-gray-300",
+          "font-14-16",
           serifJp.variable,
           sansJp.variable,
           passionOne.variable,

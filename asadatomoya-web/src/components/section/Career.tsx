@@ -16,9 +16,9 @@ const Career = () => {
       <SectionHeading className="px-2 py-4">経歴</SectionHeading>
       <div className="max-w-3xl px-2">
         {career.map((c, i) => (
-          <div className="flex items-center gap-4 border-b pb-2 pt-4 md:py-4" key={i}>
-            <p className="font-14-16 mb-1 w-16 md:w-48">{c.yyyyMM}</p>
-            <p className="font-16-20 font-bold">{c.value}</p>
+          <div className="flex items-center border-b pb-2 pt-4 md:py-4" key={i}>
+            <p className="w-16 md:w-48">{c.yyyyMM}</p>
+            <p className="font-bold">{c.value}</p>
           </div>
         ))}
       </div>
