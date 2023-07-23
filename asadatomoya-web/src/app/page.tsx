@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <WebGlProvider>
       <Loader />
-      <div>
+      <div className="mx-auto w-full max-w-screen-2xl">
         <Hero />
         <SectionHr />
         <SectionHr />
