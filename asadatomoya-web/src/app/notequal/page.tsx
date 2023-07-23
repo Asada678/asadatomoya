@@ -1,18 +1,31 @@
 "use client";
-import { useRef } from "react";
+import { FC, HTMLAttributes, useRef } from "react";
 
-import { config } from "@utils";
-
-import SectionHr from "@components/SectionHr";
-import SectionTitle from "@components/SectionTitle";
-import { useViewport } from "@context/ViewportContext";
-import WebGl, { WebGlHandle } from "@glsl/WebGl";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
+
+import SectionHr from "@/components/SectionHr";
+import { useViewport } from "@/context/ViewportContext";
+import WebGl, { WebGlHandle } from "@/glsl/WebGl";
+import { breakpoint } from "@/utils";
+
+interface SectionTitleProps extends HTMLAttributes<HTMLHeadingElement> {
+  children: React.ReactNode;
+}
+
+const SectionTitle: FC<SectionTitleProps> = ({ children, className }) => {
+  return (
+    <h2
+      className={`${className} font-montserrat font-36-60 relative mb-6 text-center font-bold xl:text-left`}
+    >
+      <span className="inline-block uppercase">{children}</span>
+    </h2>
+  );
+};
 
 export default function NotEqual() {
   const sliderRef = useRef<WebGlHandle | null>(null);
   const { viewport } = useViewport();
-  const iconSize = viewport.width < config.breakpoint.xl ? 20 : 36;
+  const iconSize = viewport.width < breakpoint.xl ? 20 : 36;
   return (
     <>
       <section id="fv" className="relative h-screen">

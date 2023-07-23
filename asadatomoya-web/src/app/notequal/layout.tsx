@@ -1,5 +1,11 @@
 import { ReactNode } from "react";
 
+import WebGlProvider from "@/components/WebGlProvider";
+
 export default function Layout({ children }: { children: ReactNode }) {
-  return <div className="font-serif-jp">{children}</div>;
+  return (
+    <WebGlProvider>
+      <div className="font-serif-jp">{children}</div>
+    </WebGlProvider>
+  );
 }

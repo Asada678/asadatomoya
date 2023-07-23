@@ -11,10 +11,9 @@ import {
   VideoTexture,
 } from "three";
 
-import { Viewport } from "@model";
-import { INode, lerp, pointTo } from "@utils";
-
-import { Ob, Uniforms } from "@glsl/Ob";
+import { Ob, Uniforms } from "@/glsl/Ob";
+import { Viewport } from "@/model";
+import { INode, lerp, pointTo } from "@/utils";
 
 import fragmentShader from "./fragment.glsl";
 import vertexShader from "./vertex.glsl";
