@@ -14,6 +14,7 @@ const Loader: FC = () => {
         duration: 1,
         pointerEvents: "none",
         ease: "slowmo",
+        zIndex: -50,
       });
     }
 

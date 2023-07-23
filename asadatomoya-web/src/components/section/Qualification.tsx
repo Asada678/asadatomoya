@@ -21,7 +21,7 @@ const Qualification = () => {
         </div>
         {qualification.map((c, i) => (
           <div className="flex items-center gap-4 border-b px-2 pb-2 pt-4 md:py-4" key={i}>
-            <p className="font-14-16 mb-1 w-16 md:w-48">{c.yyyyMM}</p>
+            <p className="w-16 md:w-48">{c.yyyyMM}</p>
             <p className="font-16-20 font-bold">{c.value}</p>
           </div>
         ))}

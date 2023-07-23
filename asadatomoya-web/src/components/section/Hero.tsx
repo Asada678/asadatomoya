@@ -4,13 +4,11 @@ import WebGl from "@/glsl/WebGl";
 
 const Hero = () => {
   return (
-    <section className="relative  h-screen max-h-[800px]">
-      <div className="absolute left-1/2 top-0 h-full w-full max-w-screen-2xl -translate-x-1/2 lg:px-0">
+    <section className="relative h-screen max-h-[800px]">
+      <div className="absolute left-1/2 top-0 h-full w-full -translate-x-1/2 lg:px-0">
         <div className="absolute left-0 top-1/4 w-full max-w-2xl px-3 sm:pl-8">
           <h1 className="font-48-90 font-black drop-shadow-2xl dark:text-gray-200">
-            <span className="bg-gradient-to-r from-amber-500 via-orange-500 to-orange-400 bg-clip-text tracking-wider text-transparent">
-              浅田 智哉
-            </span>
+            <span className="orange-gradient tracking-wider">浅田 智哉</span>
           </h1>
           <p className="font-serif-jp font-16-20 mt-2 leading-relaxed text-gray-100 drop-shadow-2xl">
             筋トレ・プログラミング・ラグビーが

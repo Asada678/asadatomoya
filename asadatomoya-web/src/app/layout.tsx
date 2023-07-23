@@ -4,7 +4,9 @@ import { Montserrat, Noto_Sans_JP, Noto_Serif_JP, Passion_One } from "next/font/
 
 import { cn } from "asadatomoya-common/utils";
 
-import GlobalLayout from "@/components/GlobalLayout";
+import Background from "@/components/Background";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 
 const serifJp = Noto_Serif_JP({
   subsets: ["latin"],
@@ -43,16 +45,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ja">
       <body
         className={cn(
-          "font-14-16 font-sans-jp min-h-screen text-gray-800 dark:text-gray-300",
+          "font-sans-jp text-gray-800 dark:text-gray-300",
+          "font-14-16",
           serifJp.variable,
           sansJp.variable,
           passionOne.variable,
           montserrat.variable,
         )}
       >
-        <GlobalLayout>
-          <div className="container flex min-h-screen flex-col">{children}</div>
-        </GlobalLayout>
+        <div>
+          <Navbar />
+          <main>
+            <div className="container flex min-h-screen flex-col">{children}</div>
+          </main>
+          <Footer />
+          <Background />
+        </div>
       </body>
     </html>
   );

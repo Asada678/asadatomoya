@@ -36,3 +36,9 @@ export const links = [
   { displayName: "blog", path: "/blog" },
   { displayName: "notequal", path: "/notequal" },
 ];
+
+export const sns = [
+  { service: "github", url: "https://github.com/Asada678" },
+  { service: "twitter", url: "https://twitter.com/asadatomoya923" },
+  { service: "instagram", url: "https://www.instagram.com/asadatomoya923/" },
+];
