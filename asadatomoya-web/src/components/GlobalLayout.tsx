@@ -1,10 +1,9 @@
-"use client";
 import { type FC } from "react";
 
-import Background from "./Background";
-import Footer from "./Footer";
-import Loader from "./Loader";
-import Navbar from "./Navbar";
+import Background from "@/components/Background";
+import Footer from "@/components/Footer";
+import Loader from "@/components/Loader";
+import Navbar from "@/components/Navbar";
 
 interface LayoutProps {
   children: React.ReactNode;
