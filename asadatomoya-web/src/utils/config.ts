@@ -31,7 +31,7 @@
 // },
 // };
 
-export const breakpoint = { md: 768, xl: 1280 };
+export const breakpoint = { sm: 640, md: 768, lg: 1024, xl: 1280 };
 export const links = [
   { displayName: "blog", path: "/blog" },
   { displayName: "notequal", path: "/notequal" },
