@@ -14,7 +14,7 @@ const Footer: FC = () => {
         <nav className="font-16-20 mt-4 flex justify-center">
           <ul className="flex pl-8">
             {links.map((link) => (
-              <li key={link.path} className="mb-4 mr-6 hover:underline">
+              <li key={link.path} className="mb-4 mr-6 underline">
                 <Link href={link.path}>{link.displayName}</Link>
               </li>
             ))}
@@ -22,7 +22,7 @@ const Footer: FC = () => {
         </nav>
         <div className="mt-4">
           <p className="font-bold">連絡先</p>
-          <a href="mailto:asadatomoya923@gmail.com" className="text-blue-400 hover:underline">
+          <a href="mailto:asadatomoya923@gmail.com" className="text-blue-400 underline ">
             asadatomoya923@gmail.com
           </a>
         </div>

@@ -2,15 +2,23 @@
 import { type FC, useEffect, useRef, useState } from "react";
 import React from "react";
 
+import dynamic from "next/dynamic";
 import Link from "next/link";
 
-import * as Dialog from "@radix-ui/react-dialog";
-import { Cross2Icon, HamburgerMenuIcon } from "@radix-ui/react-icons";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { AlignJustify, EqualNot, Home, Pen } from "lucide-react";
+import dynamicIconImports from "lucide-react/dynamicIconImports";
 
 import { cn } from "asadatomoya-common/utils";
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/DropdownMenu";
 import { isDebug, links } from "@/utils";
 
 interface NavbarProps {}
@@ -66,6 +74,8 @@ const Navbar: FC<NavbarProps> = ({}) => {
               </h1>
             </Link>
           </div>
+
+          {/* PC menu */}
           <nav className="ml-8 hidden items-center md:col-span-2 md:flex">
             <ul className="flex items-center gap-2">
               {links.map((link) => (
@@ -80,54 +90,32 @@ const Navbar: FC<NavbarProps> = ({}) => {
               ))}
             </ul>
           </nav>
+
+          {/* Mobile menu */}
           <div className="grow self-center text-end md:hidden">
-            <Dialog.Root open={showMobileMenu} onOpenChange={toggleMobileMenu}>
-              <Dialog.Trigger asChild>
-                <button
-                  className="inline-flex h-12 items-center justify-center rounded-md text-gray-700"
-                  onClick={toggleMobileMenu}
-                >
-                  {showMobileMenu ? (
-                    <Cross2Icon height={30} width={30} />
-                  ) : (
-                    <HamburgerMenuIcon height={30} width={30} />
-                  )}
-                </button>
-              </Dialog.Trigger>
-              <Dialog.Portal>
-                <Dialog.Overlay className="bg-overlay fixed inset-0" />
-                <Dialog.Content className="animate-in fixed left-1/2 top-1/2 z-50 h-[85vh] w-[300px] max-w-[450px] -translate-x-1/2 -translate-y-1/2 overflow-y-auto bg-white">
-                  <Dialog.Title className="text-mauve12 font-24-48 m-0 text-center font-bold uppercase">
-                    Menu
-                  </Dialog.Title>
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <AlignJustify className="h-8 w-8 text-gray-700 dark:text-gray-300" />
+              </DropdownMenuTrigger>
 
-                  <nav className="ml-8 flex items-center">
-                    <ul className="flex flex-col gap-4">
-                      {links.map((link) => (
-                        <li key={link.path}>
-                          <Link
-                            href={`/${link}`}
-                            onClick={() => setShowMobileMenu(false)}
-                            className="px-4 py-2 transition-colors duration-100 hover:bg-gray-100 hover:underline"
-                          >
-                            {link.displayName}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </nav>
-
-                  <Dialog.Close asChild>
-                    <button
-                      className="focus:shadow-violet7 absolute right-[10px] top-[10px] inline-flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-full"
-                      aria-label="Close"
-                    >
-                      <Cross2Icon />
-                    </button>
-                  </Dialog.Close>
-                </Dialog.Content>
-              </Dialog.Portal>
-            </Dialog.Root>
+              <DropdownMenuContent
+                className="border-gray-200 py-4 bg-gray-100 dark:bg-black dark:bg-opacity-60"
+                align="end"
+              >
+                <DropdownMenuItem className="">
+                  <Home className="mr-3" />
+                  <Link href="/">home</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="mt-3">
+                  <Pen className="mr-3" />
+                  <Link href="/blog">blog</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="mt-3">
+                  <EqualNot className="mr-3" />
+                  <Link href="/notequal">notequal</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </header>
