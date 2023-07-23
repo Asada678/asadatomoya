@@ -18,8 +18,8 @@ const Hero = () => {
         </div>
         <WebGl
           webgl="particles"
-          texture={["/img/profile.jpg"]}
-          className="absolute left-0 top-0 -z-10 h-full w-full"
+          texture={["/img/hero.jpg"]}
+          className="absolute left-0 top-0 -z-10 h-full w-full transform scale-x-[-1]"
           aspectVideo={false}
         />
         <div className="absolute left-0 top-0 -z-10 h-full w-full bg-black bg-opacity-50"></div>
