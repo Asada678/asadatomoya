@@ -1,6 +1,5 @@
 import { type FC } from "react";
 
-import Image from "next/image";
 import Link from "next/link";
 
 import { links } from "@/utils";
@@ -9,26 +8,36 @@ const Footer: FC = () => {
   return (
     <footer className="bg-black text-center text-white">
       <div className="container px-4 py-10 text-center">
-        <Link className="flex justify-center rounded py-1" href={"/"}>
-          <Image
-            src={"/img/logo/icon.webp"}
-            className="relative z-20 h-12 w-12"
-            width={48}
-            height={48}
-            alt="logo"
-          />
-          <h1 className="font-20-36 font-passion flex items-center !italic">Asada Tomoya</h1>
-        </Link>
-        <nav className="font-16-20 mb-8 mt-4 flex justify-center">
+        <h1 className="font-20-36 font-passion text-center !italic text-orange-500">
+          Asada Tomoya
+        </h1>
+        <nav className="font-16-20 mt-4 flex justify-center">
           <ul className="flex pl-8">
             {links.map((link) => (
-              <li key={link.path} className="mb-4 mr-6">
+              <li key={link.path} className="mb-4 mr-6 hover:underline">
                 <Link href={link.path}>{link.displayName}</Link>
               </li>
             ))}
           </ul>
         </nav>
-        <div className="font-14-16 pl-4">
+        <div className="mt-4">
+          <p className="font-bold">連絡先</p>
+          <a href="mailto:asadatomoya923@gmail.com" className="text-blue-400 hover:underline">
+            asadatomoya923@gmail.com
+          </a>
+        </div>
+        {/* <div className="mt-4">
+          <p className="font-bold">SNS</p>
+          <div className="flex items-center justify-center py-2 gap-4">
+            <a href="https://twitter.com/asadatomoya923" target="_blank">
+              <Twitter className="h-4 w-4" fill="white" />
+            </a>
+            <a href="https://twitter.com/asadatomoya923" target="_blank">
+              <Instagram className="h-4 w-4" />
+            </a>
+          </div>
+        </div> */}
+        <div className="font-14-16 mt-6 pl-4">
           <p>© 2023 Asada Tomoya</p>
         </div>
       </div>

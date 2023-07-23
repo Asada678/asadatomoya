@@ -12,7 +12,7 @@ const Hero = () => {
               浅田 智哉
             </span>
           </h1>
-          <p className="font-serif-jp font-16-20 mt-2 leading-relaxed text-gray-100">
+          <p className="font-serif-jp font-16-20 mt-2 leading-relaxed text-gray-100 drop-shadow-2xl">
             筋トレ・プログラミング・ラグビーが
             <br className="block sm:hidden" />
             好きなWebエンジニアです。
@@ -27,18 +27,18 @@ const Hero = () => {
               target="_blank"
               className="group mt-2 flex w-48 items-center justify-center rounded-3xl bg-orange-200 py-2 text-gray-900 transition-colors duration-300 hover:bg-orange-300 sm:w-56 sm:py-3"
             >
-              GitHub
+              <span className="font-bold tracking-wide">GitHub</span>
               <ExternalLink className="ml-2 h-4 w-4 duration-200 group-hover:translate-x-1" />
             </a>
           </div>
         </div>
         <WebGl
           webgl="particles"
-          texture={["/img/hero.jpg"]}
+          texture={["/img/hero.jpg", "/img/hero.jpg"]}
           className="absolute left-0 top-0 -z-10 h-full w-full scale-x-[-1] transform"
           aspectVideo={false}
         />
-        <div className="absolute left-0 top-0 -z-10 h-full w-full bg-black bg-opacity-50"></div>
+        <div className="absolute left-0 top-0 -z-10 h-full w-full bg-gradient-to-r from-black via-black to-transparent opacity-60"></div>
       </div>
     </section>
   );
