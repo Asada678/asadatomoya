@@ -2,7 +2,6 @@
 import { type FC, useEffect, useRef, useState } from "react";
 import React from "react";
 
-import Image from "next/image";
 import Link from "next/link";
 
 import * as Dialog from "@radix-ui/react-dialog";
