@@ -20,7 +20,7 @@ interface WebGlProps extends HTMLAttributes<HTMLDivElement> {
   texture: string | string[];
   webgl: "slider-world" | "particles" | "ray-marching" | "slider-reflect" | "plane-sphere";
   aspectVideo?: boolean;
-  scrollAction?: "progressParticles";
+  scrollAction?: () => ScrollTrigger;
 }
 export interface WebGlHandle {
   nextSlide: () => void;
@@ -28,7 +28,7 @@ export interface WebGlHandle {
 }
 
 const WebGl = forwardRef<WebGlHandle, WebGlProps>(
-  ({ texture, webgl, aspectVideo = true, scrollAction = "", style = {}, className = "" }, ref) => {
+  ({ texture, webgl, aspectVideo = true, scrollAction, style = {}, className = "" }, ref) => {
     const divRef = useRef<HTMLDivElement>(null);
     const { ready, addOb, removeOb } = useWorld();
     const { viewport } = useViewport();
@@ -88,28 +88,14 @@ const WebGl = forwardRef<WebGlHandle, WebGlProps>(
 
     useEffect(() => {
       if (!ob) return;
-      if (scrollAction) {
-        progressParticles();
-      }
+      if (!scrollAction) return;
+      const trigger = scrollAction();
 
-      return () => {};
-    }, [ob]);
-
-    const progressParticles = useCallback(() => {
-      ScrollTrigger.create({
-        trigger: divRef.current,
-        start: "center center",
-        end: "center center",
-        markers: true,
-        onEnter() {
-          if (!ob) return;
-          ob.goTo(1, 3);
-        },
-        onEnterBack() {
-          if (!ob) return;
-          ob.goTo(0, 3);
-        },
-      });
+      return () => {
+        if (trigger) {
+          trigger.kill();
+        }
+      };
     }, [ob]);
 
     const prevSlide = useCallback(() => {
@@ -126,6 +112,7 @@ const WebGl = forwardRef<WebGlHandle, WebGlProps>(
     useImperativeHandle(ref, () => ({
       prevSlide,
       nextSlide,
+      ob,
     }));
 
     return (
