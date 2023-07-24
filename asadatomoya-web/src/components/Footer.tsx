@@ -35,7 +35,7 @@ const Footer: FC = () => {
         </div>
 
         {/* sns */}
-        <div className="mt-4">
+        {/* <div className="mt-4">
           <p className="font-bold">SNS</p>
           <div className="flex items-center justify-center gap-5 py-2">
             {sns.map((s) => (
@@ -55,7 +55,7 @@ const Footer: FC = () => {
               </a>
             ))}
           </div>
-        </div>
+        </div> */}
         <div className="font-14-16 mt-6 pl-4">
           <p className="font-serif-jp italic">© 2023 Asada Tomoya</p>
         </div>

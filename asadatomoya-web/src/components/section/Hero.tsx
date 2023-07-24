@@ -15,12 +15,6 @@ const Hero = () => {
   const sectionRef = useRef<HTMLElement>(null);
 
   useLayoutEffect(() => {
-    // const trigger = ScrollTrigger.create({
-    //   trigger: sectionRef.current,
-    //   start: "top bottom",
-    //   end: "top bottom",
-    //   onEnter() {},
-    // });
     const timeline = gsap
       .timeline()
       .to(sectionRef.current, { opacity: 1 })
@@ -48,7 +42,6 @@ const Hero = () => {
       });
 
     return () => {
-      // trigger.kill();
       timeline.kill();
     };
   }, []);
