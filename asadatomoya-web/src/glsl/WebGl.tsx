@@ -9,6 +9,7 @@ import {
   useState,
 } from "react";
 
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { LinearFilter, Texture, TextureLoader } from "three";
 
 import { useViewport } from "@/context/ViewportContext";
@@ -19,15 +20,15 @@ interface WebGlProps extends HTMLAttributes<HTMLDivElement> {
   texture: string | string[];
   webgl: "slider-world" | "particles" | "ray-marching" | "slider-reflect" | "plane-sphere";
   aspectVideo?: boolean;
+  scrollAction?: () => ScrollTrigger;
 }
-
 export interface WebGlHandle {
   nextSlide: () => void;
   prevSlide: () => void;
 }
 
 const WebGl = forwardRef<WebGlHandle, WebGlProps>(
-  ({ texture, webgl, aspectVideo = true, style = {}, className = "" }, ref) => {
+  ({ texture, webgl, aspectVideo = true, scrollAction, style = {}, className = "" }, ref) => {
     const divRef = useRef<HTMLDivElement>(null);
     const { ready, addOb, removeOb } = useWorld();
     const { viewport } = useViewport();
@@ -85,6 +86,18 @@ const WebGl = forwardRef<WebGlHandle, WebGlProps>(
       };
     }, [ready]); // worldの作成が完了していたら実行
 
+    useEffect(() => {
+      if (!ob) return;
+      if (!scrollAction) return;
+      const trigger = scrollAction();
+
+      return () => {
+        if (trigger) {
+          trigger.kill();
+        }
+      };
+    }, [ob]);
+
     const prevSlide = useCallback(() => {
       if (!ob || ob.activeSlideIdx == null || !ob.goTo) return;
       const nextIdx = ob.activeSlideIdx - 1;
@@ -99,6 +112,7 @@ const WebGl = forwardRef<WebGlHandle, WebGlProps>(
     useImperativeHandle(ref, () => ({
       prevSlide,
       nextSlide,
+      ob,
     }));
 
     return (

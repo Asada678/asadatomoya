@@ -7,7 +7,8 @@ import SectionHeading from "@/components/SectionHeading";
 import WebGl, { WebGlHandle } from "@/glsl/WebGl";
 
 const Vision = () => {
-  const sliderRef = useRef<WebGlHandle | null>(null);
+  const sliderRef = useRef<WebGlHandle>(null);
+
   return (
     <section>
       <SectionHeading className="px-2 py-4">ビジョン</SectionHeading>

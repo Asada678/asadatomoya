@@ -27,22 +27,20 @@ const Navbar: FC<NavbarProps> = ({}) => {
   const [isTop, setIsTop] = useState(true);
 
   useEffect(() => {
-    const context = gsap.context(() => {
-      ScrollTrigger.create({
-        trigger: header.current,
-        start: "center top",
-        markers: isDebug,
-        onEnter() {
-          setIsTop(false);
-        },
-        onEnterBack() {
-          setIsTop(true);
-        },
-      });
+    const trigger = ScrollTrigger.create({
+      trigger: header.current,
+      start: "center top",
+      markers: isDebug,
+      onEnter() {
+        setIsTop(false);
+      },
+      onEnterBack() {
+        setIsTop(true);
+      },
     });
 
     return () => {
-      context.revert();
+      trigger.kill();
     };
   }, []);
 
