@@ -15,41 +15,41 @@ const Hero = () => {
   const sectionRef = useRef<HTMLElement>(null);
 
   useLayoutEffect(() => {
-    const trigger = ScrollTrigger.create({
-      trigger: sectionRef.current,
-      start: "top bottom",
-      end: "top bottom",
-      onEnter() {
-        gsap
-          .timeline()
-          .to(sectionRef.current, { opacity: 1 })
-          .from(bgRef.current, {
-            opacity: 0,
-            duration: 1,
-            delay: 2,
-          })
-          .from(h1Ref.current, {
-            opacity: 0,
-            y: 40,
-            duration: 0.3,
-            delay: 0.3,
-          })
-          .from(pRef.current, {
-            opacity: 0,
-            y: 40,
-            duration: 0.3,
-            delay: 0.3,
-          })
-          .from(githubRef.current, {
-            opacity: 0,
-            duration: 0.5,
-            delay: 0.2,
-          });
-      },
-    });
+    // const trigger = ScrollTrigger.create({
+    //   trigger: sectionRef.current,
+    //   start: "top bottom",
+    //   end: "top bottom",
+    //   onEnter() {},
+    // });
+    const timeline = gsap
+      .timeline()
+      .to(sectionRef.current, { opacity: 1 })
+      .from(bgRef.current, {
+        opacity: 0,
+        duration: 0.5,
+        delay: 2.5,
+      })
+      .from(h1Ref.current, {
+        opacity: 0,
+        y: 40,
+        duration: 0.3,
+        delay: 0.3,
+      })
+      .from(pRef.current, {
+        opacity: 0,
+        y: 40,
+        duration: 0.3,
+        delay: 0.3,
+      })
+      .from(githubRef.current, {
+        opacity: 0,
+        duration: 0.5,
+        delay: 0.2,
+      });
 
     return () => {
-      trigger.kill();
+      // trigger.kill();
+      timeline.kill();
     };
   }, []);
 
