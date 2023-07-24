@@ -1,5 +1,5 @@
 {
-  "cSpell.words": ["Asada", "asadatomoya", "gsap", "slowmo", "Tomoya", "webp"],
+  "cSpell.words": ["Asada", "asadatomoya", "gsap", "lucide", "slowmo", "Tomoya", "webp"],
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": ["source.addMissingImports", "source.fixAll.eslint"]
 }

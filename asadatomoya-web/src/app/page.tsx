@@ -10,7 +10,6 @@ import Qualification from "@/components/section/Qualification";
 import Vision from "@/components/section/Vision";
 
 export default function Home() {
-
   return (
     <WebGlProvider>
       <Loader />
@@ -22,7 +21,7 @@ export default function Home() {
         <Vision />
         <SectionHr />
 
-          <Profile />
+        <Profile />
         <SectionHr />
 
         <Career />
