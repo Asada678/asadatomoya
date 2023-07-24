@@ -29,8 +29,8 @@ const Footer: FC = () => {
         </nav>
         <div className="mt-4">
           <p className="font-bold">連絡先</p>
-          <a href="mailto:asadatomoya923@gmail.com" className="text-blue-400 underline ">
-            asadatomoya923@gmail.com
+          <a href="mailto:asada.tomoya0923@gmail.com" className="text-blue-400 underline ">
+            asada.tomoya0923@gmail.com
           </a>
         </div>
 

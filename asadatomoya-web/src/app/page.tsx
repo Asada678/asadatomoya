@@ -1,9 +1,4 @@
 "use client";
-import { useEffect, useRef } from "react";
-
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
 import Loader from "@/components/Loader";
 import SectionHr from "@/components/SectionHr";
 import WebGlProvider from "@/components/WebGlProvider";
@@ -15,26 +10,6 @@ import Qualification from "@/components/section/Qualification";
 import Vision from "@/components/section/Vision";
 
 export default function Home() {
-  const divRef = useRef(null);
-  useEffect(() => {
-    ScrollTrigger.create({
-      trigger: divRef.current,
-      // start: "top 80%",
-      // end: "center center",
-      onEnter() {
-        gsap.from(divRef.current, {
-          opacity: 0,
-          y: 100,
-          duration: 0.5,
-          overwrite: true,
-        });
-      },
-      onEnterBack() {},
-    });
-
-    return () => {};
-  }, []);
-
   return (
     <WebGlProvider>
       <Loader />
@@ -46,9 +21,7 @@ export default function Home() {
         <Vision />
         <SectionHr />
 
-        <div ref={divRef}>
-          <Profile />
-        </div>
+        <Profile />
         <SectionHr />
 
         <Career />

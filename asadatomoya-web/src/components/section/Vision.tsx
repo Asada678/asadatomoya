@@ -25,7 +25,7 @@ const Vision = () => {
           className="mx-auto h-full w-full -translate-y-1/2"
           ref={sliderRef}
         />
-        <div className="font-50-120 absolute left-0 top-3/4 flex w-full -translate-y-1/2 justify-end">
+        <div className="font-50-120 absolute left-0 top-3/4 flex w-full -translate-y-1/2 justify-end pr-4">
           <button
             className="mr-6 cursor-pointer rounded-full border  border-black text-black  dark:border-white dark:text-white"
             onClick={() => sliderRef.current?.prevSlide()}
