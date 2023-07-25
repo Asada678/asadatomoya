@@ -1,10 +1,12 @@
 import { redirect } from "next/navigation";
 
-export default function Home() {
-  // const session = await getAuthSession();
-  const session = 1;
+import { getAuthSession } from "@/utils/auth";
 
-  if (session) {
+export default async function Home() {
+  const session = await getAuthSession();
+  console.log("session:", session);
+
+  if (!!session) {
     redirect("/home");
   } else {
     redirect("/login");

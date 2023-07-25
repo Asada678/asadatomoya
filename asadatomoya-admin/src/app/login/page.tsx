@@ -13,33 +13,23 @@ import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { useMutation } from "@tanstack/react-query";
+import { signIn } from "next-auth/react";
 
 import { useZodForm } from "asadatomoya-common/hooks";
-import { type User, UserSchema } from "asadatomoya-common/models";
-import { AdminApiEndpoint } from "asadatomoya-common/utils";
-import { post } from "asadatomoya-common/utils/rest";
+import { UserSchema } from "asadatomoya-common/models";
 
 import { Copyright } from "@/components/Copyright";
 
 export default function SignIn() {
-  const {
-    register,
-    handleSubmit,
-  } = useZodForm({ schema: UserSchema, defaultValues: { username: "", password: "" } });
-
-  const { mutate: createUser } = useMutation({
-    mutationFn: async ({ username, password, regUser }: User) => {
-      await post({
-        endpoint: AdminApiEndpoint.USER,
-        payload: {
-          username,
-          password,
-          regUser: "asada",
-        },
-      });
-    },
+  const { register, getValues } = useZodForm({
+    schema: UserSchema,
+    defaultValues: { username: "", password: "" },
   });
+
+  const login = async () => {
+    const { username, password } = getValues();
+    await signIn("credentials", { username, password });
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -58,20 +48,13 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box
-          component="form"
-          onSubmit={handleSubmit((e) => {
-            createUser(e);
-          })}
-          noValidate
-          sx={{ mt: 1 }}
-        >
+        <Box component="form" noValidate sx={{ mt: 1 }}>
           <TextField
             margin="normal"
             required
             fullWidth
             id="username"
-            label="Username"
+            label="username"
             autoComplete="username"
             autoFocus
             {...register("username")}
@@ -80,7 +63,7 @@ export default function SignIn() {
             margin="normal"
             required
             fullWidth
-            label="Password"
+            label="password"
             type="password"
             id="password"
             autoComplete="current-password"
@@ -90,8 +73,8 @@ export default function SignIn() {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-            Sign In
+          <Button type="button" onClick={login} variant="outlined" fullWidth sx={{ mt: 3, mb: 2 }}>
+            ログイン
           </Button>
           <Grid container>
             <Grid item xs>

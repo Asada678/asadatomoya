@@ -4,7 +4,7 @@ import { Noto_Sans_JP } from "next/font/google";
 import { cn } from "asadatomoya-common/utils";
 
 import Providers from "@/components/Providers";
-import MenuLayout from "@/components/layout/MenuLayout";
+import SessionLayout from "@/components/layout/SessionLayout";
 
 const sansJp = Noto_Sans_JP({
   subsets: ["latin"],
@@ -18,16 +18,11 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const session = null;
   return (
     <html lang="ja">
       <body className={cn("", sansJp.variable)}>
         <Providers>
-          {session === null ? (
-            <div className="">{children}</div>
-          ) : (
-            <MenuLayout>{children}</MenuLayout>
-          )}
+          <SessionLayout>{children}</SessionLayout>
         </Providers>
       </body>
     </html>
