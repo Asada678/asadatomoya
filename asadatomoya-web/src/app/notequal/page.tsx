@@ -3,6 +3,7 @@ import { FC, HTMLAttributes, useRef } from "react";
 
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 
+import Banner from "@/components/Banner";
 import SectionHr from "@/components/SectionHr";
 import { useViewport } from "@/context/ViewportContext";
 import WebGl, { WebGlHandle } from "@/glsl/WebGl";
@@ -27,7 +28,8 @@ export default function NotEqual() {
   const { viewport } = useViewport();
   const iconSize = viewport.width < breakpoint.xl ? 20 : 36;
   return (
-    <>
+    <div className="overflow-x-hidden">
+      <Banner />
       <section id="fv" className="relative h-screen">
         <div className="font-48-110 absolute left-1/2 top-1/4 mx-auto w-full max-w-3xl -translate-x-1/2 -translate-y-1/2 overflow-x-hidden text-center xl:bottom-16 xl:left-0 xl:top-auto xl:max-w-5xl xl:transform-none xl:text-left">
           <div className="block">
@@ -309,6 +311,6 @@ export default function NotEqual() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

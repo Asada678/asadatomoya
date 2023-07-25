@@ -7,13 +7,11 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { AppBar, Drawer } from "@mui/material";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 
-import { mainListItems, secondaryListItems } from "@/utils/listItems";
+import DrawerItem from "@/components/DrawerItem";
 
 const drawerWidth: number = 240;
 
@@ -23,20 +21,6 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
   const toggleDrawer = () => {
     setOpen(!open);
   };
-
-  const drawer = (
-    <div>
-      <Toolbar>
-        <Typography component="h1" fontWeight="900">
-          Asada Tomoya
-        </Typography>
-      </Toolbar>
-      <Divider />
-      <List>{mainListItems}</List>
-      <Divider />
-      <List>{secondaryListItems}</List>
-    </div>
-  );
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -80,7 +64,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
             "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
           }}
         >
-          {drawer}
+          <DrawerItem currentPathname={pathname} />
         </Drawer>
         <Drawer
           variant="permanent"
@@ -90,7 +74,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
           }}
           open
         >
-          {drawer}
+          <DrawerItem currentPathname={pathname} />
         </Drawer>
       </Box>
       <Box
