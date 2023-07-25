@@ -13,18 +13,33 @@ import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import { useMutation } from "@tanstack/react-query";
+
+import { useZodForm } from "asadatomoya-common/hooks";
+import { type User, UserSchema } from "asadatomoya-common/models";
+import { AdminApiEndpoint } from "asadatomoya-common/utils";
+import { post } from "asadatomoya-common/utils/rest";
 
 import { Copyright } from "@/components/Copyright";
 
 export default function SignIn() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
+  const {
+    register,
+    handleSubmit,
+  } = useZodForm({ schema: UserSchema, defaultValues: { username: "", password: "" } });
+
+  const { mutate: createUser } = useMutation({
+    mutationFn: async ({ username, password, regUser }: User) => {
+      await post({
+        endpoint: AdminApiEndpoint.USER,
+        payload: {
+          username,
+          password,
+          regUser: "asada",
+        },
+      });
+    },
+  });
 
   return (
     <Container component="main" maxWidth="xs">
@@ -43,26 +58,33 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Box
+          component="form"
+          onSubmit={handleSubmit((e) => {
+            createUser(e);
+          })}
+          noValidate
+          sx={{ mt: 1 }}
+        >
           <TextField
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            id="username"
+            label="Username"
+            autoComplete="username"
             autoFocus
+            {...register("username")}
           />
           <TextField
             margin="normal"
             required
             fullWidth
-            name="password"
             label="Password"
             type="password"
             id="password"
             autoComplete="current-password"
+            {...register("password")}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
