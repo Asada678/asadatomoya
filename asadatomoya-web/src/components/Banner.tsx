@@ -8,7 +8,7 @@ const Banner = () => {
   if (!show) return null;
   return (
     <div className="fixed bottom-0 left-0 right-0 z-10 flex w-full bg-indigo-500 bg-opacity-90 py-4 shadow sm:py-6">
-      <div className="mx-auto flex max-w-xs justify-center gap-2 sm:max-w-lg sm:gap-4">
+      <div className="mx-auto flex justify-center gap-2 px-4 sm:max-w-lg sm:gap-4">
         <div className="flex flex-col gap-2">
           <div className="mb-2 text-gray-100">このページはNotEqualを参考に作成したものです。</div>
           <a
