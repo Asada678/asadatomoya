@@ -94,17 +94,23 @@ const Navbar: FC<NavbarProps> = ({}) => {
                 className="border-gray-200 bg-gray-100 py-4 dark:bg-black dark:bg-opacity-60"
                 align="end"
               >
-                <DropdownMenuItem className="">
-                  <Home className="mr-3" />
-                  <Link href="/">home</Link>
+                <DropdownMenuItem asChild>
+                  <Link href="/">
+                    <Home className="mr-3" />
+                    home
+                  </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="mt-3">
-                  <Pen className="mr-3" />
-                  <Link href="/blog">blog</Link>
+                <DropdownMenuItem className="mt-3" asChild>
+                  <Link href="/blog">
+                    <Pen className="mr-3" />
+                    blog
+                  </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="mt-3">
-                  <EqualNot className="mr-3" />
-                  <Link href="/notequal">notequal</Link>
+                <DropdownMenuItem className="mt-3" asChild>
+                  <Link href="/notequal">
+                    <EqualNot className="mr-3" />
+                    notequal
+                  </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
