@@ -4,6 +4,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "asadatomoya-common/utils";
 import { db } from "asadatomoya-common/utils/db";
 
+import { hashPassword, verifyPassword } from "./crypt";
+
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db),
   session: {
@@ -21,9 +23,15 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials, req) {
         console.log("credentials:", credentials);
-        console.log("req:", req);
+        // console.log("req:", req);
         const username = credentials?.username;
-        const password = credentials?.password;
+        const password = credentials?.password!;
+
+        const hash = await hashPassword(password);
+        console.log("hash:", hash);
+
+        const verified = await verifyPassword(password, hash);
+        console.log("verified:", verified);
 
         if (!username || !password) return null;
 

@@ -29,6 +29,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "../asadatomoya-common/utils/db.ts"
-  ],
+, "../asadatomoya-web/env.d.ts"  ],
   "exclude": ["node_modules"]
 }
