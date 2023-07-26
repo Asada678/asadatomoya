@@ -1,5 +1,6 @@
 import { type FC } from "react";
 
+import Image from "next/image";
 import Link from "next/link";
 
 import { ArticleType } from "asadatomoya-common/models";
@@ -12,35 +13,35 @@ interface ArticleProps {
 const Article: FC<ArticleProps> = ({ article }) => {
   return (
     <div className="flex flex-col overflow-hidden rounded-lg border">
-      <Link href={`/blog/${article.title}`} className="group relative block h-48 overflow-hidden bg-gray-100 md:h-64">
-        <img
-          src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&q=75&fit=crop&w=600"
-          loading="lazy"
-          alt="Photo by Minh Pham"
-          className="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"
-        />
+      <Link
+        href={`/blog/${article.slug}`}
+        className="group relative block h-48 overflow-hidden bg-gray-100 md:h-64"
+      >
+        <Image className="object-cover" fill src={article.image} alt={article.title} />
       </Link>
 
       <div className="flex flex-1 flex-col p-4 sm:p-6">
         <h2 className="mb-2 text-lg font-semibold text-gray-800">
-          <a
-            href="#"
-            className="transition duration-100 hover:text-indigo-500 active:text-indigo-600"
+          <Link
+            href={`/blog/${article.slug}`}
+            className="text-indigo-300 transition duration-500  hover:text-indigo-500 active:text-indigo-600"
           >
             {article.title}
-          </a>
+          </Link>
         </h2>
 
+        {/* TODO max-heightを設定する */}
         <p className="mb-8 text-gray-500">{article.content}</p>
 
         <div className="mt-auto flex items-end justify-between">
           <div className="flex items-center gap-2">
             <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-100">
-              <img
-                src="https://images.unsplash.com/photo-1611898872015-0571a9e38375?auto=format&q=75&fit=crop&w=64"
-                loading="lazy"
-                alt="Photo by Brock Wegner"
+              <Image
+                width={60}
+                height={60}
                 className="h-full w-full object-cover object-center"
+                src={"/img/profile.jpg"}
+                alt="user icon"
               />
             </div>
 

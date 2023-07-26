@@ -13,17 +13,22 @@ import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import { signIn } from "next-auth/react";
+
+import { useZodForm } from "asadatomoya-common/hooks";
+import { UserSchema } from "asadatomoya-common/models";
 
 import { Copyright } from "@/components/Copyright";
 
 export default function SignIn() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  const { register, getValues } = useZodForm({
+    schema: UserSchema,
+    defaultValues: { username: "", password: "" },
+  });
+
+  const login = async () => {
+    const { username, password } = getValues();
+    await signIn("credentials", { username, password });
   };
 
   return (
@@ -43,33 +48,33 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Box component="form" noValidate sx={{ mt: 1 }}>
           <TextField
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            id="username"
+            label="username"
+            autoComplete="username"
             autoFocus
+            {...register("username")}
           />
           <TextField
             margin="normal"
             required
             fullWidth
-            name="password"
-            label="Password"
+            label="password"
             type="password"
             id="password"
             autoComplete="current-password"
+            {...register("password")}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-            Sign In
+          <Button type="button" onClick={login} variant="outlined" fullWidth sx={{ mt: 3, mb: 2 }}>
+            ログイン
           </Button>
           <Grid container>
             <Grid item xs>
