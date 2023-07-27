@@ -3,6 +3,7 @@ import * as React from "react";
 
 import { usePathname } from "next/navigation";
 
+import { useAuthenticator } from "@aws-amplify/ui-react";
 import MenuIcon from "@mui/icons-material/Menu";
 import { AppBar, Drawer } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -16,6 +17,7 @@ import DrawerItem from "@/components/DrawerItem";
 const drawerWidth: number = 240;
 
 export default function MenuLayout({ children }: { children: React.ReactNode }) {
+  const { user, signOut } = useAuthenticator((context) => [context.user]);
   const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = () => {
@@ -43,6 +45,8 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
+            {user.username}
+            {" . "}
             {pathname}
           </Typography>
         </Toolbar>
@@ -64,7 +68,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
             "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
           }}
         >
-          <DrawerItem currentPathname={pathname} />
+          <DrawerItem currentPathname={pathname} signOut={signOut} />
         </Drawer>
         <Drawer
           variant="permanent"
@@ -74,7 +78,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
           }}
           open
         >
-          <DrawerItem currentPathname={pathname} />
+          <DrawerItem currentPathname={pathname} signOut={signOut} />
         </Drawer>
       </Box>
       <Box
