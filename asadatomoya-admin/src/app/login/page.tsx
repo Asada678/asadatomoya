@@ -4,9 +4,7 @@ import { type FC } from "react";
 import { redirect } from "next/navigation";
 
 import { Authenticator, useAuthenticator } from "@aws-amplify/ui-react";
-import { Amplify, I18n } from "aws-amplify";
-
-import awsConfig from "@/aws-exports";
+import { I18n } from "aws-amplify";
 
 I18n.setLanguage("ja");
 
@@ -30,8 +28,6 @@ const formFields = {
   },
 };
 
-Amplify.configure(awsConfig);
-
 interface PageProps {}
 
 const Page: FC<PageProps> = ({}) => {
@@ -39,12 +35,8 @@ const Page: FC<PageProps> = ({}) => {
 
   if (authStatus !== "authenticated") {
     return <Authenticator hideSignUp={true} formFields={formFields}></Authenticator>;
-  }
-
-  if (typeof window !== "undefined") {
-    const pathname = localStorage.getItem("pathname") || "/";
-
-    redirect(pathname);
+  } else {
+    redirect("/home");
   }
 };
 

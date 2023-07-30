@@ -49,11 +49,11 @@ type ListItemType = {
 const listItems: ListItemType[] = [
   { icon: Dashboard, href: "home" },
   { icon: Article, href: "blog" },
-  { icon: Star, href: "vision" },
-  { icon: AccountBox, href: "profile" },
-  { icon: TrendingUp, href: "career" },
-  { icon: Flag, href: "objective" },
-  { icon: Settings, href: "config" },
+  // { icon: Star, href: "vision" },
+  // { icon: AccountBox, href: "profile" },
+  // { icon: TrendingUp, href: "career" },
+  // { icon: Flag, href: "objective" },
+  // { icon: Settings, href: "config" },
 ];
 
 const DrawerItem: FC<DrawerItemProps> = ({ currentPathname, signOut }) => {

@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 
 import { useAuthenticator } from "@aws-amplify/ui-react";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -22,6 +22,11 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
   const [open, setOpen] = React.useState(false);
   const toggleDrawer = () => {
     setOpen(!open);
+  };
+
+  const logout = () => {
+    signOut();
+    redirect("/login");
   };
 
   return (
@@ -68,7 +73,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
             "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
           }}
         >
-          <DrawerItem currentPathname={pathname} signOut={signOut} />
+          <DrawerItem currentPathname={pathname} signOut={logout} />
         </Drawer>
         <Drawer
           variant="permanent"
@@ -78,7 +83,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
           }}
           open
         >
-          <DrawerItem currentPathname={pathname} signOut={signOut} />
+          <DrawerItem currentPathname={pathname} signOut={logout} />
         </Drawer>
       </Box>
       <Box

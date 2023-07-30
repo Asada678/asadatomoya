@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 
 import { useAuthenticator } from "@aws-amplify/ui-react";
 
-export default async function Home() {
+export default function Root() {
   const { authStatus } = useAuthenticator((context) => [context.authStatus]);
   if (authStatus === "authenticated") {
     redirect("/home");

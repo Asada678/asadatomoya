@@ -4,8 +4,13 @@ import { type FC } from "react";
 import { redirect, usePathname } from "next/navigation";
 
 import { useAuthenticator } from "@aws-amplify/ui-react";
+import { Amplify } from "aws-amplify";
+
+import awsConfig from "@/aws-exports";
 
 import MenuLayout from "./MenuLayout";
+
+Amplify.configure(awsConfig);
 
 interface AuthLayoutProps {
   children: React.ReactNode;
@@ -22,14 +27,16 @@ const AuthLayout: FC<AuthLayoutProps> = ({ children }) => {
           {children}
         </div>
       );
+    } else if (authStatus === "unauthenticated") {
+      redirect("/login");
     }
-    if (typeof window !== 'undefined') {
-      localStorage.setItem("pathname", pathname);
-    }
-    redirect("/login");
+  } else {
+    return <MenuLayout>{children}</MenuLayout>;
   }
 
-  return <MenuLayout>{children}</MenuLayout>;
+  return (
+    <div className="mx-auto flex min-h-screen flex-col items-center justify-center">loading...</div>
+  );
 };
 
 export default AuthLayout;
