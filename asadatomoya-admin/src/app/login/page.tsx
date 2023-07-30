@@ -36,14 +36,16 @@ interface PageProps {}
 
 const Page: FC<PageProps> = ({}) => {
   const { authStatus } = useAuthenticator((context) => [context.authStatus]);
-  if (authStatus !== "authenticated")
-    return (
-      <Authenticator hideSignUp={true} formFields={formFields}>
-        {({}) => <main></main>}
-      </Authenticator>
-    );
 
-  redirect("/home");
+  if (authStatus !== "authenticated") {
+    return <Authenticator hideSignUp={true} formFields={formFields}></Authenticator>;
+  }
+
+  if (typeof window !== "undefined") {
+    const pathname = localStorage.getItem("pathname") || "/";
+
+    redirect(pathname);
+  }
 };
 
 export default Page;

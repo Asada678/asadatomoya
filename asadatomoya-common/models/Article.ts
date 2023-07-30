@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const ArticleSchema = z.object({
   slug: z.string(),
-  image: z.string(),
+  image: z.string().optional(),
   title: z.string(),
   content: z.string(),
   author: z.string(),

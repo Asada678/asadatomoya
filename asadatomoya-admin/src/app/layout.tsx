@@ -1,5 +1,6 @@
 import "@/styles/globals.css";
 import "@aws-amplify/ui-react/styles.css";
+import "react-quill/dist/quill.snow.css";
 
 import { Noto_Sans_JP } from "next/font/google";
 

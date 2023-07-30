@@ -45,7 +45,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            {user.username}
+            {user?.username}
             {" . "}
             {pathname}
           </Typography>

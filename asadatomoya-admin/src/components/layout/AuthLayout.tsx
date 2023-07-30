@@ -16,12 +16,16 @@ const AuthLayout: FC<AuthLayoutProps> = ({ children }) => {
   const pathname = usePathname();
 
   if (authStatus !== "authenticated") {
-    if (pathname === "/login")
+    if (pathname === "/login") {
       return (
         <div className="mx-auto flex min-h-screen flex-col items-center justify-center">
           {children}
         </div>
       );
+    }
+    if (typeof window !== 'undefined') {
+      localStorage.setItem("pathname", pathname);
+    }
     redirect("/login");
   }
 
