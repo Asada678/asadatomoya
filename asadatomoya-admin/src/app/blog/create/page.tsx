@@ -2,10 +2,13 @@
 import { type FC, useState } from "react";
 
 import { Button, TextField } from "@mui/material";
+import axios from "axios";
 import ReactQuill from "react-quill";
 
 import { useZodForm } from "asadatomoya-common/hooks";
 import { ArticleSchema } from "asadatomoya-common/models";
+
+import { Endpoint } from "@/utils/endpoint";
 
 interface PageProps {}
 
@@ -45,7 +48,9 @@ const Page: FC<PageProps> = ({}) => {
     defaultValues: { slug: "", title: "", content: "", author: "", image: "" },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (payload) => {
+    console.log("payload:", payload);
+    const { data } = await axios.post(Endpoint.BLOG, payload);
     console.log("data:", data);
   };
   return (
