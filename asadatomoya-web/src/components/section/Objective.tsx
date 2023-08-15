@@ -3,7 +3,7 @@ import SectionHeading from "@/components/SectionHeading";
 const objectiveHeader = ["", "目標", "現状", "期日"];
 const objective = [
   { title: "日商簿記3級", value: ["合格", "未勉強", "2024/02/25"] },
-  { title: "ベンチプレス", value: ["100kg", "90kg", "2024/03/31"] },
+  { title: "ベンチプレス", value: ["100kg", "95kg", "2024/03/31"] },
   { title: "スクワット", value: ["130kg", "110kg", "2024/03/31"] },
   { title: "デッドリフト", value: ["130kg", "110kg", "2024/03/31"] },
   { title: "日商簿記2級", value: ["合格", "未勉強", "2024/06/xx"] },
@@ -53,7 +53,7 @@ const Objective = () => {
         </div>
       </div>
       <div className="text-right">
-        <p className="py-2">2023/07/12時点</p>
+        <p className="py-2">2023/08/15時点</p>
       </div>
     </section>
   );

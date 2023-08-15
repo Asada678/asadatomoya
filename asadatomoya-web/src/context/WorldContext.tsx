@@ -157,7 +157,7 @@ export const WorldProvider: FC<WorldProviderProps> = ({ children, background = n
     if (!ready) return;
     const initGui = async () => {
       if (isDebug) {
-        gui.init();
+        await gui.init();
         addOrbitControls();
       }
     };
