@@ -3,8 +3,7 @@ import Script from "next/script";
 
 const GoogleAnalytics = () => {
   const GOOGLE_ANALYTICS_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID;
-  console.log("GOOGLE_ANALYTICS_ID: ", GOOGLE_ANALYTICS_ID);
-  // if (!GOOGLE_ANALYTICS_ID) return null;
+  if (!GOOGLE_ANALYTICS_ID) return null;
   return (
     <>
       <Script
