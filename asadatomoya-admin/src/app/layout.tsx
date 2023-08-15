@@ -1,10 +1,13 @@
 import "@/styles/globals.css";
+import "@aws-amplify/ui-react/styles.css";
+import "react-quill/dist/quill.snow.css";
+
 import { Noto_Sans_JP } from "next/font/google";
 
 import { cn } from "asadatomoya-common/utils";
 
 import Providers from "@/components/Providers";
-import SessionLayout from "@/components/layout/SessionLayout";
+import AuthLayout from "@/components/layout/AuthLayout";
 
 const sansJp = Noto_Sans_JP({
   subsets: ["latin"],
@@ -22,7 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ja">
       <body className={cn("", sansJp.variable)}>
         <Providers>
-          <SessionLayout>{children}</SessionLayout>
+          <AuthLayout>{children}</AuthLayout>
         </Providers>
       </body>
     </html>

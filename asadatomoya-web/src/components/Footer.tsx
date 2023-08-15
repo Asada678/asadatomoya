@@ -2,9 +2,7 @@ import { type FC } from "react";
 
 import Link from "next/link";
 
-import { Github, Instagram, Twitter } from "lucide-react";
-
-import { links, sns } from "@/utils";
+import { links } from "@/utils";
 
 const Footer: FC = () => {
   return (

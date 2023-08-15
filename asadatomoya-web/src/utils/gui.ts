@@ -7,7 +7,8 @@ import GUI from "lil-gui";
  */
 let lilGUI: GUI | null = null;
 
-function init() {
+async function init() {
+  const { default: GUI } = await import("lil-gui");
   lilGUI = new GUI();
 }
 

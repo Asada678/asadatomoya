@@ -3,5 +3,6 @@ namespace NodeJS {
     readonly DATABASE_URL: string;
     readonly NEXTAUTH_URL: string;
     readonly NEXTAUTH_SECRET: string;
+    readonly SALT_ROUNDS: string;
   }
 }

@@ -6,6 +6,7 @@ import { cn } from "asadatomoya-common/utils";
 
 import Background from "@/components/Background";
 import Footer from "@/components/Footer";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 import Navbar from "@/components/Navbar";
 
 const serifJp = Noto_Serif_JP({
@@ -61,6 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
           <Background />
         </div>
+        <GoogleAnalytics />
       </body>
     </html>
   );

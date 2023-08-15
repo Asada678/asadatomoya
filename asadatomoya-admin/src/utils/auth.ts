@@ -1,8 +1,12 @@
+import { redirect } from "next/navigation";
+
 import { getServerSession, NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 import { PrismaAdapter } from "asadatomoya-common/utils";
 import { db } from "asadatomoya-common/utils/db";
+
+import { hashPassword, verifyPassword } from "./crypt";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db),
@@ -20,12 +24,23 @@ export const authOptions: NextAuthOptions = {
         password: { label: "password", type: "password" },
       },
       async authorize(credentials, req) {
-        console.log("credentials:", credentials);
-        console.log("req:", req);
-        const username = credentials?.username;
-        const password = credentials?.password;
+        try {
+          console.log("credentials:", credentials);
+          // console.log("req:", req);
+          const username = credentials?.username;
+          const password = credentials?.password!;
 
-        if (!username || !password) return null;
+          const hash = await hashPassword(password);
+          console.log("hash:", hash);
+
+          const verified = await verifyPassword(password, hash);
+          console.log("verified:", verified);
+
+          if (!username || !password) return null;
+        } catch (error) {
+          redirect("/login");
+          // throw new Error("ログイン処理に失敗しました。");
+        }
 
         return { id: "aaa" };
       },

@@ -25,10 +25,10 @@ import {
   Typography,
 } from "@mui/material";
 import { OverridableComponent } from "@mui/material/OverridableComponent";
-import { signOut } from "next-auth/react";
 
 interface DrawerItemProps {
   currentPathname: string;
+  signOut?: () => void;
 }
 
 const SToolbar = styled(Toolbar)<ToolbarProps>(() => ({
@@ -49,14 +49,14 @@ type ListItemType = {
 const listItems: ListItemType[] = [
   { icon: Dashboard, href: "home" },
   { icon: Article, href: "blog" },
-  { icon: Star, href: "vision" },
-  { icon: AccountBox, href: "profile" },
-  { icon: TrendingUp, href: "career" },
-  { icon: Flag, href: "objective" },
-  { icon: Settings, href: "config" },
+  // { icon: Star, href: "vision" },
+  // { icon: AccountBox, href: "profile" },
+  // { icon: TrendingUp, href: "career" },
+  // { icon: Flag, href: "objective" },
+  // { icon: Settings, href: "config" },
 ];
 
-const DrawerItem: FC<DrawerItemProps> = ({ currentPathname }) => {
+const DrawerItem: FC<DrawerItemProps> = ({ currentPathname, signOut }) => {
   const ListItem = ({ icon: Icon, href }: ListItemType) => {
     return (
       <Link href={`/${href}`}>
@@ -84,7 +84,7 @@ const DrawerItem: FC<DrawerItemProps> = ({ currentPathname }) => {
       </List>
       <Divider />
       <List>
-        <ListItemButton onClick={() => signOut({ callbackUrl: "/login" })}>
+        <ListItemButton onClick={signOut}>
           <ListItemIcon>
             <Logout />
           </ListItemIcon>

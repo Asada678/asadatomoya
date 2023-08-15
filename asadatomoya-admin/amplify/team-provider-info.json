@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-asadatomoyaadmin-dev-193519-authRole",
+      "UnauthRoleArn": "arn:aws:iam::157111492802:role/amplify-asadatomoyaadmin-dev-193519-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::157111492802:role/amplify-asadatomoyaadmin-dev-193519-authRole",
+      "Region": "ap-northeast-1",
+      "DeploymentBucketName": "amplify-asadatomoyaadmin-dev-193519-deployment",
+      "UnauthRoleName": "amplify-asadatomoyaadmin-dev-193519-unauthRole",
+      "StackName": "amplify-asadatomoyaadmin-dev-193519",
+      "StackId": "arn:aws:cloudformation:ap-northeast-1:157111492802:stack/amplify-asadatomoyaadmin-dev-193519/1ed94020-2ba0-11ee-8f6b-0ac739a75723",
+      "AmplifyAppId": "d1ngq16gs60bt1"
+    },
+    "categories": {
+      "auth": {
+        "asadatomoyaadmin7b421c67": {}
+      }
+    }
+  }
+}

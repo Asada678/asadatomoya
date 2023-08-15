@@ -1,7 +1,6 @@
 import axios from "axios";
-import { AdminApiEndpoint, WebApiEndpoint } from "./endpoint";
 
-type EndPoint = AdminApiEndpoint | WebApiEndpoint;
+type EndPoint = string;
 
 export const post = async <T>({
   endpoint,

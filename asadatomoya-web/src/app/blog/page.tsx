@@ -31,17 +31,17 @@ const titles = [
 ];
 
 const articles: (ArticleType & { regDate: Date })[] = titles
-  .map((title) => {
+  .map((title, i) => {
     return {
       title,
       slug: generateRandomString(10),
       author: "Asada Tomoya",
       content: "執筆中...",
-      image: "/img/profile2.jpg",
-      regDate: getRandomDate(new Date(2020, 1, 1), new Date()),
+      image: "/img/noImage.jpg",
+      regDate: getRandomDate(new Date(2020, i, 1), new Date(2020, i, 28)),
     };
   })
-  .sort((a, b) => b.regDate.getTime() - a.regDate.getTime());
+  .sort((a, b) => a.regDate.getTime() - b.regDate.getTime());
 
 export default function Page() {
   return (
