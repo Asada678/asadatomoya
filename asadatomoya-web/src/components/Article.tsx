@@ -17,7 +17,12 @@ const Article: FC<ArticleProps> = ({ article }) => {
         href={`/blog/${article.slug}`}
         className="group relative block h-48 overflow-hidden bg-gray-100 md:h-64"
       >
-        <Image className="object-cover" fill src={article.image} alt={article.title} />
+        <Image
+          className="object-cover object-center"
+          fill
+          src={article.image || "/img/noImage.jpg"}
+          alt={article.title}
+        />
       </Link>
 
       <div className="flex flex-1 flex-col p-4 sm:p-6">
